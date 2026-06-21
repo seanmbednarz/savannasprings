@@ -25,6 +25,10 @@ def bg_image(url,size="cover",pos="center",repeat="no-repeat"):
             "css_advanced_background_repeat":{"val":{"desktop":repeat},"selector":sel,"style":"background-repeat"},
             "css_advanced_background_position":{"val":{"desktop":pos},"selector":sel,"style":"background-position"},
             "css_advanced_background_size":{"val":{"desktop":size},"selector":sel,"style":"background-size"}}
+def overlay(color="#1F2B6E",op=".68"):
+    sel=".mcb-section-mfnuidelement .mcb-background-overlay"
+    return {"css_advanced_background_overlay_background_color":{"val":color,"selector":sel,"style":"background-color"},
+            "css_advanced_background_overlay_opacity":{"val":op,"selector":sel,"style":"opacity"}}
 def section(extra,wraps): return {"icon":"section","uid":uid(),"jsclass":"section","title":"Section","attr":sec_attr(extra),"ver":"default","wraps":wraps}
 # Decorative "blobs" are now native section background IMAGES (transparent SVGs
 # layered over the section's background color), so nz() just passes content through.
@@ -142,7 +146,7 @@ h_service_left=f'<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Serv
 h_service_right=f'<div class="ss-citychips">{chips}</div>'
 h_cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free water test</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.025em;margin:0 0 10px">Ready to make your water perfectly clear?</h2><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:560px;margin:0 auto 26px;line-height:1.6">Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours.</p>'+btn("Get my free water test","/free-water-test/")+'</div>'
 pages["home"]=[
- section(merge(navy(HERO_BLOB),pad(70,78)),[W("1/2",h_hero_left),Wraw("1/2",[img_item(HIMG)])]),
+ section(merge(bg(NAVY),bg_image(HIMG,pos="center 30%"),overlay(),pad(70,78)),[W("1/2",h_hero_left)]),
  section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[W("1/3",pickcard(*p,photo=PLACEHOLDER)) for p in probs]),
  section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w,photo=PLACEHOLDER)) for w in whys]),
  section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[W("1/3",prodcard(*p,photo=PLACEHOLDER)) for p in prods]),
