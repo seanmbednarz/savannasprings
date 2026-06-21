@@ -112,7 +112,7 @@ Text Domain: savanna-springs-child
 .ss-btn--lg { font-size: 17px; padding: 15px 28px; }
 .ss-btn--sm { font-size: 14px; padding: 9px 16px; }
 .ss-btn--block { display: flex; width: 100%; }
-.ss-btn--primary { background: var(--navy-700); color:#fff; }
+.ss-btn--primary { background: var(--navy-700); color: var(--sun-400) !important; }
 .ss-btn--primary:hover { background: var(--navy-800); }
 .ss-btn--accent { background: var(--sun-400); color: var(--navy-900); box-shadow: var(--shadow-accent); }
 .ss-btn--accent:hover { background: var(--sun-500); }
@@ -125,6 +125,10 @@ Text Domain: savanna-springs-child
 .ss-btn--outline-navy { background: transparent; border-color: var(--navy-700); color: var(--navy-800); }
 .ss-btn--ghost { background: transparent; color: var(--navy-700); }
 .ss-btn--ghost:hover { background: var(--navy-50); }
+/* Lock button text colors so BeTheme's global link color can't override them. */
+.ss-btn--accent { color: var(--navy-900) !important; }
+.ss-btn--water { color: #fff !important; }
+.ss-btn--secondary, .ss-btn--outline, .ss-btn--outline-navy, .ss-btn--ghost { color: var(--navy-800) !important; }
 
 .ss-arrowlink {
   display: inline-flex; align-items: center; gap: 6px; color: var(--spring-700);
@@ -353,6 +357,10 @@ body.ss-menu-open { overflow: hidden; }
   font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color:#fff; }
 .ss-chip:hover { background: rgba(255,255,255,.14); color:#fff; }
 .ss-chip.is-active { background: var(--sun-400); color: var(--navy-900); border-color: var(--sun-400); }
+/* City chips read as brand-yellow links on the navy band (override BeTheme). */
+.ss-chip { color: var(--sun-400) !important; }
+.ss-chip:hover { color: #fff !important; }
+.ss-chip.is-active { color: var(--navy-900) !important; }
 
 /* ============================================================
    12. SPECIALS BAND
