@@ -49,6 +49,12 @@ if ( ss_acf_active() ) {
 					<?php endforeach; ?>
 				</div>
 				<p class="ss-foot-tag"><?php echo esc_html( $brand['tagline'] ); ?></p>
+				<?php if ( $brand['facebook'] || $brand['instagram'] ) : ?>
+					<div class="ss-foot-social">
+						<?php if ( $brand['facebook'] ) : ?><a href="<?php echo esc_url( $brand['facebook'] ); ?>" aria-label="Facebook" target="_blank" rel="noopener"><?php echo ss_icon( 'facebook', array( 'size' => 18 ) ); ?></a><?php endif; ?>
+						<?php if ( $brand['instagram'] ) : ?><a href="<?php echo esc_url( $brand['instagram'] ); ?>" aria-label="Instagram" target="_blank" rel="noopener"><?php echo ss_icon( 'instagram', array( 'size' => 18 ) ); ?></a><?php endif; ?>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<div class="ss-foot-col">

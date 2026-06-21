@@ -456,6 +456,12 @@ body.home .mcb-background-overlay {
   border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-pill); padding: 5px 11px;
   font-family: var(--font-display); font-weight: 600; font-size: 12.5px; color:#fff; }
 .ss-foot-tag { font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--sun-400); margin: 0; }
+.ss-foot-social { display: flex; gap: 10px; margin-top: 20px; }
+.ss-foot-social a { width: 40px; height: 40px; border-radius: 12px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center; color: #fff !important;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+  transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.ss-foot-social a:hover { color: var(--navy-900) !important; background: var(--sun-400); border-color: var(--sun-400); }
 .ss-foot-col h4 { font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: .1em;
   text-transform: uppercase; color: var(--sun-400); margin-bottom: 14px; }
 .ss-foot-col a { display: block; color: var(--spring-100); font-size: 14.5px; padding: 5px 0; }
