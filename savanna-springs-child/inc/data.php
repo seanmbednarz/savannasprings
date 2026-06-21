@@ -1,0 +1,459 @@
+<?php
+/**
+ * Savanna Springs — content data.
+ * Ported from the design-handoff data files (problems / products / cities) plus
+ * reviews, FAQs and specials. Single templates read these arrays by post slug.
+ *
+ * @package savanna-springs-child
+ */
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+/* ------------------------------------------------------------------ *
+ *  WATER PROBLEMS (8)
+ * ------------------------------------------------------------------ */
+function ss_problems() {
+	return array(
+		'Smelly' => array(
+			'slug' => 'rotten-egg-smell', 'label' => 'Rotten-egg smell', 'icon' => 'wind', 'color' => 'sun',
+			'eyebrow' => 'Water problem · Odor',
+			'h1' => 'Why does my water smell like rotten eggs?',
+			'lead' => 'Turn on the faucet and get hit with the smell of rotten eggs — in your drinking water, the shower, or the laundry. Usually not harmful, but unpleasant enough to make you avoid your own tap.',
+			'problem' => 'The smell shows up in drinking water, the shower, and laundry. It’s usually not harmful — just unpleasant enough that you start avoiding it.',
+			'cause' => 'Hydrogen sulfide gas, often from iron and sulfur bacteria in the water or water heater. Those bacteria can also leave a dark "slime" inside fixtures and toilet tanks.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free in-home water test shows whether it’s hydrogen sulfide, iron/sulfur bacteria, or both.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'A Sanitizer Plus conditioner that kills the odor-causing bacteria and softens at the same time — no chemicals to buy.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Sized and installed by our Ohio EPA-licensed team, then serviced for the long haul.' ),
+			),
+			'recommend' => 'The Sanitizer Plus Series conditioner with Crystal-Right® media uses patented self-chlorinating technology to kill the odor-causing bacteria, then rinses clean — while softening, removing iron and manganese, and raising low pH in one unit. No chemicals to buy.',
+			'product' => array( 'name' => 'Sanitizer Plus with Crystal-Right®', 'key' => 'IronSulfur', 'badges' => array( 'Made in USA', 'Self-sanitizing', '4-in-1' ) ),
+			'cta' => 'Stop holding your breath at the tap',
+			'related' => array( 'Well', 'Rust', 'HardWater' ),
+			'meta' => 'Rotten-Egg Smell in Your Water? We Fix It | Savanna Springs',
+			'blurb' => 'That sulfur odor in your tap and shower water.',
+		),
+		'HardWater' => array(
+			'slug' => 'hard-water', 'label' => 'Hard water & scale', 'icon' => 'droplet', 'color' => 'water',
+			'eyebrow' => 'Water problem · Hard water',
+			'h1' => 'Hard water is quietly costing you money',
+			'lead' => 'Spotty dishes, crusty faucets, stiff laundry, dry skin and dull hair, and far too much soap. Hard water works against you in every room — and quietly shortens the life of your appliances.',
+			'problem' => 'Spotty dishes, crusty faucets, stiff laundry, dry skin and dull hair, and using too much soap and detergent to get anything clean.',
+			'cause' => 'Excess calcium, magnesium, and sometimes iron leave scale that clogs pipes, shortens water-heater life, and fights every detergent you own.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free test measures your exact hardness (grains per gallon) and iron, so the system is sized precisely to your water.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'A high-efficiency Impression Plus® softener — or the RC Series on city water to remove chlorine and hardness in one tank.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Professionally installed and serviced. Rental and financing available if you’d rather spread the cost.' ),
+			),
+			'recommend' => 'The Impression Plus Series® softener uses meter-based regeneration and high-capacity resin — up to 60% less salt and 75% less regeneration water than old time-clock units. On city water, the Impression Plus RC (Resin/Carbon) Series removes chlorine and hardness in one tank.',
+			'product' => array( 'name' => 'Impression Plus Series® softeners', 'key' => 'Softeners', 'badges' => array( 'Made in USA', 'Eco-Friendly', '60% less salt' ) ),
+			'payoff' => array( 'title' => 'The payoff', 'stats' => array( array( '50%', 'less laundry detergent' ), array( '70%', 'less dish detergent' ), array( '47%', 'better water-heater efficiency' ) ) ),
+			'cta' => 'See what soft water actually feels like',
+			'related' => array( 'Taste', 'Chlorine', 'SoftWaterOut' ),
+			'meta' => 'Hard Water Treatment & Water Softeners | Youngstown OH',
+			'blurb' => 'Spotty dishes, crusty faucets, dry skin, more soap.',
+		),
+		'Rust' => array(
+			'slug' => 'rust-orange-stains', 'label' => 'Rust & orange stains', 'icon' => 'flame', 'color' => 'orange',
+			'eyebrow' => 'Water problem · Staining',
+			'h1' => 'Stop rust and orange stains for good',
+			'lead' => 'Orange and brown staining in sinks, tubs, toilets, and laundry. A metallic taste. Rust rings that keep coming back no matter how hard you scrub.',
+			'problem' => 'Orange and brown staining in sinks, tubs, toilets and laundry, a metallic taste, and rust rings that keep coming back no matter how often you clean.',
+			'cause' => 'Iron and manganese in your water — which also corrode plumbing and make taste and odor worse over time.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free test measures iron, manganese, and pH so we can match the right media to your water.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'An iron-reducing conditioner or a custom filter built with the right media for your iron levels.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Sized to your water, installed by our team, and serviced on all makes and models.' ),
+			),
+			'recommend' => 'An iron-reducing Sanitizer Plus conditioner or a custom Impression Plus Filter Series (IMPBF) built with the right media. For heavy well iron paired with odor, the self-sanitizing Sanitizer Plus handles it all together — softening, iron/manganese removal, and odor control in one unit.',
+			'product' => array( 'name' => 'Iron & sulfur filtration', 'key' => 'IronSulfur', 'badges' => array( 'Made in USA', 'Custom media', 'All makes serviced' ) ),
+			'cta' => 'Reclaim your white sinks',
+			'related' => array( 'Smelly', 'Well', 'Sediment' ),
+			'meta' => 'Stop Rust & Orange Water Stains | Iron Filtration | Savanna Springs',
+			'blurb' => 'Stains in sinks, tubs, toilets, and laundry.',
+		),
+		'Taste' => array(
+			'slug' => 'bad-tasting-water', 'label' => 'Bad-tasting water', 'icon' => 'beaker', 'color' => 'navy',
+			'eyebrow' => 'Water problem · Taste',
+			'h1' => 'Better-tasting water, straight from your tap',
+			'lead' => 'A metallic, chemical, or just "off" taste. Cloudy ice. And a recurring bill for bottled water you shouldn’t need to buy in the first place.',
+			'problem' => 'A metallic, chemical or "off" taste, cloudy ice, and the constant expense and hassle of buying bottled water.',
+			'cause' => 'Chlorine, dissolved minerals, and other contaminants. Sometimes water that’s perfectly "safe" still tastes bad because of dissolved solids.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free test — including a TDS reading — shows exactly what’s affecting the taste of your water.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'A reverse-osmosis system under the sink for sparkling drinking water, better coffee, and clearer ice.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Installed and maintained by Savanna Springs. Rentals available for pennies a day.' ),
+			),
+			'recommend' => 'A reverse-osmosis system under the sink — the Impression Series R.O. (four-stage + carbon polish) for sparkling water, better coffee and clearer ice. The top-of-line Eclipse R.O. adds a TDS faucet monitor and no-mess filter changes, with no electricity needed. It replaces the bottled-water habit for pennies a day.',
+			'product' => array( 'name' => 'Reverse osmosis drinking water', 'key' => 'RO', 'badges' => array( 'Made in USA', 'Pennies a day', 'TDS monitor' ) ),
+			'cta' => 'Taste the difference',
+			'related' => array( 'Chlorine', 'HardWater', 'Sediment' ),
+			'meta' => 'Reverse Osmosis Drinking Water Systems | Mahoning Valley',
+			'blurb' => 'Cloudy, metallic, or chemical-tasting tap water.',
+		),
+		'Well' => array(
+			'slug' => 'well-water', 'label' => 'Well water problems', 'icon' => 'home', 'color' => 'water',
+			'eyebrow' => 'Water problem · Well water',
+			'h1' => 'Well water specialists for Northeast Ohio & Western PA',
+			'lead' => 'Rusty sinks and dishwashers, rotten-egg odor, laundry staining, high lime, sediment, and the occasional bacteria scare. Well water is where many companies struggle — and exactly where we specialize.',
+			'problem' => 'Rusty sinks and dishwashers, rotten-egg odor, laundry staining, high calcium and lime, sediment, and occasional bacteria. It’s where many companies struggle — and where we specialize.',
+			'cause' => 'A changing mix of extreme hardness, iron, manganese, sulfur, low pH, and sediment that varies well to well — and even season to season.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => '35+ years of experience plus the newest media and controls. We test in your home and build around your well’s exact chemistry.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'Iron-reducing conditioning, self-chlorinating odor control, UV for bacteria, or the right filter/softener combo — whatever your well needs.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Custom-built, professionally installed, and serviced for life.' ),
+			),
+			'recommend' => 'Iron-reducing conditioning for rusty fixtures; the self-chlorinating Sanitizer Plus with Crystal-Right® for odor; Viqua® UV for bacteria; and the right filter/softener combo for staining. The Sanitizer Plus performs like four units in one — softening, removing iron and manganese, controlling odor, and raising pH.',
+			'product' => array( 'name' => 'Sanitizer Plus & well solutions', 'key' => 'IronSulfur', 'badges' => array( '35+ yrs experience', 'Self-sanitizing', 'UV available' ) ),
+			'cta' => 'Tame your well water',
+			'related' => array( 'Smelly', 'Rust', 'Sediment' ),
+			'meta' => 'Well Water Treatment — Iron, Sulfur & Sediment | NE Ohio',
+			'blurb' => 'Iron, sulfur, sediment, and bacteria from a well.',
+		),
+		'Sediment' => array(
+			'slug' => 'sediment-cloudy-water', 'label' => 'Sediment & cloudy water', 'icon' => 'waves', 'color' => 'water',
+			'eyebrow' => 'Water problem · Sediment',
+			'h1' => 'Cloudy, gritty, or discolored water?',
+			'lead' => 'A cloudy glass, grit in your faucet aerators, and tinted water that clogs fixtures and wears out appliances before their time.',
+			'problem' => 'A cloudy glass, grit collecting in aerators, and tinted water that clogs fixtures and shortens the life of your appliances.',
+			'cause' => 'Turbidity from suspended particles and sediment — or acidic (low-pH) water pulling color and metals out of your pipes, which can cause blue-green staining and a metallic taste.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free test checks turbidity, sediment, and pH/alkalinity to pinpoint what’s clouding your water.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'A custom filter for turbidity, plus a neutralizing filter where acidic water is the culprit.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Built to your water and installed by our team.' ),
+			),
+			'recommend' => 'A custom Impression Plus Filter Series (IMPBF) for turbidity, plus a neutralizing filter where needed for acidic water. We test in-home, determine the media formula, and build the configuration around what your water actually needs.',
+			'product' => array( 'name' => 'Whole-house filtration', 'key' => 'WholeHouse', 'badges' => array( 'Custom media', 'Made in USA', 'pH neutralizing' ) ),
+			'cta' => 'Clear it up',
+			'related' => array( 'Rust', 'Well', 'Taste' ),
+			'meta' => 'Cloudy Water, Sediment & Discoloration Treatment | Savanna Springs',
+			'blurb' => 'Cloudy, gritty, or discolored water at the tap.',
+		),
+		'Chlorine' => array(
+			'slug' => 'chlorine-taste-smell', 'label' => 'Chlorine taste & smell', 'icon' => 'flask', 'color' => 'sun',
+			'eyebrow' => 'Water problem · Chlorine',
+			'h1' => 'Get the "pool water" smell out of your tap',
+			'lead' => 'City water that smells and tastes like a swimming pool. It’s not harmful — but it’s unpleasant every single day, in every glass and every shower.',
+			'problem' => 'City water that smells or tastes like chlorine. It isn’t harmful, but it’s unpleasant daily — in your drinking water, your coffee, and your shower.',
+			'cause' => 'Municipal chlorine or chloramine. Chloramine in particular can irritate skin, break down rubber plumbing parts, and harm aquarium fish.',
+			'steps' => array(
+				array( 'label' => 'We diagnose', 'icon' => 'search', 'body' => 'A free test confirms whether it’s chlorine or chloramine — which changes the media we use.' ),
+				array( 'label' => 'We recommend', 'icon' => 'clipboard', 'body' => 'A Resin/Carbon softener that removes chlorine and hardness in one tank, or Crystal-Right/Carbon for tougher chloramine.' ),
+				array( 'label' => 'We install', 'icon' => 'wrench', 'body' => 'Sized, installed, and serviced by Savanna Springs.' ),
+			),
+			'recommend' => 'The Impression Plus RC (Resin/Carbon) for chlorine plus hardness in one tank; Impression Plus Crystal-Right/Carbon for tougher chloramine and ammonia; or an RO system for drinking water only. A free test tells us which media your city water calls for.',
+			'product' => array( 'name' => 'Impression Plus RC & RO', 'key' => 'Softeners', 'badges' => array( 'Made in USA', 'One-tank design', 'City water' ) ),
+			'cta' => 'Lose the chlorine taste',
+			'related' => array( 'Taste', 'HardWater', 'Sediment' ),
+			'meta' => 'Remove Chlorine & Chloramine Taste from City Water | Savanna Springs',
+			'blurb' => 'That "pool water" smell from city water.',
+		),
+		'SoftWaterOut' => array(
+			'slug' => 'salt-soft-water', 'label' => 'Running out of soft water', 'icon' => 'truck', 'color' => 'sun',
+			'eyebrow' => 'Water problem · Salt & capacity',
+			'h1' => 'Tired of hauling salt — or running out of soft water?',
+			'lead' => 'Lugging heavy, messy salt bags down the basement stairs. Or running out of soft water mid-week because the system was never sized right. There’s a better way.',
+			'problem' => 'Lugging heavy, messy salt bags — or running out of soft water mid-week because an undersized system can’t keep up with your household.',
+			'cause' => '',
+			'steps' => array(
+				array( 'label' => 'Right-size it', 'icon' => 'search', 'body' => 'We size the system to your household — including Impression Plus Twin Systems for 24-hour soft water (20,000–120,000 grains, up to 28 GPM).' ),
+				array( 'label' => 'Salt delivery', 'icon' => 'truck', 'body' => 'We take salt off your plate with Pro’s Pick Dura-Cube® — we fill the brine tank and stack the bags wherever you want.' ),
+				array( 'label' => 'Weekly routes', 'icon' => 'calendar', 'body' => 'Weekly delivery routes available across the Valley, so you never run out and never lift another bag.' ),
+			),
+			'recommend' => 'Right-size the system — including Impression Plus Twin Systems for continuous 24-hour soft water (20,000–120,000 grains, up to 28 GPM) — and let us deliver Pro’s Pick Dura-Cube® softener salt. We’ll fill the brine tank and stack the bags wherever you like.',
+			'product' => array( 'name' => 'Salt delivery & Twin Systems', 'key' => 'Salt', 'badges' => array( 'Free delivery', 'Twin systems', 'Weekly routes' ) ),
+			'cta' => 'Never run out — or lift another bag',
+			'related' => array( 'HardWater', 'Well', 'Rust' ),
+			'meta' => 'Salt Delivery & Never Run Out of Soft Water | Savanna Springs',
+			'blurb' => 'Hauling salt or running out of soft water.',
+		),
+	);
+}
+function ss_problem_order() { return array( 'Smelly', 'HardWater', 'Rust', 'Taste', 'Well', 'Sediment', 'Chlorine', 'SoftWaterOut' ); }
+
+/* ------------------------------------------------------------------ *
+ *  PRODUCTS (8)
+ * ------------------------------------------------------------------ */
+function ss_products() {
+	return array(
+		'Softeners' => array(
+			'slug' => 'water-softeners', 'label' => 'Water softeners', 'icon' => 'droplet', 'color' => 'water',
+			'eyebrow' => 'Products · Softeners',
+			'h1' => 'Water softeners that last.',
+			'lead' => 'Highly efficient, demand-based softeners — custom-sized and competitively priced to end hard-water problems throughout your home.',
+			'models' => array(
+				array( 'name' => 'Impression Plus Series®', 'tag' => 'Most popular', 'blurb' => 'Our flagship softener — microprocessor controls with an LED display, meter-based regeneration, and a valve built to never rust.',
+					'features' => array( 'Microprocessor controls + LED display', 'Meter-based regeneration', 'Chlorine-resistant high-capacity resin', 'NORYL® valve — no screws or bolts to rust', 'Vortech® tank technology' ),
+					'warranty' => '20-yr mineral tank · 20-yr resin · 5-yr brine tank · 5-yr control valve · 5-yr labor' ),
+				array( 'name' => 'Impression Plus RC (Resin/Carbon) Series', 'tag' => 'For city water', 'blurb' => 'Removes chlorine and hardness in one tank for municipal water — carbon protects the resin and your plumbing.',
+					'features' => array( 'Chlorine + hardness in one tank', 'Carbon protects the resin', 'Space-saving single-tank design', 'Ideal for city water' ) ),
+				array( 'name' => 'Impression Plus Crystal-Right/Carbon Series', 'tag' => 'For chloramine', 'blurb' => 'Softens while removing chloramine, ammonia, and unwanted odor and taste.',
+					'features' => array( 'Removes chloramine + ammonia', 'Controls odor & taste', 'Softens at the same time' ) ),
+				array( 'name' => 'Impression Plus Twin System', 'tag' => '24-hour soft water', 'blurb' => 'Continuous, around-the-clock soft water for larger households that never want to run out.',
+					'features' => array( 'Never run out of soft water', '20,000–120,000 grains', 'Up to 28 GPM', 'Sized for big homes' ) ),
+			),
+			'highlights' => array( 'eyebrow' => 'Eco-friendly · Money-saving', 'title' => 'Good for your home and your wallet',
+				'items' => array( 'Laundry detergent down up to 50%', 'Dish detergent down up to 70%', 'Water-heater efficiency up to 47%', 'Up to 60% less salt than time-clock units', 'Up to 75% less regeneration water' ) ),
+			'solves' => array( 'HardWater', 'Chlorine', 'SoftWaterOut' ),
+			'cta' => 'Get a free water test and the right-sized softener',
+			'meta' => 'Water Softeners — Impression Plus Series | Savanna Springs',
+			'blurb' => 'Impression Plus® softeners end hard-water scale, spots and dry skin.',
+		),
+		'RO' => array(
+			'slug' => 'reverse-osmosis', 'label' => 'Reverse osmosis', 'icon' => 'beaker', 'color' => 'navy',
+			'eyebrow' => 'Products · Drinking water',
+			'h1' => 'Bottle-quality drinking water from your own tap.',
+			'lead' => 'Crisp, clean drinking water under your sink — better coffee, clearer ice, and no more hauling cases of bottled water.',
+			'models' => array(
+				array( 'name' => 'Impression Series R.O.', 'tag' => 'Four-stage', 'blurb' => 'Four-stage filtration with a final carbon polish for sparkling, great-tasting water.',
+					'features' => array( 'Four stages + carbon polish', 'Sparkling, great-tasting water', 'Better coffee & clearer ice', '3-gallon storage tank' ), 'warranty' => '5-yr warranty · 1-yr labor' ),
+				array( 'name' => 'Eclipse R.O.', 'tag' => 'Top of line', 'blurb' => 'Our best drinking-water system — with a TDS faucet monitor and no-mess filter changes.',
+					'features' => array( 'TDS faucet monitor', 'Clean drop-in filter changes', 'No electricity needed', '3-gallon storage tank' ), 'warranty' => '5-yr warranty · 1-yr labor' ),
+				array( 'name' => 'Viqua® UV Sterilization', 'tag' => 'Bacteria protection', 'blurb' => 'Adds a layer of protection against bacteria, viruses, and waterborne pathogens.',
+					'features' => array( 'Kills bacteria, viruses, algae & mold', 'Guards against crypto & giardia', 'Stainless-steel chamber', 'Lamp-failure alarm' ) ),
+			),
+			'highlights' => array( 'eyebrow' => 'The value', 'title' => 'Bottle-quality for pennies a day',
+				'items' => array( 'Replaces the bottled-water habit', 'Crisp water straight from the tap', 'Better coffee, tea & ice', 'Rentals available' ) ),
+			'solves' => array( 'Taste', 'Chlorine' ),
+			'cta' => 'Find the right system with a free water test',
+			'meta' => 'Reverse Osmosis Drinking Water — Impression & Eclipse R.O. | Savanna Springs',
+			'blurb' => 'Bottle-quality reverse-osmosis drinking water from your own tap.',
+		),
+		'IronSulfur' => array(
+			'slug' => 'iron-sulfur-filters', 'label' => 'Iron & sulfur filters', 'icon' => 'flame', 'color' => 'orange',
+			'eyebrow' => 'Products · Iron & sulfur',
+			'h1' => 'Clear out iron, sulfur, and the rotten-egg smell.',
+			'lead' => 'The toughest well-water problems — iron staining and that rotten-egg odor — solved at the source with self-sanitizing media.',
+			'models' => array(
+				array( 'name' => 'Sanitizer Plus Series with Crystal-Right®', 'tag' => '4-in-1, self-sanitizing', 'blurb' => 'Patented self-chlorinating technology kills iron and sulfur bacteria, then rinses clean — performing like four units in one.',
+					'features' => array( 'Patented self-chlorinating media', '4-in-1: soften, iron, odor, pH', 'No chemicals to buy', '"Check salt" indicator', 'Lithium battery backup' ),
+					'warranty' => '20-yr mineral tank · 20-yr resin · 20-yr Crystal-Right® media · 5-yr control valve · 5-yr labor' ),
+				array( 'name' => 'Impression Plus Filter Series (IMPBF)', 'tag' => 'Custom media', 'blurb' => 'Custom media built to your water — turbidity, chlorine, acidic-water neutralizing, or iron removal.',
+					'features' => array( 'Turbidity removal', 'Chlorine removal', 'Neutralizing acidic water', 'Iron removal' ) ),
+			),
+			'solves' => array( 'Smelly', 'Rust', 'Well' ),
+			'cta' => 'Book a free water test — we’ll spec the right media',
+			'meta' => 'Iron & Sulfur Filters — Sanitizer Plus with Crystal-Right | Savanna Springs',
+			'blurb' => 'Self-sanitizing media clears iron, sulfur and the rotten-egg smell.',
+		),
+		'WholeHouse' => array(
+			'slug' => 'whole-house-filtration', 'label' => 'Whole-house filtration', 'icon' => 'shield', 'color' => 'water',
+			'eyebrow' => 'Products · Whole-house',
+			'h1' => 'Cleaner, safer water at every tap.',
+			'lead' => 'Custom-designed media systems that treat one problem or several at once — used alongside a conditioner or on their own.',
+			'models' => array(
+				array( 'name' => 'Impression Plus Filter Series (IMPBF)', 'tag' => 'Custom media', 'blurb' => 'Custom-designed media blends that treat one or several problems at once. Use it with a conditioner or alone.',
+					'features' => array( 'Turbidity removal', 'Chlorine removal', 'Neutralizing acidic water', 'Iron removal' ) ),
+			),
+			'highlights' => array( 'eyebrow' => 'How we design it', 'title' => 'Built around your water, not a catalog',
+				'items' => array( 'We test your water in-home', 'We determine the media formula', 'We recommend the configuration', 'One or several problems, one system' ) ),
+			'solves' => array( 'Sediment', 'Rust', 'Chlorine' ),
+			'cta' => 'Get a free water test to design your whole-house system',
+			'meta' => 'Whole-House Water Filtration | Custom Media Systems | Savanna Springs',
+			'blurb' => 'Custom media systems for cleaner, safer water at every tap.',
+		),
+		'Commercial' => array(
+			'slug' => 'commercial-water-treatment', 'label' => 'Commercial water treatment', 'icon' => 'factory', 'color' => 'navy',
+			'eyebrow' => 'Products · Commercial',
+			'h1' => 'Reliable, cost-effective commercial water treatment.',
+			'lead' => 'For apartment buildings, nursing homes, restaurants, manufacturing, pharmaceutical operations, and larger homes that need commercial-grade equipment.',
+			'intro' => 'One size doesn’t fit all. We design the system around your project and service it long after install — so your water keeps performing.',
+			'segments' => array( 'eyebrow' => 'Who we serve', 'title' => 'Commercial-grade, custom-built',
+				'items' => array( 'Apartment buildings', 'Nursing homes', 'Restaurants', 'Manufacturing', 'Pharmaceutical', 'Larger homes' ) ),
+			'callFirst' => true,
+			'cta' => 'Talk through your commercial project',
+			'meta' => 'Commercial Water Treatment Systems | Youngstown, OH | Savanna Springs',
+			'blurb' => 'Commercial-grade systems custom-built around your project.',
+		),
+		'Bottled' => array(
+			'slug' => 'bottled-water-coolers', 'label' => 'Bottled water & coolers', 'icon' => 'drop2', 'color' => 'sun',
+			'eyebrow' => 'Products · Delivery',
+			'h1' => 'Premium bottled water & coolers, delivered.',
+			'lead' => 'Premium drinking water from a natural artesian spring in Lowellville, then rigorously filtered — we don’t start with tap water like many competitors.',
+			'chips' => array( '20 oz', '1 gallon', '5 gallon' ),
+			'models' => array(
+				array( 'name' => '"Glacier" WaterSafe Cooler', 'tag' => 'Top-load', 'blurb' => 'Spill-proof and hygienically sealed, with Dry Guard protection.', 'features' => array( 'Spill-proof design', 'Hygienically sealed', 'Dry Guard protection' ) ),
+				array( 'name' => '"Storm" Back-Saver Cooler', 'tag' => 'Bottom-load', 'blurb' => 'Bottom-loading means no overhead lifting — hot and cold on tap.', 'features' => array( 'No overhead lifting', 'Bottom-load bottle', 'Hot & cold water' ) ),
+				array( 'name' => '"Glacier" Bottle-Less Cooler', 'tag' => 'Bottle-less', 'blurb' => 'Unlimited water with an advanced filter that removes rust, chlorine, lead, cysts, and odors.', 'features' => array( 'Unlimited water', 'Removes rust, chlorine & lead', 'Filters cysts & odors' ) ),
+				array( 'name' => '"Crystal Pro" Bottle-Less Dispenser', 'tag' => 'Bottle-less', 'blurb' => 'UV-protected with hot, ambient, and cold water, 4.7-gallon capacity, and leak detection.', 'features' => array( 'UV protection', 'Hot / ambient / cold', '4.7-gallon capacity', 'Leak detection' ) ),
+			),
+			'delivery' => array( 'title' => 'Delivery that fits your routine', 'body' => 'Businesses every 1–4 weeks; residential customers get email reminders and just leave empties out. Serving Mahoning, Columbiana & Trumbull counties plus Western PA.' ),
+			'cta' => 'Set up delivery — fill out the form or call',
+			'meta' => 'Bottled Water Delivery & Water Coolers | Mahoning Valley | Savanna Springs',
+			'blurb' => 'Spring water, coolers and delivery for home and business.',
+		),
+		'Salt' => array(
+			'slug' => 'salt-delivery', 'label' => 'Salt delivery', 'icon' => 'truck', 'color' => 'sun',
+			'eyebrow' => 'Products · Salt delivery',
+			'h1' => 'Salt delivery — the better way.',
+			'lead' => 'Salt is heavy, messy, and bulky. Let us handle it. We deliver Pro’s Pick Dura-Cube® and load it for you — so you never lift another bag.',
+			'highlights' => array( 'eyebrow' => 'Pro’s Pick Dura-Cube®', 'title' => 'A cleaner, easier salt',
+				'items' => array( 'Up to 99.8% pure', 'Virtually 100% soluble', 'Compacted to prevent mushing & bridging', '2-handle 40-lb easy-open bag', 'Bag is 50% recycled' ) ),
+			'delivery' => array( 'title' => 'We do the heavy lifting', 'body' => 'Weekly delivery routes across the Valley. We’ll fill your brine tank and stack the bags wherever you want them.' ),
+			'solves' => array( 'SoftWaterOut' ),
+			'cta' => 'Set up your salt delivery schedule today',
+			'meta' => 'Water Softener Salt Delivery — Dura-Cube | Savanna Springs',
+			'blurb' => 'We deliver and load Dura-Cube® softener salt — free of the hassle.',
+		),
+		'Rentals' => array(
+			'slug' => 'equipment-rentals', 'label' => 'Equipment rentals', 'icon' => 'calendar', 'color' => 'water',
+			'eyebrow' => 'Products · Rentals',
+			'h1' => 'Try soft water without the upfront cost.',
+			'lead' => 'Not ready to buy? Rent a softener or drinking-water system and feel the difference first — with a special offer to get you started.',
+			'models' => array(
+				array( 'name' => 'Impression Plus® softener rental', 'tag' => 'One month free', 'blurb' => 'Rent our flagship softener and get one month of free rent to start.', 'features' => array( 'One month free rent', 'One-year lease', 'Install charge applies', 'Service included' ) ),
+				array( 'name' => 'Impression Series R.O. rental', 'tag' => 'Pennies a day', 'blurb' => 'Bottle-quality drinking water for pennies a day — one month free for a limited time.', 'features' => array( 'One month free (limited time)', 'One-year lease', 'Install charge applies', 'Maintenance included' ) ),
+			),
+			'solves' => array( 'HardWater', 'Taste' ),
+			'cta' => 'Ask about rentals on your free water test',
+			'meta' => 'Water Softener & R.O. Rentals | Savanna Springs',
+			'blurb' => 'Try soft water or RO with no upfront cost — one month free.',
+		),
+	);
+}
+function ss_product_order() { return array( 'Softeners', 'RO', 'IronSulfur', 'WholeHouse', 'Commercial', 'Bottled', 'Salt', 'Rentals' ); }
+
+/* ------------------------------------------------------------------ *
+ *  SERVICE-AREA CITIES (9)
+ * ------------------------------------------------------------------ */
+function ss_cities() {
+	return array(
+		'Youngstown' => array( 'slug' => 'water-softeners-youngstown-oh', 'city' => 'Youngstown', 'county' => 'Mahoning', 'zip' => '44512', 'type' => 'municipal',
+			'h1' => 'Water Softeners & Water Treatment in Youngstown, OH',
+			'lead' => 'Hard water, rust stains, or a chlorine taste at your Youngstown tap? Savanna Springs has been the Valley’s local water team since 2008 — free in-home test, right-sized system, professional install.',
+			'context' => 'Most Youngstown homes are on city water from the Mahoning Valley Sanitary District, drawn from Meander Reservoir — treated and chlorinated, so many notice a chlorine taste and switch to RO and whole-house carbon filtration. Older East- and West-side homes pick up taste and staining from aging plumbing, and some outskirts run on wells with hardness and iron.',
+			'mostCommon' => array( 'Chlorine taste & smell', 'Scale & spotting', 'RO drinking water', 'Aging-plumbing taste' ),
+			'problems' => array( 'Chlorine', 'HardWater', 'Taste', 'Rust', 'Sediment', 'Well' ),
+			'nearby' => array( 'Boardman', 'Austintown', 'Struthers', 'Campbell', 'Poland' ),
+			'meta' => 'Water Softeners Youngstown, OH | Savanna Springs' ),
+		'Boardman' => array( 'slug' => 'water-softeners-boardman-oh', 'city' => 'Boardman', 'county' => 'Mahoning', 'zip' => '44512', 'type' => 'municipal',
+			'h1' => 'Water Softeners & Water Treatment in Boardman, OH',
+			'lead' => 'Spot-free dishes, softer water, and better-tasting drinking water for your Boardman home — diagnosed with a free test and installed by your local team since 2008.',
+			'context' => 'One of the Valley’s largest suburbs, Boardman is mostly on municipal water. Treated water still leaves scale and a chlorine taste, so most homes add a softener plus an RO system. We size to your exact water and offer financing to make it easy.',
+			'mostCommon' => array( 'Scale & spotting', 'Chlorine taste', 'RO drinking water', 'Whole-house filtration' ),
+			'problems' => array( 'Chlorine', 'HardWater', 'Taste', 'Sediment', 'Rust', 'SoftWaterOut' ),
+			'nearby' => array( 'Youngstown', 'Poland', 'Canfield', 'Struthers' ),
+			'meta' => 'Water Softeners Boardman, OH | Savanna Springs' ),
+		'Poland' => array( 'slug' => 'water-softeners-poland-oh', 'city' => 'Poland', 'county' => 'Mahoning', 'zip' => '44514', 'type' => 'mixed',
+			'h1' => 'Water Softeners & Water Treatment in Poland, OH',
+			'lead' => 'Village or township, city water or a private well — Poland homes get the right water solution from Savanna Springs, starting with a free in-home test.',
+			'context' => 'The village runs on municipal water, while many Poland Township homes are on wells with hardness, iron, and sulfur odor. Village homes deal with chlorine taste and scale; township homes face well chemistry. A free test tells us exactly which side you’re on.',
+			'mostCommon' => array( 'Well hardness / iron / sulfur', 'Rotten-egg odor', 'Chlorine taste (village)', 'RO drinking water' ),
+			'problems' => array( 'Well', 'Smelly', 'HardWater', 'Chlorine', 'Rust', 'Taste' ),
+			'nearby' => array( 'Boardman', 'Struthers', 'New Middletown', 'Youngstown' ),
+			'meta' => 'Water Softeners Poland, OH | Savanna Springs' ),
+		'Canfield' => array( 'slug' => 'well-water-treatment-canfield-oh', 'city' => 'Canfield', 'county' => 'Mahoning', 'zip' => '44406', 'type' => 'well',
+			'h1' => 'Well Water Treatment & Softeners in Canfield, OH',
+			'lead' => 'Canfield and Canfield Township are well-water country. We’re well-water specialists — softening, iron removal, and odor control, all backed by a free in-home test.',
+			'context' => 'Lots of private wells here, with hard water carrying iron, manganese, and sulfur that cause staining and rotten-egg odor. The self-sanitizing Sanitizer Plus with Crystal-Right® softens, removes iron and manganese, controls odor, and corrects low pH in one unit — no chemicals to buy.',
+			'mostCommon' => array( 'Well hardness', 'Iron / manganese staining', 'Rotten-egg odor', 'Low pH' ),
+			'problems' => array( 'Well', 'Smelly', 'Rust', 'HardWater', 'Sediment', 'Taste' ),
+			'nearby' => array( 'Boardman', 'Austintown', 'North Lima', 'South Range' ),
+			'meta' => 'Well Water Treatment & Softeners Canfield, OH | Savanna Springs' ),
+		'Struthers' => array( 'slug' => 'water-softeners-struthers-oh', 'city' => 'Struthers', 'county' => 'Mahoning', 'zip' => '44471', 'type' => 'municipal',
+			'h1' => 'Water Softeners & Water Treatment in Struthers, OH',
+			'lead' => 'Hard-water scale, an old softener that quit, or a chlorine taste in Struthers? We install new systems and service every brand — book a free water test.',
+			'context' => 'An older river town on municipal water, Struthers sees hard-water scale, chlorine taste, and aging softeners installed by other companies. We service all makes and models, and we’re just minutes away in Lowellville.',
+			'mostCommon' => array( 'Hard-water scale', 'Chlorine taste', 'Aging / failed softeners', 'RO drinking water' ),
+			'problems' => array( 'HardWater', 'Chlorine', 'SoftWaterOut', 'Taste', 'Rust', 'Sediment' ),
+			'nearby' => array( 'Youngstown', 'Campbell', 'Poland', 'Lowellville' ),
+			'meta' => 'Water Softeners Struthers, OH | Savanna Springs' ),
+		'Lowellville' => array( 'slug' => 'water-softeners-lowellville-oh', 'city' => 'Lowellville', 'county' => 'Mahoning', 'zip' => '44436', 'type' => 'mixed', 'hometown' => true,
+			'h1' => 'Water Softeners & Water Treatment in Lowellville, OH',
+			'lead' => 'Lowellville is our hometown — our shop is right on River Road. Nobody knows this village’s water better, and nobody gets to you faster. Free water test, always.',
+			'context' => 'Our home base, right by the Pennsylvania line. Whether you’re on municipal water or a private well, we test free and fix it fast — softening, iron and odor removal, or reverse osmosis for drinking water.',
+			'mostCommon' => array( 'Hardness & scale', 'Iron & sulfur (wells)', 'Fast local service', 'RO drinking water' ),
+			'problems' => array( 'HardWater', 'Smelly', 'Rust', 'Chlorine', 'Taste', 'SoftWaterOut' ),
+			'nearby' => array( 'Struthers', 'Poland', 'Coitsville', 'New Middletown' ),
+			'meta' => 'Water Softeners Lowellville, OH | Savanna Springs' ),
+		'Austintown' => array( 'slug' => 'water-softeners-austintown-oh', 'city' => 'Austintown', 'county' => 'Mahoning', 'zip' => '44515', 'type' => 'municipal',
+			'h1' => 'Water Softeners & Water Treatment in Austintown, OH',
+			'lead' => 'Soft, spot-free water and better-tasting drinking water for your Austintown home — sized to your water and installed by your local team since 2008.',
+			'context' => 'A large township on Meander Reservoir water, Austintown’s treated supply still leaves scale and a chlorine taste, so most homes pair a softener with an RO system for the best of both.',
+			'mostCommon' => array( 'Scale & spotting', 'Chlorine taste', 'RO drinking water', 'Whole-house filtration' ),
+			'problems' => array( 'Chlorine', 'HardWater', 'Taste', 'Sediment', 'Rust', 'SoftWaterOut' ),
+			'nearby' => array( 'Youngstown', 'Canfield', 'Boardman', 'Mineral Ridge' ),
+			'meta' => 'Water Softeners Austintown, OH | Savanna Springs' ),
+		'Salem' => array( 'slug' => 'water-softeners-salem-oh', 'city' => 'Salem', 'county' => 'Columbiana', 'zip' => '44460', 'type' => 'mixed',
+			'h1' => 'Water Softeners & Well Water Treatment in Salem, OH',
+			'lead' => 'In Salem and the Columbiana County countryside, city homes and rural wells need very different treatment. We do both — starting with a free in-home water test.',
+			'context' => 'City homes are on the municipal supply, while the surrounding countryside is heavily on wells with hardness, iron, and sulfur odor. We bring softening and iron/sulfur filtration to the wells, and RO to the city homes.',
+			'mostCommon' => array( 'Well hardness / iron / sulfur', 'Rotten-egg odor', 'Chlorine taste (in town)', 'RO drinking water' ),
+			'problems' => array( 'Well', 'Smelly', 'HardWater', 'Chlorine', 'Rust', 'Taste' ),
+			'nearby' => array( 'Columbiana', 'Leetonia', 'Canfield', 'Beloit' ),
+			'meta' => 'Water Softeners & Well Water Treatment Salem, OH | Savanna Springs' ),
+		'SouthRange' => array( 'slug' => 'well-water-treatment-south-range-oh', 'city' => 'South Range / North Lima', 'county' => 'Mahoning', 'zip' => '44452', 'type' => 'well',
+			'h1' => 'Well Water Treatment in South Range / North Lima, OH',
+			'lead' => 'The South Range area — North Lima, Greenford, and the surrounding countryside — is private-well country, and that’s exactly where we specialize.',
+			'context' => 'Covering North Lima, Greenford, and the rural Beaver and Green Township countryside, almost everyone here is on a private well. Water is typically hard with iron, manganese, sulfur (rotten-egg), sediment, and low pH. One self-sanitizing Sanitizer Plus softens, removes iron, kills odor, and corrects pH all at once.',
+			'mostCommon' => array( 'Well hardness', 'Iron / manganese staining', 'Rotten-egg sulfur odor', 'Sediment & low pH' ),
+			'problems' => array( 'Well', 'Smelly', 'Rust', 'HardWater', 'Sediment', 'Chlorine' ),
+			'nearby' => array( 'North Lima', 'Greenford', 'Canfield', 'Poland', 'New Middletown' ),
+			'meta' => 'Well Water Treatment — South Range / North Lima, OH | Savanna Springs' ),
+	);
+}
+function ss_city_order() { return array( 'Youngstown', 'Boardman', 'Poland', 'Canfield', 'Struthers', 'Lowellville', 'Austintown', 'Salem', 'SouthRange' ); }
+function ss_city_services() {
+	return array(
+		'municipal' => array( 'Softeners', 'RO', 'WholeHouse', 'Salt' ),
+		'well'      => array( 'IronSulfur', 'Softeners', 'WholeHouse', 'RO' ),
+		'mixed'     => array( 'Softeners', 'IronSulfur', 'RO', 'Salt' ),
+	);
+}
+
+/* ------------------------------------------------------------------ *
+ *  REVIEWS / FAQ / SPECIALS / HOMEPAGE BITS
+ * ------------------------------------------------------------------ */
+function ss_reviews() {
+	return array(
+		array( 'q' => 'Beyond happy with the customer service and attention to detail. They did a water test to make sure we got the best system for our home. Highly recommend!', 'n' => 'Madison M.' ),
+		array( 'q' => 'Super job! Matt and Steve were excellent installers — very clean and responsive. Great price with even better service. We just ordered an RO system too.', 'n' => 'Margaret F.' ),
+		array( 'q' => 'Love our new water softener and reverse osmosis system. Even our heating guy commented on the quality of the work.', 'n' => 'Brian F.' ),
+		array( 'q' => 'I don’t have to think about anything. You show up and deliver my salt, and if something isn’t working you fix it.', 'n' => 'Jessica C.' ),
+		array( 'q' => 'The softener and reverse osmosis systems are GREAT! When we travel, we truly miss the water we have at home.', 'n' => 'Drew C.' ),
+		array( 'q' => 'I recommend Savanna Springs in every home. Hated how hard our water was — my skin, the detergent, even the taste. Not anymore.', 'n' => 'Dom L.' ),
+	);
+}
+
+function ss_faqs() {
+	return array(
+		array( 'q' => 'What causes hard water, and why should I treat it?', 'link' => array( 'HardWater', 'Hard water & scale' ),
+			'a' => 'Hard water is high in dissolved calcium and magnesium. It leaves scale in your pipes and water heater, spots your dishes, stiffens laundry, and makes you use more soap. A softener removes those minerals at the source, so everything in your home works better and lasts longer.' ),
+		array( 'q' => 'Why does my water smell like rotten eggs?', 'link' => array( 'Smelly', 'Rotten-egg smell' ),
+			'a' => 'That smell is hydrogen sulfide gas, usually produced by iron and sulfur bacteria in the water or water heater. Our self-sanitizing Sanitizer Plus with Crystal-Right® kills the odor-causing bacteria and rinses clean — no chemicals to buy.' ),
+		array( 'q' => 'What kind of salt should I use in my softener?', 'link' => array( 'Salt', 'Salt delivery' ),
+			'a' => 'We recommend Pro’s Pick Dura-Cube® — up to 99.8% pure and virtually 100% soluble, compacted to prevent mushing and bridging in your brine tank. Even better: let us deliver it and load it for you, so you never lift another bag.' ),
+		array( 'q' => 'Will a water softener work with my septic system?', 'link' => array( 'Softeners', 'Water softeners' ),
+			'a' => 'Yes. Modern demand-based softeners like the Impression Plus Series® regenerate only when needed and use up to 75% less regeneration water and 60% less salt than old time-clock units — which is easy on a septic system. We size the unit to keep discharge low.' ),
+		array( 'q' => 'Can you remove nitrates or other specific contaminants?', 'link' => array( 'RO', 'Reverse osmosis' ),
+			'a' => 'A reverse-osmosis system removes a broad range of dissolved contaminants for your drinking water, and a Viqua® UV stage adds protection against bacteria and pathogens. A free in-home test — including a TDS reading — shows exactly what’s present so we recommend the right solution.' ),
+		array( 'q' => 'What do pH and grains/ppm actually mean for my water?', 'link' => array( 'Sediment', 'Sediment & low pH' ),
+			'a' => 'pH measures how acidic your water is — low pH is corrosive and can cause blue-green staining and a metallic taste. Hardness is measured in grains per gallon (gpg), and dissolved solids in parts per million (ppm/TDS). Our free test reads all of these so your system is sized correctly.' ),
+		array( 'q' => 'Do you service systems you didn’t install?', 'link' => array( 'Products', 'Browse products' ),
+			'a' => 'Yes — we service all makes and models, whoever installed them, plus salt and water delivery. If your old softener quit or you inherited one with the house, we can get it running or right-size a replacement.' ),
+		array( 'q' => 'Is your equipment really made in the USA?', 'link' => array( 'Products', 'Our products' ),
+			'a' => 'Yes. We’re a proud Water-Right® authorized dealer and only install American-made, custom-built systems — backed by warranties up to 20 years.' ),
+		array( 'q' => 'How much does a system cost, and do you offer financing?', 'link' => array( 'Financing', 'See financing' ),
+			'a' => 'Every system is right-sized and quoted to your water, home and budget, so pricing varies. We offer flexible financing — including 6 months no interest — plus rentals with one month free to lower the upfront cost.' ),
+		array( 'q' => 'Is the in-home water test really free?', 'link' => array( 'FreeTest', 'Book a free test' ),
+			'a' => 'Completely free, with no obligation and no pressure. A licensed operator tests your water on-site, and we’ll call within 24 business hours to schedule.' ),
+	);
+}
+
+function ss_home_why() {
+	return array(
+		array( 'icon' => 'home', 'title' => 'Local & family owned', 'body' => 'Named after our daughter Savannah — serving the Valley since 2008. You know who the owners are.' ),
+		array( 'icon' => 'award', 'title' => 'American-made equipment', 'body' => 'A proud authorized Water-Right® dealer. Custom-built, made in the USA — built to last.' ),
+		array( 'icon' => 'wrench', 'title' => 'We service everything', 'body' => 'All makes and models, plus salt and water delivery. We keep your system running for the long haul.' ),
+		array( 'icon' => 'dollarSign', 'title' => 'Honest & affordable', 'body' => 'Right-sized systems and flexible financing — including 6 months no interest. No pressure, ever.' ),
+	);
+}
+
+function ss_home_specials() {
+	return array(
+		array( 'refresh', 'One month free rent', 'on Impression Plus® softeners' ),
+		array( 'truck', 'One year of free salt', 'with a Water-Right® softener' ),
+		array( 'droplet', 'RO for pennies a day', 'bottle-quality drinking water' ),
+		array( 'dollarSign', '6 months no interest', 'flexible financing available' ),
+	);
+}
