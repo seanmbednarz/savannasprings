@@ -95,8 +95,19 @@ if ( ! $ss_nav ) {
 				<?php echo ss_icon( 'menu', array( 'size' => 24, 'color' => 'var(--navy-700)' ) ); ?>
 			</button>
 		</div>
+	</header>
 
-		<div class="ss-mobile-panel" data-ss-mobile>
+	<div class="ss-mobile-backdrop" data-ss-mobile-backdrop hidden></div>
+
+	<aside class="ss-mobile-panel" data-ss-mobile aria-hidden="true">
+			<div class="ss-m-top">
+				<a class="ss-logo ss-m-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<img class="skip-lazy no-lazy" src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $ss_site_name ); ?>" loading="eager" decoding="async">
+				</a>
+				<button class="ss-m-close" type="button" aria-label="Close menu" data-ss-close>
+					<?php echo ss_icon( 'x', array( 'size' => 24, 'color' => 'var(--navy-700)' ) ); ?>
+				</button>
+			</div>
 			<?php foreach ( $ss_nav as $item ) :
 				$kids = ! empty( $item['children'] ) ? $item['children'] : array();
 				$icon = ss_icon( ss_nav_icon( $item['label'] ), array( 'size' => 20, 'color' => 'var(--spring-600)' ) );
@@ -121,7 +132,6 @@ if ( ! $ss_nav ) {
 			<?php endforeach; ?>
 			<a class="ss-phone-link" href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--navy-700)' ) ); ?> <?php echo esc_html( $brand['phone'] ); ?></a>
 			<div style="margin-top:8px"><a class="ss-btn ss-btn--accent ss-btn--block" href="<?php echo esc_url( ss_link( 'FreeTest' ) ); ?>">Free Water Test</a></div>
-		</div>
-	</header>
+	</aside>
 
 	<main id="ss-main">
