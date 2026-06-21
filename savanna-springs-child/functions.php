@@ -15,6 +15,7 @@ require_once SS_CHILD_DIR . '/inc/data.php';
 require_once SS_CHILD_DIR . '/inc/helpers.php';
 require_once SS_CHILD_DIR . '/inc/view.php';
 require_once SS_CHILD_DIR . '/inc/acf-fields.php';
+require_once SS_CHILD_DIR . '/inc/svg.php';
 
 /* ------------------------------------------------------------------ *
  *  ASSETS
