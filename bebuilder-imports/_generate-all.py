@@ -57,12 +57,18 @@ def head(eyebrow,title,sub="",dark=False):
 def btn(label,href,variant="accent",lg=True):
     cls="ss-btn ss-btn--"+variant+(" ss-btn--lg" if lg else ""); return f'<a class="{cls}" href="{href}">{label} {svg("arrowRight",18,"currentColor")}</a>'
 # card builders (each returns single-card HTML for one wrap)
-def pickcard(ic,color,title,blurb,href):
-    return f'<a class="ss-card ss-card--hover" href="{href}" style="height:100%"><div style="display:flex;align-items:center;gap:16px"><div class="ss-tile ss-tile--{color}">{svg(ic,28,INKS[color])}</div><h3 style="margin:0">{title}</h3></div><p>{blurb}</p><span class="ss-arrowlink" style="margin-top:16px">See the fix {AR()}</span></a>'
-def prodcard(ic,color,title,blurb,href):
-    return f'<a class="ss-card ss-card--hover" href="{href}" style="height:100%"><div class="ss-tile ss-tile--{color}" style="margin-bottom:18px">{svg(ic,28,INKS[color])}</div><h3>{title}</h3><p>{blurb}</p><span class="ss-arrowlink" style="margin-top:16px">Learn more {AR()}</span></a>'
-def whycard(ic,title,body):
-    return f'<div class="ss-why" style="height:100%"><div class="ss-tile ss-tile--navy">{svg(ic,27,"var(--navy-700)")}</div><h3>{title}</h3><p>{body}</p></div>'
+PLACEHOLDER=UPLOADS+"ss-card-placeholder.svg"
+def cardphoto(url):
+    return f'<div class="ss-cardphoto"><img src="{url}" alt="" loading="lazy"></div>'
+def pickcard(ic,color,title,blurb,href,photo=None):
+    top=(cardphoto(photo)+f'<h3 style="margin:0 0 8px">{title}</h3>') if photo else f'<div style="display:flex;align-items:center;gap:16px"><div class="ss-tile ss-tile--{color}">{svg(ic,28,INKS[color])}</div><h3 style="margin:0">{title}</h3></div>'
+    return f'<a class="ss-card ss-card--hover" href="{href}" style="height:100%">{top}<p>{blurb}</p><span class="ss-arrowlink" style="margin-top:16px">See the fix {AR()}</span></a>'
+def prodcard(ic,color,title,blurb,href,photo=None):
+    top=cardphoto(photo) if photo else f'<div class="ss-tile ss-tile--{color}" style="margin-bottom:18px">{svg(ic,28,INKS[color])}</div>'
+    return f'<a class="ss-card ss-card--hover" href="{href}" style="height:100%">{top}<h3>{title}</h3><p>{blurb}</p><span class="ss-arrowlink" style="margin-top:16px">Learn more {AR()}</span></a>'
+def whycard(ic,title,body,photo=None):
+    top=cardphoto(photo) if photo else f'<div class="ss-tile ss-tile--navy">{svg(ic,27,"var(--navy-700)")}</div>'
+    return f'<div class="ss-why" style="height:100%">{top}<h3>{title}</h3><p>{body}</p></div>'
 def specialcard(ic,title,body):
     return f'<div class="ss-special" style="height:100%"><div class="ss-tile ss-tile--fill-navy">{svg(ic,24,"var(--sun-400)")}</div><h3>{title}</h3><p>{body}</p></div>'
 def offercard(ic,tag,t,b):
@@ -86,7 +92,7 @@ cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-da
 pages["about"]=[
  section(merge(navy(HERO_BLOB),pad(64,64)),[W("1/1",nz(hero,HERO_BLOBS))]),
  section(pad(78,78),[W("1/2",story),W("1/2",statcard)]),
- section(merge(bg(TINT),pad(78,78)),[W("1/1",head("What we stand for","A few things we never compromise on"))]+[W("1/4",whycard(*v)) for v in vals]),
+ section(merge(bg(TINT),pad(78,78)),[W("1/1",head("What we stand for","A few things we never compromise on"))]+[W("1/4",whycard(*v,photo=PLACEHOLDER)) for v in vals]),
  section(pad(78,78),[W("1/1",head("Reviews","What our neighbors say","Real homeowners across the Mahoning Valley and Western PA."))]+[W("1/3",reviewcard(*r)) for r in revs]),
  FWT(),
 ]
@@ -137,9 +143,9 @@ h_service_right=f'<div class="ss-citychips">{chips}</div>'
 h_cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free water test</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.025em;margin:0 0 10px">Ready to make your water perfectly clear?</h2><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:560px;margin:0 auto 26px;line-height:1.6">Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours.</p>'+btn("Get my free water test","/free-water-test/")+'</div>'
 pages["home"]=[
  section(merge(navy(HERO_BLOB),pad(70,78)),[W("1/2",h_hero_left),Wraw("1/2",[img_item(HIMG)])]),
- section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[W("1/3",pickcard(*p)) for p in probs]),
- section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w)) for w in whys]),
- section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[W("1/3",prodcard(*p)) for p in prods]),
+ section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[W("1/3",pickcard(*p,photo=PLACEHOLDER)) for p in probs]),
+ section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w,photo=PLACEHOLDER)) for w in whys]),
+ section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[W("1/3",prodcard(*p,photo=PLACEHOLDER)) for p in prods]),
  section(merge(bg(TINT),pad(0,80)),[W("1/1",f'<div style="text-align:center">{btn("See all products","/products/","primary")}</div>')]),
  section(merge(navy(HERO_BLOB),pad(78,78)),[W("1/2",h_service_left),W("1/2",h_service_right)]),
  section(merge(bg(SUN),pad(60,30)),[W("1/1",'<div class="ss-wrap"><div class="ss-eyebrow" style="color:var(--navy-700);margin-bottom:10px">Specials &amp; financing</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:36px;color:var(--navy-900);letter-spacing:-.02em;margin:0">Better water, made affordable</h2></div>')]),
@@ -151,6 +157,7 @@ os.makedirs("/home/user/savannasprings/bebuilder-imports",exist_ok=True)
 BLOB_SVGS={
  "ss-blobs-hero.svg":'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice"><circle cx="1330" cy="70" r="150" fill="#2f97d4" opacity="0.28"/><circle cx="660" cy="545" r="42" fill="#f5851f" opacity="0.85"/></svg>',
  "ss-blobs-fwt.svg":'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice"><circle cx="90" cy="540" r="160" fill="#2f97d4" opacity="0.20"/><circle cx="610" cy="70" r="46" fill="#f5851f" opacity="0.85"/></svg>',
+ "ss-card-placeholder.svg":'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8f3fb"/><stop offset="1" stop-color="#d2edfb"/></linearGradient></defs><rect width="400" height="250" fill="url(#g)"/><g fill="none" stroke="#49ade4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"><rect x="150" y="92" width="100" height="72" rx="8"/><circle cx="172" cy="116" r="9"/><path d="M150 150l28-24 22 18 18-14 32 28"/></g><text x="200" y="202" font-family="Figtree,Arial,sans-serif" font-size="15" fill="#2f7fb8" text-anchor="middle" opacity="0.85">Add a photo</text></svg>',
 }
 for fn,body in BLOB_SVGS.items():
     open(f"/home/user/savannasprings/bebuilder-imports/{fn}","w").write(body)
