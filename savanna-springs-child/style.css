@@ -316,6 +316,14 @@ body.ss-menu-open { overflow: hidden; }
 .ss-hero__photo { position: absolute; inset: 0; left: 48%; background-size: cover; background-position: center 30%; }
 .ss-hero__scrim { position: absolute; inset: 0;
   background: linear-gradient(90deg, var(--navy-700) 0%, var(--navy-700) 42%, rgba(31,43,110,.82) 56%, rgba(31,43,110,.2) 80%, rgba(31,43,110,0) 100%); }
+
+/* BeBuilder home hero: turn the section overlay into the same left-solid →
+   right-reveal navy gradient as the template hero (overlay div is only
+   present on the hero, which is the one home section with an overlay set). */
+body.home .mcb-background-overlay {
+  background: linear-gradient(90deg, #1f2b6e 0%, #1f2b6e 42%, rgba(31,43,110,.82) 56%, rgba(31,43,110,.2) 80%, rgba(31,43,110,0) 100%) !important;
+  opacity: 1 !important;
+}
 .ss-hero .ss-wrap { position: relative; padding-top: 80px; padding-bottom: 88px; }
 .ss-hero h1 { font-weight: 800; font-size: 58px; line-height: 1.05; letter-spacing: -.025em; color:#fff; max-width: 620px; }
 .ss-hero h1 .is-accent { color: var(--sun-400); }
