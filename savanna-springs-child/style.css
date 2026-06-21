@@ -323,7 +323,13 @@ body.ss-menu-open { overflow: hidden; }
 body.home .mcb-background-overlay {
   background: linear-gradient(90deg, #1f2b6e 0%, #1f2b6e 42%, rgba(31,43,110,.82) 56%, rgba(31,43,110,.2) 80%, rgba(31,43,110,0) 100%) !important;
   opacity: 1 !important;
+  overflow: hidden;
 }
+/* decorative blobs to match the template hero (spring top-left, orange accent) */
+body.home .mcb-background-overlay::before { content: ""; position: absolute; left: -120px; top: -140px;
+  width: 360px; height: 360px; border-radius: 50%; background: #2f97d4; opacity: .30; filter: blur(8px); pointer-events: none; }
+body.home .mcb-background-overlay::after { content: ""; position: absolute; right: 50%; bottom: 44px;
+  width: 110px; height: 110px; border-radius: 50%; background: #f5851f; opacity: .9; pointer-events: none; }
 .ss-hero .ss-wrap { position: relative; padding-top: 80px; padding-bottom: 88px; }
 .ss-hero h1 { font-weight: 800; font-size: 58px; line-height: 1.05; letter-spacing: -.025em; color:#fff; max-width: 620px; }
 .ss-hero h1 .is-accent { color: var(--sun-400); }
