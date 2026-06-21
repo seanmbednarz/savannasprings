@@ -544,6 +544,39 @@ add_filter( 'pre_get_document_title', 'ss_document_title', 20 );
 add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
 
+/* ------------------------------------------------------------------ *
+ *  SHORTCODES — drop the reusable designed sections into BeBuilder /
+ *  any page or post. They render the real (working) theme sections.
+ * ------------------------------------------------------------------ */
+function ss_sc_free_water_test( $atts ) {
+	$a = shortcode_atts( array(
+		'heading' => 'Get a free in-home water test',
+		'sub'     => 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.',
+		'zip'     => '',
+	), $atts );
+	ob_start();
+	ss_free_water_test( $a['heading'], $a['sub'], $a['zip'] );
+	return ob_get_clean();
+}
+add_shortcode( 'ss_free_water_test', 'ss_sc_free_water_test' );
+
+add_shortcode( 'ss_reviews', function ( $atts ) {
+	$a = shortcode_atts( array( 'count' => 3 ), $atts );
+	ob_start();
+	ss_reviews_block( intval( $a['count'] ) );
+	return ob_get_clean();
+} );
+add_shortcode( 'ss_trust', function () {
+	ob_start();
+	ss_trust_strip();
+	return ob_get_clean();
+} );
+add_shortcode( 'ss_how_it_works', function () {
+	ob_start();
+	ss_how_it_works();
+	return ob_get_clean();
+} );
+
 /* Register editable nav locations (header + footer columns). */
 function ss_register_menus() {
 	register_nav_menus( array(
