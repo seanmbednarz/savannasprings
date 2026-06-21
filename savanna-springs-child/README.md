@@ -25,10 +25,33 @@ Savanna Springs header and footer.
 | FAQ / About / Reviews / Gallery / Specials / Financing / Contact / Free Test | Page templates `template-*.php` | the matching WP page + template file |
 | Lead form submissions | `admin-post.php` handler → **Water Test Leads** + email | `functions.php` |
 
-The page **copy** for the data-driven archetypes lives in `inc/data.php`. The post you
-edit in WP admin controls the title/slug/URL (and an optional body); the rich layout copy
-is pulled from `inc/data.php` keyed by the post slug. Change a headline there and every
-matching page updates.
+## Editing everything with no code (recommended)
+
+Install the free **Advanced Custom Fields** plugin and the whole site becomes editable
+from the WordPress admin — no code required:
+
+- **Savanna Springs → Brand & Contact** — logo, phone, email, address, social links, and
+  **color pickers** for the navy / spring / sun / orange brand colors (retune the palette
+  with no CSS).
+- **Savanna Springs → Homepage** — hero headline + sub, the "why us" cards, the stats row,
+  product/service section headings, the specials cards, and the final call-to-action copy.
+- **Savanna Springs → Reviews & FAQ** — all testimonials and FAQ entries.
+- **Water Problems / Products / Service Areas** (each post) — every field on the page:
+  headlines, the problem/cause text, the diagnose→recommend→install steps, recommended
+  system, product models + feature lists + warranties, localized city copy, related links,
+  and more — all as labeled fields.
+- **Appearance → Menus** — the header nav and the three footer link columns are standard
+  **editable WordPress menus** (add / remove / reorder).
+
+**How to turn it on:** install ACF, then visit `/wp-admin/?ss_reseed=1` once. That loads all
+the design copy into the editable fields (it only fills empty fields, so it never
+overwrites anything you've already changed). After that, edit everything in the admin.
+
+> **No ACF? Still works.** Without the plugin, the site renders identically using the
+> built-in copy in `inc/data.php` — ACF only adds the no-code editing layer on top.
+
+The post you edit in WP admin always controls the title/slug/URL. The rich layout copy
+comes from the ACF fields (or, as a fallback, `inc/data.php`).
 
 ---
 
@@ -46,6 +69,10 @@ matching page updates.
    - flushes permalinks.
 5. Go to **Settings → Permalinks** and click **Save** once (belt-and-suspenders for the
    CPT URLs).
+6. **(Recommended)** Install the free **Advanced Custom Fields** plugin, then visit
+   `/wp-admin/?ss_reseed=1` to load all the copy into editable fields (see the next
+   section). The site works fine without it, but ACF is what makes everything no-code
+   editable.
 
 If you ever need to re-run the seeding (e.g. you deleted a page), visit
 `/wp-admin/?ss_reseed=1` while logged in as an administrator. Seeding is idempotent —

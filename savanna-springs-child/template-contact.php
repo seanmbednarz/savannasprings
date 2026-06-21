@@ -7,6 +7,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
+$brand   = ss_brand();
+$map_q   = rawurlencode( $brand['address'] );
 ?>
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
@@ -22,26 +24,26 @@ get_header();
 		<div>
 			<div class="ss-info-row">
 				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( 'mapPin', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></div>
-				<div><h4>Visit / mail</h4><p>875 River Road<br>Lowellville, OH 44436</p></div>
+				<div><h4>Visit / mail</h4><p><?php echo esc_html( $brand['address'] ); ?></p></div>
 			</div>
 			<div class="ss-info-row">
 				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( 'phone', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></div>
-				<div><h4>Call us</h4><p><a href="tel:18777501420">(877) 750-1420</a></p></div>
+				<div><h4>Call us</h4><p><a href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo esc_html( $brand['phone'] ); ?></a></p></div>
 			</div>
 			<div class="ss-info-row">
 				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( 'mail', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></div>
-				<div><h4>Email</h4><p><a href="mailto:info@savannaspringswater.com">info@savannaspringswater.com</a></p></div>
+				<div><h4>Email</h4><p><a href="mailto:<?php echo esc_attr( $brand['email'] ); ?>"><?php echo esc_html( $brand['email'] ); ?></a></p></div>
 			</div>
 			<div class="ss-info-row">
 				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( 'clock', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></div>
 				<div><h4>Hours</h4><p>Mon–Fri: 9am–5pm<br>Sat–Sun: By appointment</p></div>
 			</div>
 			<div style="display:flex;gap:12px;margin-top:8px">
-				<a class="ss-tile ss-tile--navy" href="#" aria-label="Facebook"><?php echo ss_icon( 'facebook', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></a>
-				<a class="ss-tile ss-tile--navy" href="#" aria-label="Instagram"><?php echo ss_icon( 'instagram', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></a>
+				<a class="ss-tile ss-tile--navy" href="<?php echo esc_url( $brand['facebook'] ? $brand['facebook'] : '#' ); ?>" aria-label="Facebook"><?php echo ss_icon( 'facebook', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></a>
+				<a class="ss-tile ss-tile--navy" href="<?php echo esc_url( $brand['instagram'] ? $brand['instagram'] : '#' ); ?>" aria-label="Instagram"><?php echo ss_icon( 'instagram', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></a>
 			</div>
 			<div style="margin-top:24px">
-				<iframe class="ss-map" loading="lazy" src="https://www.google.com/maps?q=875+River+Road,+Lowellville,+OH+44436&output=embed" title="Savanna Springs location"></iframe>
+				<iframe class="ss-map" loading="lazy" src="https://www.google.com/maps?q=<?php echo esc_attr( $map_q ); ?>&output=embed" title="Savanna Springs location"></iframe>
 			</div>
 		</div>
 

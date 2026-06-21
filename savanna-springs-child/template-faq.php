@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
-$faqs = ss_faqs();
+$faqs = ss_faqs_view();
 ?>
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
@@ -28,7 +28,12 @@ $faqs = ss_faqs();
 				</button>
 				<div class="ss-faq-a">
 					<p><?php echo esc_html( $f['a'] ); ?></p>
-					<a class="ss-arrowlink" href="<?php echo esc_url( ss_link( $f['link'][0] ) ); ?>"><?php echo esc_html( $f['link'][1] ); ?> <?php echo ss_icon( 'arrowRight', array( 'size' => 16, 'color' => 'var(--spring-700)' ) ); ?></a>
+					<?php
+					$faq_url   = ! empty( $f['link_url'] ) ? $f['link_url'] : ss_link( $f['link'][0] );
+					$faq_label = isset( $f['link'][1] ) ? $f['link'][1] : '';
+					if ( $faq_label ) : ?>
+						<a class="ss-arrowlink" href="<?php echo esc_url( $faq_url ); ?>"><?php echo esc_html( $faq_label ); ?> <?php echo ss_icon( 'arrowRight', array( 'size' => 16, 'color' => 'var(--spring-700)' ) ); ?></a>
+					<?php endif; ?>
 				</div>
 			</div>
 		<?php endforeach; ?>

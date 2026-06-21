@@ -8,9 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-$p = ss_current_record( 'ss_product' );
+$p = ss_product_view( get_the_ID() );
 if ( ! $p ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></section>'; get_footer(); return; }
-$problems = ss_problems();
 ?>
 
 <!-- HERO -->
@@ -125,8 +124,8 @@ $problems = ss_problems();
 		<div class="ss-wrap" style="padding-top:56px;padding-bottom:56px">
 			<h2 style="font-size:24px;margin-bottom:24px">Problems this solves</h2>
 			<div class="ss-grid ss-grid-3">
-				<?php foreach ( $p['solves'] as $rk ) : if ( empty( $problems[ $rk ] ) ) { continue; } $r = $problems[ $rk ]; ?>
-					<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $rk ) ); ?>">
+				<?php foreach ( $p['solves_items'] as $r ) : ?>
+					<a class="ss-card ss-card--hover" href="<?php echo esc_url( $r['url'] ); ?>">
 						<div class="ss-relcard">
 							<div class="ss-tile ss-tile--<?php echo esc_attr( $r['color'] ); ?>"><?php echo ss_icon( $r['icon'], array( 'size' => 24 ) ); ?></div>
 							<div><h3><?php echo esc_html( $r['label'] ); ?></h3><span class="ss-arrowlink" style="font-size:13.5px;margin-top:4px">See the fix <?php echo ss_icon( 'arrowRight', array( 'size' => 14, 'color' => 'var(--spring-700)' ) ); ?></span></div>

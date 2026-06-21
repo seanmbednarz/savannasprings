@@ -119,6 +119,26 @@ function ss_link( $key ) {
 	return '#';
 }
 
+/**
+ * Return nav items for a menu location, using the editable WP menu if one is
+ * assigned, otherwise the supplied default list. Items: [ 'label', 'url' ].
+ */
+function ss_nav_items( $location, $default ) {
+	$locations = function_exists( 'get_nav_menu_locations' ) ? get_nav_menu_locations() : array();
+	if ( ! empty( $locations[ $location ] ) ) {
+		$items = wp_get_nav_menu_items( $locations[ $location ] );
+		if ( $items ) {
+			$out = array();
+			foreach ( $items as $i ) {
+				if ( (int) $i->menu_item_parent !== 0 ) { continue; }
+				$out[] = array( 'label' => $i->title, 'url' => $i->url );
+			}
+			if ( $out ) { return $out; }
+		}
+	}
+	return $default;
+}
+
 /* ------------------------------------------------------------------ *
  *  SMALL UI PARTIALS
  * ------------------------------------------------------------------ */
@@ -197,7 +217,7 @@ function ss_problem_picker( $eyebrow = 'Start with your problem', $title = "What
 
 /* Reviews block */
 function ss_reviews_block( $count = 3, $eyebrow = 'Reviews', $title = 'What our neighbors say', $sub = 'Real homeowners across the Mahoning Valley and Western PA. Live Google reviews — here are a few favorites.' ) {
-	$items = array_slice( ss_reviews(), 0, $count );
+	$items = array_slice( ss_reviews_view(), 0, $count );
 	echo '<section class="ss-wrap ss-section">';
 	ss_section_head( $eyebrow, $title, $sub );
 	echo '<div class="ss-grid ss-grid-3" style="margin-top:44px">';
@@ -225,6 +245,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 	);
 	$concerns = array( 'Hard water', 'Contaminants', 'Odors', 'Staining', 'White deposits', 'Bad taste', 'Other' );
 	$sources  = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
+	$brand    = ss_brand();
 	?>
 	<section class="ss-fwt">
 		<div class="ss-blob ss-blob--spring" style="width:320px;height:320px;opacity:.22;filter:blur(6px);left:-120px;bottom:-120px"></div>
@@ -242,7 +263,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 						</div>
 					<?php endforeach; ?>
 				</div>
-				<div class="ss-callpill"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> <span>Prefer to call? <a href="tel:18777501420">(877) 750-1420</a></span></div>
+				<div class="ss-callpill"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> <span>Prefer to call? <a href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo esc_html( $brand['phone'] ); ?></a></span></div>
 			</div>
 
 			<div class="ss-formcard">

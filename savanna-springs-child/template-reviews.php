@@ -7,7 +7,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
-$reviews = ss_reviews();
+$reviews = ss_reviews_view();
 ?>
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>

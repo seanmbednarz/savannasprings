@@ -8,9 +8,8 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-$p = ss_current_record( 'ss_problem' );
+$p = ss_problem_view( get_the_ID() );
 if ( ! $p ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></section>'; get_footer(); return; }
-$problems = ss_problems();
 ?>
 
 <!-- HERO -->
@@ -89,7 +88,7 @@ $problems = ss_problems();
 					<span class="ss-tagbadge"><?php echo ss_icon( 'check', array( 'size' => 13, 'color' => 'var(--sun-400)', 'stroke' => 2.6 ) ); ?> <?php echo esc_html( $b ); ?></span>
 				<?php endforeach; ?>
 			</div>
-			<a class="ss-btn ss-btn--accent" href="<?php echo esc_url( ss_link( $p['product']['key'] ) ); ?>">Explore this solution <?php echo ss_icon( 'arrowRight', array( 'size' => 18 ) ); ?></a>
+			<a class="ss-btn ss-btn--accent" href="<?php echo esc_url( $p['product']['url'] ); ?>">Explore this solution <?php echo ss_icon( 'arrowRight', array( 'size' => 18 ) ); ?></a>
 		</div>
 		<div class="ss-spotlight__visual">
 			<div class="ss-spotlight__device"><?php echo ss_icon( $p['icon'], array( 'size' => 56, 'color' => 'var(--spring-300)' ) ); ?><span>MADE IN USA</span></div>
@@ -102,8 +101,8 @@ $problems = ss_problems();
 	<div class="ss-wrap" style="padding-top:56px;padding-bottom:56px">
 		<h2 style="font-size:24px;margin-bottom:24px">Other water problems we solve</h2>
 		<div class="ss-grid ss-grid-3">
-			<?php foreach ( $p['related'] as $rk ) : if ( empty( $problems[ $rk ] ) ) { continue; } $r = $problems[ $rk ]; ?>
-				<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $rk ) ); ?>">
+			<?php foreach ( $p['related_items'] as $r ) : ?>
+				<a class="ss-card ss-card--hover" href="<?php echo esc_url( $r['url'] ); ?>">
 					<div class="ss-relcard">
 						<div class="ss-tile ss-tile--<?php echo esc_attr( $r['color'] ); ?>"><?php echo ss_icon( $r['icon'], array( 'size' => 24 ) ); ?></div>
 						<div>

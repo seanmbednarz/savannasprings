@@ -8,13 +8,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-$c = ss_current_record( 'ss_city' );
+$c = ss_city_view( get_the_ID() );
 if ( ! $c ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></section>'; get_footer(); return; }
-$problems = ss_problems();
-$products = ss_products();
-$cities   = ss_cities();
-$services = ss_city_services();
-$svc_keys = isset( $services[ $c['type'] ] ) ? $services[ $c['type'] ] : array( 'Softeners', 'RO', 'WholeHouse', 'Salt' );
+$cities = ss_cities();
 ?>
 
 <!-- HERO -->
@@ -62,8 +58,8 @@ $svc_keys = isset( $services[ $c['type'] ] ) ? $services[ $c['type'] ] : array( 
 	<div class="ss-wrap" style="padding-top:56px;padding-bottom:56px">
 		<h2 style="font-size:28px;margin-bottom:24px">What we fix in <?php echo esc_html( $c['city'] ); ?></h2>
 		<div class="ss-grid ss-grid-3">
-			<?php foreach ( array_slice( $c['problems'], 0, 6 ) as $rk ) : if ( empty( $problems[ $rk ] ) ) { continue; } $r = $problems[ $rk ]; ?>
-				<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $rk ) ); ?>">
+			<?php foreach ( $c['problem_items'] as $r ) : ?>
+				<a class="ss-card ss-card--hover" href="<?php echo esc_url( $r['url'] ); ?>">
 					<div class="ss-relcard">
 						<div class="ss-tile ss-tile--<?php echo esc_attr( $r['color'] ); ?>"><?php echo ss_icon( $r['icon'], array( 'size' => 24 ) ); ?></div>
 						<div><h3><?php echo esc_html( $r['label'] ); ?></h3><span class="ss-arrowlink" style="font-size:13.5px;margin-top:4px">See the fix <?php echo ss_icon( 'arrowRight', array( 'size' => 14, 'color' => 'var(--spring-700)' ) ); ?></span></div>
@@ -78,8 +74,8 @@ $svc_keys = isset( $services[ $c['type'] ] ) ? $services[ $c['type'] ] : array( 
 <section class="ss-wrap ss-section">
 	<h2 style="font-size:28px;margin-bottom:24px">Services in <?php echo esc_html( $c['city'] ); ?></h2>
 	<div class="ss-grid ss-grid-4">
-		<?php foreach ( $svc_keys as $pk ) : if ( empty( $products[ $pk ] ) ) { continue; } $pr = $products[ $pk ]; ?>
-			<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $pk ) ); ?>">
+		<?php foreach ( $c['service_items'] as $pr ) : ?>
+			<a class="ss-card ss-card--hover" href="<?php echo esc_url( $pr['url'] ); ?>">
 				<div class="ss-tile ss-tile--<?php echo esc_attr( $pr['color'] ); ?>" style="margin-bottom:14px"><?php echo ss_icon( $pr['icon'], array( 'size' => 26 ) ); ?></div>
 				<h3 style="font-size:17px"><?php echo esc_html( $pr['label'] ); ?></h3>
 			</a>
