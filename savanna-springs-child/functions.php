@@ -560,6 +560,14 @@ function ss_sc_free_water_test( $atts ) {
 }
 add_shortcode( 'ss_free_water_test', 'ss_sc_free_water_test' );
 
+/* Just the white form card (drop into your own BeBuilder column). */
+add_shortcode( 'ss_water_test_form', function ( $atts ) {
+	$a = shortcode_atts( array( 'zip' => '' ), $atts );
+	ob_start();
+	ss_water_test_form( $a['zip'] );
+	return ob_get_clean();
+} );
+
 add_shortcode( 'ss_reviews', function ( $atts ) {
 	$a = shortcode_atts( array( 'count' => 3 ), $atts );
 	ob_start();

@@ -260,6 +260,52 @@ function ss_reviews_block( $count = 3, $eyebrow = 'Reviews', $title = 'What our 
 }
 
 /* Free Water Test section (reusable). */
+/* Free Water Test — just the white form card (reusable / shortcode). */
+function ss_water_test_form( $default_zip = '' ) {
+	$concerns = array( 'Hard water', 'Contaminants', 'Odors', 'Staining', 'White deposits', 'Bad taste', 'Other' );
+	$sources  = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
+	?>
+	<div class="ss-formcard">
+		<div class="ss-form-success is-hidden" data-ss-success>
+			<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
+			<h3>Request received!</h3>
+			<p>Thanks — we’ll call within 24 business hours to schedule your free water test.</p>
+			<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Submit another request</button>
+		</div>
+		<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+			<input type="hidden" name="action" value="ss_free_water_test">
+			<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_fwt', 'ss_fwt_nonce' ); } ?>
+			<h3>Book your free test</h3>
+			<p class="ss-form-sub">It only takes a minute.</p>
+			<div class="ss-form-rows">
+				<label class="ss-field"><label>Full name</label><input class="ss-input" type="text" name="name" placeholder="Jane Smith" required></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+					<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512" value="<?php echo esc_attr( $default_zip ); ?>" required></label>
+				</div>
+				<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+				<label class="ss-field"><label>I'm concerned about</label>
+					<select class="ss-select" name="concern"><option value="">Choose one</option>
+						<?php foreach ( $concerns as $c ) { echo '<option>' . esc_html( $c ) . '</option>'; } ?>
+					</select>
+				</label>
+				<label class="ss-field"><label>Describe your water concerns</label><textarea class="ss-textarea" name="notes" placeholder="Tell us what you're noticing — smell, stains, taste, spots…"></textarea></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>How did you find us?</label>
+						<select class="ss-select" name="source"><option value="">Select</option>
+							<?php foreach ( $sources as $s ) { echo '<option>' . esc_html( $s ) . '</option>'; } ?>
+						</select>
+					</label>
+					<label class="ss-field"><label>Coupon code (optional)</label><input class="ss-input" type="text" name="coupon" placeholder="e.g. CLEAR25"></label>
+				</div>
+				<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Book my free water test <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
+				<p class="ss-form-fine">No obligation. We'll never share your information.</p>
+			</div>
+		</form>
+	</div>
+	<?php
+}
+
 function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.', $default_zip = '' ) {
 	$perks = array(
 		array( 'search', 'On-site water analysis', 'A licensed operator tests hardness, iron, pH and chlorine right at your tap.' ),
@@ -270,9 +316,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 		$rows = get_field( 'fwt_perks', 'option' );
 		if ( is_array( $rows ) && $rows ) { $perks = array_map( function ( $r ) { return array( $r['icon'] ?? 'search', $r['title'] ?? '', $r['body'] ?? '' ); }, $rows ); }
 	}
-	$concerns = array( 'Hard water', 'Contaminants', 'Odors', 'Staining', 'White deposits', 'Bad taste', 'Other' );
-	$sources  = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
-	$brand    = ss_brand();
+	$brand = ss_brand();
 	?>
 	<section class="ss-fwt">
 		<div class="ss-blob ss-blob--spring" style="width:320px;height:320px;opacity:.22;filter:blur(6px);left:-120px;bottom:-120px"></div>
@@ -293,44 +337,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 				<div class="ss-callpill"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> <span>Prefer to call? <a href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo esc_html( $brand['phone'] ); ?></a></span></div>
 			</div>
 
-			<div class="ss-formcard">
-				<div class="ss-form-success is-hidden" data-ss-success>
-					<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
-					<h3>Request received!</h3>
-					<p>Thanks — we’ll call within 24 business hours to schedule your free water test.</p>
-					<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Submit another request</button>
-				</div>
-				<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
-					<input type="hidden" name="action" value="ss_free_water_test">
-					<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_fwt', 'ss_fwt_nonce' ); } ?>
-					<h3>Book your free test</h3>
-					<p class="ss-form-sub">It only takes a minute.</p>
-					<div class="ss-form-rows">
-						<label class="ss-field"><label>Full name</label><input class="ss-input" type="text" name="name" placeholder="Jane Smith" required></label>
-						<div class="ss-form-2">
-							<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
-							<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512" value="<?php echo esc_attr( $default_zip ); ?>" required></label>
-						</div>
-						<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
-						<label class="ss-field"><label>I'm concerned about</label>
-							<select class="ss-select" name="concern"><option value="">Choose one</option>
-								<?php foreach ( $concerns as $c ) { echo '<option>' . esc_html( $c ) . '</option>'; } ?>
-							</select>
-						</label>
-						<label class="ss-field"><label>Describe your water concerns</label><textarea class="ss-textarea" name="notes" placeholder="Tell us what you're noticing — smell, stains, taste, spots…"></textarea></label>
-						<div class="ss-form-2">
-							<label class="ss-field"><label>How did you find us?</label>
-								<select class="ss-select" name="source"><option value="">Select</option>
-									<?php foreach ( $sources as $s ) { echo '<option>' . esc_html( $s ) . '</option>'; } ?>
-								</select>
-							</label>
-							<label class="ss-field"><label>Coupon code (optional)</label><input class="ss-input" type="text" name="coupon" placeholder="e.g. CLEAR25"></label>
-						</div>
-						<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Book my free water test <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
-						<p class="ss-form-fine">No obligation. We'll never share your information.</p>
-					</div>
-				</form>
-			</div>
+			<?php ss_water_test_form( $default_zip ); ?>
 		</div>
 	</section>
 	<?php
