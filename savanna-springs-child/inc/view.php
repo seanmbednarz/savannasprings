@@ -13,6 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /** Is ACF available? */
 function ss_acf_active() { return function_exists( 'get_field' ); }
 
+/** Current page field value (reads the page being viewed) with default fallback. */
+function ss_pf( $name, $default = '' ) {
+	return ss_get( get_the_ID(), $name, $default );
+}
+
+/** Current page repeater -> mapped array, or the supplied default list. */
+function ss_pf_repeater( $name, $default, $mapper ) {
+	$rows = ss_get( get_the_ID(), $name, null );
+	if ( ss_acf_active() && is_array( $rows ) && $rows ) { return array_map( $mapper, $rows ); }
+	return $default;
+}
+
 /** Option value (ACF options page) with default fallback. */
 function ss_option( $name, $default = '' ) {
 	if ( ss_acf_active() ) {

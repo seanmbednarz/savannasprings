@@ -12,9 +12,9 @@ $faqs = ss_faqs_view();
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
 	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center;position:relative">
-		<div class="ss-eyebrow is-dark" style="margin-bottom:12px">FAQ</div>
-		<h1 style="font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em">Water questions, answered</h1>
-		<p style="font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6">Hard water, odor, salt, septic systems and more. Still not sure? A free in-home test settles it.</p>
+		<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( ss_pf( 'faq_eyebrow', 'FAQ' ) ); ?></div>
+		<h1 style="font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em"><?php echo esc_html( ss_pf( 'faq_h1', 'Water questions, answered' ) ); ?></h1>
+		<p style="font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6"><?php echo esc_html( ss_pf( 'faq_sub', 'Hard water, odor, salt, septic systems and more. Still not sure? A free in-home test settles it.' ) ); ?></p>
 	</div>
 </section>
 
@@ -41,8 +41,8 @@ $faqs = ss_faqs_view();
 
 	<div class="ss-cta-card" style="margin-top:40px">
 		<div>
-			<h2>Still have a question?</h2>
-			<p>Call (877) 750-1420 or book a free in-home water test.</p>
+			<h2><?php echo esc_html( ss_pf( 'faq_cta_title', 'Still have a question?' ) ); ?></h2>
+			<p><?php echo esc_html( ss_pf( 'faq_cta_body', 'Call (877) 750-1420 or book a free in-home water test.' ) ); ?></p>
 		</div>
 		<a class="ss-btn ss-btn--accent ss-btn--lg" href="<?php echo esc_url( ss_link( 'FreeTest' ) ); ?>">Get my free water test <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></a>
 	</div>

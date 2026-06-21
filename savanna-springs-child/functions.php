@@ -258,6 +258,107 @@ function ss_seed_acf() {
 		ss_seed_set( $id, 'problems', ss_ids_from_keys( array_slice( $rec['problems'], 0, 6 ), 'ss_problem' ) );
 	}
 
+	// Standalone page fields.
+	$pg = function ( $slug ) { $p = get_page_by_path( $slug ); return $p ? $p->ID : 0; };
+
+	if ( $id = $pg( 'about' ) ) {
+		ss_seed_set( $id, 'about_eyebrow', 'About us' );
+		ss_seed_set( $id, 'about_h1', 'Your local, family-owned water team' );
+		ss_seed_set( $id, 'about_sub', 'Since 2008, Savanna Springs has helped families and businesses across the Mahoning Valley and Western PA get better water — diagnosed honestly and fixed for good.' );
+		ss_seed_set( $id, 'about_story_eyebrow', 'Our story' );
+		ss_seed_set( $id, 'about_story_title', 'Named after our daughter, run like a family' );
+		ss_seed_set( $id, 'about_story', array(
+			array( 'paragraph' => 'Savanna Springs Water Solutions started in 2008 with a simple idea: treat people honestly, fix the real problem, and stand behind the work. We named the company after our daughter, Savannah — and we’ve treated every customer like part of the family ever since.' ),
+			array( 'paragraph' => 'Today we’re a proud Water-Right® authorized dealer with Ohio EPA-licensed operators and more than 35 years of combined experience. We sell, service and rent custom-built, American-made systems — and we service all makes and models, whoever installed them.' ),
+		) );
+		ss_seed_set( $id, 'about_stats', array(
+			array( 'number' => '2008', 'label' => 'Family owned since' ), array( 'number' => '35+ yrs', 'label' => 'Combined experience' ),
+			array( 'number' => '20-yr', 'label' => 'Warranties available' ), array( 'number' => 'EPA', 'label' => 'Licensed operators' ),
+		) );
+		ss_seed_set( $id, 'about_values_eyebrow', 'What we stand for' );
+		ss_seed_set( $id, 'about_values_title', 'A few things we never compromise on' );
+		ss_seed_set( $id, 'about_values', array(
+			array( 'icon' => 'home', 'title' => 'Family first', 'body' => 'Named after our daughter Savannah. We treat your home like our own — honest advice, no pressure.' ),
+			array( 'icon' => 'award', 'title' => 'Built to last', 'body' => 'A proud Water-Right® authorized dealer installing American-made, custom-built systems.' ),
+			array( 'icon' => 'shieldCheck', 'title' => 'Licensed & certified', 'body' => 'Ohio EPA-licensed operators, WQA certified, with 35+ years of combined experience.' ),
+			array( 'icon' => 'wrench', 'title' => 'Here for the long haul', 'body' => 'We service all makes and models, deliver salt and water, and stand behind our work.' ),
+		) );
+	}
+
+	if ( $id = $pg( 'specials' ) ) {
+		ss_seed_set( $id, 'specials_eyebrow', 'Specials & financing' );
+		ss_seed_set( $id, 'specials_h1', 'Better water, made affordable' );
+		ss_seed_set( $id, 'specials_sub', 'Current offers to lower the cost of getting your water right. Ask about them on your free in-home water test.' );
+		ss_seed_set( $id, 'specials_offers', array(
+			array( 'icon' => 'refresh', 'tag' => 'On softener rentals', 'title' => 'One month free rent', 'body' => 'Rent an Impression Plus® softener and get your first month of rent free.' ),
+			array( 'icon' => 'truck', 'tag' => 'With softener purchase', 'title' => 'One year of free salt', 'body' => 'Buy a qualifying Water-Right® softener and we’ll deliver a year of salt — free.' ),
+			array( 'icon' => 'droplet', 'tag' => 'On RO rentals', 'title' => 'RO for pennies a day', 'body' => 'Bottle-quality reverse-osmosis drinking water — one month free for a limited time.' ),
+			array( 'icon' => 'dollarSign', 'tag' => 'Financing available', 'title' => '6 months no interest', 'body' => 'Flexible financing to spread the cost of better water across your budget.' ),
+		) );
+		ss_seed_set( $id, 'specials_cta_title', 'Not sure which is right for you?' );
+		ss_seed_set( $id, 'specials_cta_body', 'Start with a free in-home water test — we’ll recommend the right system and the best offer for it.' );
+	}
+
+	if ( $id = $pg( 'financing' ) ) {
+		ss_seed_set( $id, 'financing_eyebrow', 'Financing' );
+		ss_seed_set( $id, 'financing_h1', 'Flexible ways to pay' );
+		ss_seed_set( $id, 'financing_sub', 'Better water shouldn’t wait for the perfect month. Choose the option that fits your budget — including 6 months no interest.' );
+		ss_seed_set( $id, 'financing_tiers', array(
+			array( 'tag' => '6 months', 'title' => 'No interest', 'body' => 'Pay it off within 6 months and pay zero interest. Great for getting started now.' ),
+			array( 'tag' => '12 months', 'title' => 'Low monthly', 'body' => 'Spread the cost across a year with affordable monthly payments.' ),
+			array( 'tag' => '24 months', 'title' => 'Special financing', 'body' => 'Extended terms on qualifying systems — ask about current promotions.' ),
+			array( 'tag' => 'Rental', 'title' => 'One month free', 'body' => 'Not ready to buy? Rent a softener or RO system with your first month free.' ),
+			array( 'tag' => 'Custom', 'title' => 'Built to budget', 'body' => 'We right-size the system to your home and your budget — no overselling.' ),
+		) );
+		ss_seed_set( $id, 'financing_apply_title', 'Ready to apply?' );
+		ss_seed_set( $id, 'financing_apply_body', 'Get pre-qualified or ask about terms on your free in-home water test.' );
+	}
+
+	if ( $id = $pg( 'gallery' ) ) {
+		ss_seed_set( $id, 'gallery_eyebrow', 'Gallery' );
+		ss_seed_set( $id, 'gallery_h1', 'Before & after, around the Valley' );
+		ss_seed_set( $id, 'gallery_sub', 'Real homes, real water problems, real fixes. Swap these placeholders for your own customer photos.' );
+		ss_seed_set( $id, 'gallery_groups', array(
+			array( 'title' => 'Rust & iron staining', 'icon' => 'flame', 'color' => 'orange', 'items' => array(
+				array( 'label' => 'Stained tub → spotless' ), array( 'label' => 'Orange toilet tank → clear' ), array( 'label' => 'Rusty laundry → bright' ) ) ),
+			array( 'title' => 'Hard water & scale', 'icon' => 'droplet', 'color' => 'water', 'items' => array(
+				array( 'label' => 'Crusty faucet → clean' ), array( 'label' => 'Spotty glassware → spot-free' ), array( 'label' => 'Scaled heater element → protected' ) ) ),
+			array( 'title' => 'Well water installs', 'icon' => 'home', 'color' => 'water', 'items' => array(
+				array( 'label' => 'Sanitizer Plus install' ), array( 'label' => 'Basement system tidy-up' ), array( 'label' => 'Twin-tank setup' ) ) ),
+		) );
+	}
+
+	if ( $id = $pg( 'contact' ) ) {
+		ss_seed_set( $id, 'contact_eyebrow', 'Contact' );
+		ss_seed_set( $id, 'contact_h1', 'Let’s talk about your water' );
+		ss_seed_set( $id, 'contact_sub', 'Call, email, or send a message — and don’t forget you can book a free in-home water test any time.' );
+		ss_seed_set( $id, 'contact_hours', "Mon–Fri: 9am–5pm\nSat–Sun: By appointment" );
+		ss_seed_set( $id, 'contact_form_heading', 'Send us a message' );
+		ss_seed_set( $id, 'contact_form_sub', 'We’ll reply within 24 business hours.' );
+	}
+
+	if ( $id = $pg( 'reviews' ) ) {
+		ss_seed_set( $id, 'reviews_eyebrow', 'Reviews' );
+		ss_seed_set( $id, 'reviews_h1', 'What our neighbors say' );
+		ss_seed_set( $id, 'reviews_sub', 'Real homeowners across the Mahoning Valley and Western PA. We let our work — and our customers — do the talking.' );
+		ss_seed_set( $id, 'reviews_embed_title', 'See all our Google reviews' );
+		ss_seed_set( $id, 'reviews_embed_body', 'Drop your Elfsight Google Reviews widget here to show live, up-to-date ratings.' );
+	}
+
+	if ( $id = $pg( 'faq' ) ) {
+		ss_seed_set( $id, 'faq_eyebrow', 'FAQ' );
+		ss_seed_set( $id, 'faq_h1', 'Water questions, answered' );
+		ss_seed_set( $id, 'faq_sub', 'Hard water, odor, salt, septic systems and more. Still not sure? A free in-home test settles it.' );
+		ss_seed_set( $id, 'faq_cta_title', 'Still have a question?' );
+		ss_seed_set( $id, 'faq_cta_body', 'Call (877) 750-1420 or book a free in-home water test.' );
+	}
+
+	if ( $id = $pg( 'free-water-test' ) ) {
+		ss_seed_set( $id, 'freetest_eyebrow', 'No cost · No pressure' );
+		ss_seed_set( $id, 'freetest_h1', 'Your free in-home water test' );
+		ss_seed_set( $id, 'freetest_sub', "Find out exactly what's in your water. A licensed operator tests it on-site and recommends the right fix — with zero obligation." );
+	}
+
 	// Brand options.
 	ss_seed_set( 'option', 'phone_display', '(877) 750-1420' );
 	ss_seed_set( 'option', 'phone_tel', '18777501420' );

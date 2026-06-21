@@ -13,9 +13,9 @@ $map_q   = rawurlencode( $brand['address'] );
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
 	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center;position:relative">
-		<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Contact</div>
-		<h1 style="font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em">Let’s talk about your water</h1>
-		<p style="font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6">Call, email, or send a message — and don’t forget you can book a free in-home water test any time.</p>
+		<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( ss_pf( 'contact_eyebrow', 'Contact' ) ); ?></div>
+		<h1 style="font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em"><?php echo esc_html( ss_pf( 'contact_h1', 'Let’s talk about your water' ) ); ?></h1>
+		<p style="font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6"><?php echo esc_html( ss_pf( 'contact_sub', 'Call, email, or send a message — and don’t forget you can book a free in-home water test any time.' ) ); ?></p>
 	</div>
 </section>
 
@@ -36,7 +36,7 @@ $map_q   = rawurlencode( $brand['address'] );
 			</div>
 			<div class="ss-info-row">
 				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( 'clock', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></div>
-				<div><h4>Hours</h4><p>Mon–Fri: 9am–5pm<br>Sat–Sun: By appointment</p></div>
+				<div><h4>Hours</h4><p><?php echo wp_kses_post( nl2br( ss_pf( 'contact_hours', "Mon–Fri: 9am–5pm\nSat–Sun: By appointment" ) ) ); ?></p></div>
 			</div>
 			<div style="display:flex;gap:12px;margin-top:8px">
 				<a class="ss-tile ss-tile--navy" href="<?php echo esc_url( $brand['facebook'] ? $brand['facebook'] : '#' ); ?>" aria-label="Facebook"><?php echo ss_icon( 'facebook', array( 'size' => 22, 'color' => 'var(--navy-700)' ) ); ?></a>
@@ -57,8 +57,8 @@ $map_q   = rawurlencode( $brand['address'] );
 			<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
 				<input type="hidden" name="action" value="ss_free_water_test">
 				<?php wp_nonce_field( 'ss_fwt', 'ss_fwt_nonce' ); ?>
-				<h3>Send us a message</h3>
-				<p class="ss-form-sub">We’ll reply within 24 business hours.</p>
+				<h3><?php echo esc_html( ss_pf( 'contact_form_heading', 'Send us a message' ) ); ?></h3>
+				<p class="ss-form-sub"><?php echo esc_html( ss_pf( 'contact_form_sub', 'We’ll reply within 24 business hours.' ) ); ?></p>
 				<div class="ss-form-rows">
 					<label class="ss-field"><label>Full name</label><input class="ss-input" type="text" name="name" placeholder="Jane Smith" required></label>
 					<div class="ss-form-2">

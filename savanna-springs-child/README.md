@@ -40,8 +40,18 @@ from the WordPress admin — no code required:
   headlines, the problem/cause text, the diagnose→recommend→install steps, recommended
   system, product models + feature lists + warranties, localized city copy, related links,
   and more — all as labeled fields.
+- **About / Specials / Financing / Gallery / Contact / Reviews / FAQ / Free Water Test**
+  (each page) — open the page in WP admin and scroll below the editor: every headline,
+  paragraph, card, stat, offer, tier, gallery photo, hours, and CTA is a labeled field.
+  (The Reviews testimonials and FAQ questions are shared lists, edited under **Savanna
+  Springs → Reviews & FAQ**.)
 - **Appearance → Menus** — the header nav and the three footer link columns are standard
   **editable WordPress menus** (add / remove / reorder).
+
+> These pages are rendered by the theme (not the block editor), so the editing happens in
+> the **field panels below the editor**, not the Gutenberg/BeBuilder canvas. That's what
+> keeps them pixel-perfect. Build any *new* free-form pages in BeBuilder as usual — they
+> render inside the Savanna Springs header/footer.
 
 **How to turn it on:** install ACF, then visit `/wp-admin/?ss_reseed=1` once. That loads all
 the design copy into the editable fields (it only fills empty fields, so it never

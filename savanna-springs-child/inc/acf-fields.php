@@ -20,6 +20,18 @@ function ss_acf_color_choices() {
 	return array( 'water' => 'Spring blue', 'navy' => 'Navy', 'sun' => 'Sun yellow', 'orange' => 'Duck orange', 'green' => 'Green' );
 }
 
+/** Standard hero fields (eyebrow / heading / sub) for a page field group. */
+function ss_acf_hero( $prefix ) {
+	return array(
+		array( 'key' => "f_{$prefix}_eyebrow", 'label' => 'Eyebrow', 'name' => "{$prefix}_eyebrow", 'type' => 'text' ),
+		array( 'key' => "f_{$prefix}_h1", 'label' => 'Heading', 'name' => "{$prefix}_h1", 'type' => 'text' ),
+		array( 'key' => "f_{$prefix}_sub", 'label' => 'Sub-text', 'name' => "{$prefix}_sub", 'type' => 'textarea', 'rows' => 3 ),
+	);
+}
+function ss_acf_page_location( $template ) {
+	return array( array( array( 'param' => 'page_template', 'operator' => '==', 'value' => $template ) ) );
+}
+
 /* ------------------------------------------------------------------ *
  *  OPTIONS PAGES
  * ------------------------------------------------------------------ */
@@ -218,5 +230,123 @@ add_action( 'acf/init', function () {
 			) ),
 		),
 		'location' => array( array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_city' ) ) ),
+	) );
+} );
+
+/* ------------------------------------------------------------------ *
+ *  PAGE FIELD GROUPS  (standalone content pages)
+ * ------------------------------------------------------------------ */
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) { return; }
+
+	/* About */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_about', 'title' => 'About page',
+		'fields' => array_merge( ss_acf_hero( 'about' ), array(
+			array( 'key' => 'f_about_story_eyebrow', 'label' => 'Story eyebrow', 'name' => 'about_story_eyebrow', 'type' => 'text' ),
+			array( 'key' => 'f_about_story_title', 'label' => 'Story title', 'name' => 'about_story_title', 'type' => 'text' ),
+			array( 'key' => 'f_about_story', 'label' => 'Story paragraphs', 'name' => 'about_story', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add paragraph', 'sub_fields' => array(
+				array( 'key' => 'f_about_story_p', 'label' => 'Paragraph', 'name' => 'paragraph', 'type' => 'textarea', 'rows' => 3 ),
+			) ),
+			array( 'key' => 'f_about_stats', 'label' => 'Stats', 'name' => 'about_stats', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add stat', 'sub_fields' => array(
+				array( 'key' => 'f_about_stat_n', 'label' => 'Number', 'name' => 'number', 'type' => 'text' ),
+				array( 'key' => 'f_about_stat_l', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			) ),
+			array( 'key' => 'f_about_values_eyebrow', 'label' => 'Values eyebrow', 'name' => 'about_values_eyebrow', 'type' => 'text' ),
+			array( 'key' => 'f_about_values_title', 'label' => 'Values title', 'name' => 'about_values_title', 'type' => 'text' ),
+			array( 'key' => 'f_about_values', 'label' => 'Value cards', 'name' => 'about_values', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add value', 'sub_fields' => array(
+				array( 'key' => 'f_about_val_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_about_val_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_about_val_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+			) ),
+		) ),
+		'location' => ss_acf_page_location( 'template-about.php' ),
+	) );
+
+	/* Specials */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_specials', 'title' => 'Specials page',
+		'fields' => array_merge( ss_acf_hero( 'specials' ), array(
+			array( 'key' => 'f_specials_offers', 'label' => 'Offers', 'name' => 'specials_offers', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add offer', 'sub_fields' => array(
+				array( 'key' => 'f_sp_o_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_sp_o_tag', 'label' => 'Tag', 'name' => 'tag', 'type' => 'text' ),
+				array( 'key' => 'f_sp_o_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_sp_o_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+			) ),
+			array( 'key' => 'f_specials_cta_title', 'label' => 'CTA title', 'name' => 'specials_cta_title', 'type' => 'text' ),
+			array( 'key' => 'f_specials_cta_body', 'label' => 'CTA body', 'name' => 'specials_cta_body', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		'location' => ss_acf_page_location( 'template-specials.php' ),
+	) );
+
+	/* Financing */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_financing', 'title' => 'Financing page',
+		'fields' => array_merge( ss_acf_hero( 'financing' ), array(
+			array( 'key' => 'f_financing_tiers', 'label' => 'Tiers', 'name' => 'financing_tiers', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add tier', 'sub_fields' => array(
+				array( 'key' => 'f_fin_t_tag', 'label' => 'Tag', 'name' => 'tag', 'type' => 'text' ),
+				array( 'key' => 'f_fin_t_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_fin_t_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+			) ),
+			array( 'key' => 'f_financing_apply_title', 'label' => 'Apply card title', 'name' => 'financing_apply_title', 'type' => 'text' ),
+			array( 'key' => 'f_financing_apply_body', 'label' => 'Apply card body', 'name' => 'financing_apply_body', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		'location' => ss_acf_page_location( 'template-financing.php' ),
+	) );
+
+	/* Gallery */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_gallery', 'title' => 'Gallery page',
+		'fields' => array_merge( ss_acf_hero( 'gallery' ), array(
+			array( 'key' => 'f_gallery_groups', 'label' => 'Gallery groups', 'name' => 'gallery_groups', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add group', 'sub_fields' => array(
+				array( 'key' => 'f_gal_g_title', 'label' => 'Group title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_gal_g_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_gal_g_color', 'label' => 'Color', 'name' => 'color', 'type' => 'select', 'choices' => ss_acf_color_choices() ),
+				array( 'key' => 'f_gal_g_items', 'label' => 'Photos', 'name' => 'items', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add photo', 'sub_fields' => array(
+					array( 'key' => 'f_gal_i_label', 'label' => 'Caption', 'name' => 'label', 'type' => 'text' ),
+					array( 'key' => 'f_gal_i_img', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+				) ),
+			) ),
+		) ),
+		'location' => ss_acf_page_location( 'template-gallery.php' ),
+	) );
+
+	/* Contact */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_contact', 'title' => 'Contact page',
+		'fields' => array_merge( ss_acf_hero( 'contact' ), array(
+			array( 'key' => 'f_contact_hours', 'label' => 'Hours', 'name' => 'contact_hours', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'f_contact_form_heading', 'label' => 'Form heading', 'name' => 'contact_form_heading', 'type' => 'text' ),
+			array( 'key' => 'f_contact_form_sub', 'label' => 'Form sub-text', 'name' => 'contact_form_sub', 'type' => 'text' ),
+		) ),
+		'location' => ss_acf_page_location( 'template-contact.php' ),
+	) );
+
+	/* Reviews */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_reviews_page', 'title' => 'Reviews page',
+		'fields' => array_merge( ss_acf_hero( 'reviews' ), array(
+			array( 'key' => 'f_reviews_embed_title', 'label' => 'Embed card title', 'name' => 'reviews_embed_title', 'type' => 'text' ),
+			array( 'key' => 'f_reviews_embed_body', 'label' => 'Embed card body', 'name' => 'reviews_embed_body', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'f_reviews_embed', 'label' => 'Reviews embed code (Elfsight, etc.)', 'name' => 'reviews_embed', 'type' => 'textarea', 'rows' => 4, 'instructions' => 'Paste the widget embed code here to show live reviews. Editable testimonials live under Savanna Springs → Reviews & FAQ.' ),
+		) ),
+		'location' => ss_acf_page_location( 'template-reviews.php' ),
+	) );
+
+	/* FAQ */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_faq_page', 'title' => 'FAQ page',
+		'fields' => array_merge( ss_acf_hero( 'faq' ), array(
+			array( 'key' => 'f_faq_cta_title', 'label' => 'CTA title', 'name' => 'faq_cta_title', 'type' => 'text' ),
+			array( 'key' => 'f_faq_cta_body', 'label' => 'CTA body', 'name' => 'faq_cta_body', 'type' => 'text', 'instructions' => 'The FAQ questions themselves are edited under Savanna Springs → Reviews & FAQ.' ),
+		) ),
+		'location' => ss_acf_page_location( 'template-faq.php' ),
+	) );
+
+	/* Free Water Test */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_freetest', 'title' => 'Free Water Test page',
+		'fields' => ss_acf_hero( 'freetest' ),
+		'location' => ss_acf_page_location( 'template-free-test.php' ),
 	) );
 } );
