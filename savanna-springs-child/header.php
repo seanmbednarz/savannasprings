@@ -62,13 +62,22 @@ if ( ! $ss_nav ) {
 					$kids   = ! empty( $item['children'] ) ? $item['children'] : array();
 					$active = ( $ss_current_url && $item['url'] === $ss_current_url ) ? ' is-active' : '';
 					?>
+					<?php
+					// More than 5 children -> lay the panel out as a mega menu
+					// with multiple columns so the long lists stay compact.
+					$kcount = count( $kids );
+					$cols   = $kcount > 10 ? 3 : ( $kcount > 5 ? 2 : 1 );
+					?>
 					<div class="ss-nav-item<?php echo $kids ? ' has-children' : ''; ?>">
 						<a class="ss-nav-link<?php echo esc_attr( $active ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?><?php if ( $kids ) { echo ' ' . ss_icon( 'chevronDown', array( 'size' => 14 ) ); } ?></a>
 						<?php if ( $kids ) : ?>
-							<div class="ss-dropdown">
-								<?php foreach ( $kids as $kid ) : ?>
-									<a href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
-								<?php endforeach; ?>
+							<div class="ss-dropdown<?php echo $cols > 1 ? ' ss-dropdown--mega' : ''; ?>" style="--ss-cols:<?php echo (int) $cols; ?>">
+								<div class="ss-dropdown-head"><?php echo esc_html( $item['label'] ); ?></div>
+								<div class="ss-dropdown-grid">
+									<?php foreach ( $kids as $kid ) : ?>
+										<a href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
+									<?php endforeach; ?>
+								</div>
 							</div>
 						<?php endif; ?>
 					</div>
