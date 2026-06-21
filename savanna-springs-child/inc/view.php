@@ -97,8 +97,17 @@ function ss_repeater_values( $rows, $subkey ) {
  *  BRAND / CONTACT (global)
  * ------------------------------------------------------------------ */
 function ss_brand() {
+	// Logo precedence: ACF Brand & Contact → native WP custom logo
+	// (Appearance → Customize → Site Identity) → bundled theme default.
 	$logo = ss_option( 'logo', '' );
 	if ( is_array( $logo ) ) { $logo = isset( $logo['url'] ) ? $logo['url'] : ''; }
+	if ( ! $logo && function_exists( 'get_custom_logo' ) ) {
+		$custom_id = get_theme_mod( 'custom_logo' );
+		if ( $custom_id ) {
+			$src = wp_get_attachment_image_src( $custom_id, 'full' );
+			if ( $src ) { $logo = $src[0]; }
+		}
+	}
 	return array(
 		'logo'         => $logo ? $logo : SS_CHILD_URI . '/assets/logo-savanna-springs.png',
 		'phone'        => ss_option( 'phone_display', '(877) 750-1420' ),

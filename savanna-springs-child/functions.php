@@ -51,12 +51,18 @@ add_filter( 'body_class', 'ss_body_class' );
 /* ------------------------------------------------------------------ *
  *  CUSTOM POST TYPES — Problems, Products, Service Areas
  * ------------------------------------------------------------------ */
+/** A droplet admin-menu icon (Dashicons has no water icon). Recolors via WP's mask. */
+function ss_menu_icon_droplet() {
+	$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>';
+	return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+}
+
 function ss_register_cpts() {
 	register_post_type( 'ss_problem', array(
 		'labels'      => array( 'name' => 'Water Problems', 'singular_name' => 'Water Problem', 'menu_name' => 'Water Problems', 'add_new_item' => 'Add Water Problem' ),
 		'public'      => true,
 		'has_archive' => 'water-problems',
-		'menu_icon'   => 'dashicons-water',
+		'menu_icon'   => ss_menu_icon_droplet(),
 		'rewrite'     => array( 'slug' => 'water-problems', 'with_front' => false ),
 		'supports'    => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
 		'show_in_rest'=> true,
@@ -544,6 +550,16 @@ add_filter( 'pre_get_document_title', 'ss_document_title', 20 );
 
 add_theme_support( 'title-tag' );
 add_theme_support( 'post-thumbnails' );
+add_action( 'after_setup_theme', function () {
+	// Native logo support: set it at Appearance → Customize → Site Identity
+	// (works with no ACF / no options page needed).
+	add_theme_support( 'custom-logo', array(
+		'height'      => 80,
+		'width'       => 320,
+		'flex-height' => true,
+		'flex-width'  => true,
+	) );
+} );
 
 /* ------------------------------------------------------------------ *
  *  SHORTCODES — drop the reusable designed sections into BeBuilder /
