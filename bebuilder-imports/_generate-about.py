@@ -28,9 +28,18 @@ def iconbox(title,content,icon="icon-lamp",tile="#EEF0FA",icon_color="#1F2B6E",a
     a.update(cssrule("css_icon_box_border_style","border-style","solid",box))
     a.update(cssrule("css_icon_box_border_color","border-color","#E0E5EE",box))
     a.update({"css_icon_box_padding":{"val":{"desktop":{"top":"~30px","right":"~28px","bottom":"~30px","left":"~28px"}},"selector":f"{SEL}{box}","style":"padding"}})
-    a.update(cssrule("css_icon_box_icon_wrapper_icon_color","color",icon_color," .icon-wrapper i"))
-    a.update(cssrule("css_icon_box_icon_wrapper_bg","background-color",tile," .icon-wrapper"))
-    a.update({"css_icon_box_icon_wrapper_radius":{"val":{"desktop":"~18px ~18px ~18px ~18px"},"selector":f"{SEL} .icon-wrapper","style":"border-radius"}})
+    iw=" .icon-wrapper"
+    a.update(cssrule("css_icon_box_icon_wrapper_icon_color","color",icon_color,iw+" i"))
+    a.update(cssrule("css_icon_box_icon_wrapper_bg","background-color",tile,iw))
+    a.update({"css_icon_box_icon_wrapper_radius":{"val":{"desktop":"~18px ~18px ~18px ~18px"},"selector":f"{SEL}{iw}","style":"border-radius"}})
+    a.update({"css_icon_box_iw_w":{"val":{"desktop":"~56px"},"selector":f"{SEL}{iw}","style":"width"}})
+    a.update({"css_icon_box_iw_h":{"val":{"desktop":"~56px"},"selector":f"{SEL}{iw}","style":"height"}})
+    a.update({"css_icon_box_iw_disp":{"val":"inline-flex","selector":f"{SEL}{iw}","style":"display"}})
+    a.update({"css_icon_box_iw_ai":{"val":"center","selector":f"{SEL}{iw}","style":"align-items"}})
+    a.update({"css_icon_box_iw_jc":{"val":"center","selector":f"{SEL}{iw}","style":"justify-content"}})
+    a.update({"css_icon_box_iw_mb":{"val":{"desktop":"~18px"},"selector":f"{SEL}{iw}","style":"margin-bottom"}})
+    a.update({"css_icon_box_iw_size":{"val":{"desktop":"~30px"},"selector":f"{SEL}{iw} i","style":"font-size"}})
+    a.update({"css_icon_box_iw_lh":{"val":{"desktop":"~30px"},"selector":f"{SEL}{iw} i","style":"line-height"}})
     return {"type":"icon_box_2","jsclass":"icon_box_2","title":"Icon Box","icon":"icon-box-2","attr":a,"uid":uid(),"size":"1/1","tablet_size":"1/1","laptop_size":"1/1","mobile_size":"1/1","tablet_resized":"0","used_fonts":""}
 
 hero='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">About us</div><h1 style="font-family:var(--font-display);font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em;margin:0">Your local, family-owned water team</h1><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:640px;margin:16px auto 0;line-height:1.6">Since 2008, Savanna Springs has helped families and businesses across the Mahoning Valley and Western PA get better water &mdash; diagnosed honestly and fixed for good.</p></div>'
