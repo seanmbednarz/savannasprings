@@ -1,0 +1,58 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Buttons & Icon Buttons" subtitle="Variants, sizes, states" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 26px; background: var(--surface); }
+  .grp { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px; }
+  .cap { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; width: 100%; margin-bottom: 2px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Button, IconButton } = window.SavannaSpringsDesignSystem_15883b;
+const Drop = () => <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5S5 13 5 15a7 7 0 0 0 7 7z"/></svg>;
+const Arrow = () => <svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>;
+const X = () => <svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>;
+function App() {
+  return (
+    <div>
+      <div className="grp">
+        <span className="cap">Variants</span>
+        <Button variant="primary">Request service</Button>
+        <Button variant="accent" iconRight={<Arrow/>}>Free water test</Button>
+        <Button variant="water">View specials</Button>
+        <Button variant="secondary">Learn more</Button>
+        <Button variant="outline">Details</Button>
+        <Button variant="ghost">Cancel</Button>
+      </div>
+      <div className="grp">
+        <span className="cap">Sizes · states</span>
+        <Button size="sm" iconLeft={<Drop/>}>Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+        <Button loading>Loading</Button>
+        <Button disabled>Disabled</Button>
+      </div>
+      <div className="grp">
+        <span className="cap">Icon buttons</span>
+        <IconButton label="solid" variant="solid"><Drop/></IconButton>
+        <IconButton label="soft" variant="soft"><Drop/></IconButton>
+        <IconButton label="accent" variant="accent"><Drop/></IconButton>
+        <IconButton label="close" variant="ghost"><X/></IconButton>
+        <IconButton label="square" variant="soft" round={false}><Arrow/></IconButton>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

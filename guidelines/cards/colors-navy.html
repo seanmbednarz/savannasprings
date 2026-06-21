@@ -1,0 +1,31 @@
+<!-- @dsCard group="Colors" viewport="700x130" name="Navy Scale" subtitle="Primary brand ramp · 700 is the core navy" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 22px; background: var(--surface); }
+  .scale { display: flex; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .step { flex: 1; height: 76px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px;
+          font-family: var(--font-mono); font-size: 11px; }
+  .lt { color: var(--navy-800); }
+  .dk { color: #fff; }
+  .core { outline: 3px solid var(--sun-400); outline-offset: -3px; }
+</style>
+</head>
+<body>
+  <div class="scale">
+    <div class="step lt" style="background:var(--navy-50)">50</div>
+    <div class="step lt" style="background:var(--navy-100)">100</div>
+    <div class="step lt" style="background:var(--navy-200)">200</div>
+    <div class="step lt" style="background:var(--navy-300)">300</div>
+    <div class="step dk" style="background:var(--navy-400)">400</div>
+    <div class="step dk" style="background:var(--navy-500)">500</div>
+    <div class="step dk" style="background:var(--navy-600)">600</div>
+    <div class="step dk core" style="background:var(--navy-700)">700</div>
+    <div class="step dk" style="background:var(--navy-800)">800</div>
+    <div class="step dk" style="background:var(--navy-900)">900</div>
+  </div>
+</body>
+</html>

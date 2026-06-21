@@ -1,0 +1,25 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Elevation" subtitle="Soft, navy-tinted shadows — never flat gray" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin: 0; padding: 30px 24px; background: var(--surface); }
+  .row { display: flex; gap: 26px; }
+  .item { text-align: center; }
+  .box { width: 96px; height: 72px; background: var(--surface-card); border-radius: var(--radius-md); }
+  .tok { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-xs)"></div><div class="tok">xs</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-sm)"></div><div class="tok">sm</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-md)"></div><div class="tok">md</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-lg)"></div><div class="tok">lg</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-xl)"></div><div class="tok">xl</div></div>
+    <div class="item"><div class="box" style="box-shadow:var(--shadow-accent)"></div><div class="tok">accent</div></div>
+  </div>
+</body>
+</html>
