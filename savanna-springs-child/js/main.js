@@ -36,13 +36,16 @@
 			});
 		}
 
-		/* ---- Mobile submenu accordions (tap a section to expand its links) ---- */
-		document.querySelectorAll('[data-ss-acc] > .ss-m-acc-btn').forEach(function (btn) {
-			btn.addEventListener('click', function () {
-				var acc = btn.closest('[data-ss-acc]');
-				var open = acc.classList.toggle('is-open');
-				btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-			});
+		/* ---- Mobile submenu accordions (tap a section to expand its links) ----
+		   Delegated so it works regardless of bind timing / inner icon taps. */
+		document.addEventListener('click', function (e) {
+			var btn = e.target.closest ? e.target.closest('.ss-m-acc-btn') : null;
+			if (!btn) { return; }
+			var acc = btn.closest('[data-ss-acc]');
+			if (!acc) { return; }
+			e.preventDefault();
+			var open = acc.classList.toggle('is-open');
+			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 		});
 
 		/* ---- FAQ accordion (one open at a time) ---- */
