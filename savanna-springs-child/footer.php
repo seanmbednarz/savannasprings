@@ -29,6 +29,10 @@ $ss_futility = ss_nav_items( 'ss_footer_utility', array(
 	array( 'label' => 'FAQ', 'url' => ss_link( 'FAQ' ) ), array( 'label' => 'Financing', 'url' => ss_link( 'Financing' ) ), array( 'label' => 'Contact', 'url' => ss_link( 'Contact' ) ),
 ) );
 $ss_badges = array( 'Since 2008', 'WQA Certified', 'Water-Right® Dealer', 'Made in USA' );
+if ( ss_acf_active() ) {
+	$rows = get_field( 'footer_badges', 'option' );
+	if ( is_array( $rows ) && $rows ) { $ss_badges = array_map( function ( $r ) { return $r['text'] ?? ''; }, $rows ); }
+}
 ?>
 	</main><!-- #ss-main -->
 

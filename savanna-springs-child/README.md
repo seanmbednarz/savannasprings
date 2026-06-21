@@ -53,6 +53,26 @@ from the WordPress admin — no code required:
 > keeps them pixel-perfect. Build any *new* free-form pages in BeBuilder as usual — they
 > render inside the Savanna Springs header/footer.
 
+### Build a page in BeBuilder instead (per-page)
+Every page and Problem/Product/City post has a **Layout → "Build this page in BeBuilder"**
+toggle (sidebar). Leave it **off** for the designed template + field editing. Turn it
+**on** to ignore the designed layout and render that page's **BeBuilder / editor content**
+instead — still inside the Savanna Springs header and footer. Use it whenever you want to
+freely redesign a single page; the other pages keep their designed defaults.
+
+### Photos & images
+- **Hero photo vs icon** — each Problem/Product/City has a **Hero image** box: set "Hero
+  shows" to Icon / Photo / Auto, and upload a **Hero photo** (or just set the post's
+  **Featured Image**). A photo becomes the hero background with a navy scrim; no photo
+  falls back to the icon tile.
+- **Page hero backgrounds** — About/FAQ/etc. have an optional **Hero background image**.
+- **Homepage hero photo** — set under **Savanna Springs → Homepage**.
+
+### Shared sections
+**Savanna Springs → Shared Sections** edits the bits that repeat site-wide: the **trust
+strip**, the **How it works** steps, the **Free Water Test perks**, and the **footer trust
+badges**.
+
 **How to turn it on:** install ACF, then visit `/wp-admin/?ss_reseed=1` once. That loads all
 the design copy into the editable fields (it only fills empty fields, so it never
 overwrites anything you've already changed). After that, edit everything in the admin.

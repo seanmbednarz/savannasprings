@@ -48,7 +48,17 @@ add_action( 'acf/init', function () {
 	acf_add_options_sub_page( array( 'page_title' => 'Brand & Contact', 'menu_title' => 'Brand & Contact', 'parent_slug' => 'ss-settings' ) );
 	acf_add_options_sub_page( array( 'page_title' => 'Homepage', 'menu_title' => 'Homepage', 'parent_slug' => 'ss-settings' ) );
 	acf_add_options_sub_page( array( 'page_title' => 'Reviews & FAQ', 'menu_title' => 'Reviews & FAQ', 'parent_slug' => 'ss-settings' ) );
+	acf_add_options_sub_page( array( 'page_title' => 'Shared Sections', 'menu_title' => 'Shared Sections', 'parent_slug' => 'ss-settings' ) );
 } );
+
+/** OR-location covering every Savanna Springs page template. */
+function ss_acf_all_page_templates() {
+	$tpls = array( 'template-about.php', 'template-specials.php', 'template-financing.php', 'template-gallery.php',
+		'template-contact.php', 'template-reviews.php', 'template-faq.php', 'template-free-test.php' );
+	$loc = array();
+	foreach ( $tpls as $t ) { $loc[] = array( array( 'param' => 'page_template', 'operator' => '==', 'value' => $t ) ); }
+	return $loc;
+}
 
 /* ------------------------------------------------------------------ *
  *  FIELD GROUPS
@@ -88,6 +98,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'f_h_hero_heading', 'label' => 'Hero heading', 'name' => 'home_hero_heading', 'type' => 'text' ),
 			array( 'key' => 'f_h_hero_accent', 'label' => 'Hero heading (yellow accent end)', 'name' => 'home_hero_accent', 'type' => 'text' ),
 			array( 'key' => 'f_h_hero_sub', 'label' => 'Hero sub-text', 'name' => 'home_hero_sub', 'type' => 'textarea', 'rows' => 3 ),
+			array( 'key' => 'f_h_hero_image', 'label' => 'Hero photo', 'name' => 'home_hero_image', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional. Replaces the default hero photo on the right of the homepage hero.' ),
 			array( 'key' => 'f_h_why_title', 'label' => 'Why-us title', 'name' => 'home_why_title', 'type' => 'text' ),
 			array( 'key' => 'f_h_why_sub', 'label' => 'Why-us sub-text', 'name' => 'home_why_sub', 'type' => 'textarea', 'rows' => 2 ),
 			array( 'key' => 'f_h_why', 'label' => 'Why-us cards', 'name' => 'home_why', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add card', 'sub_fields' => array(
@@ -348,5 +359,81 @@ add_action( 'acf/init', function () {
 		'key' => 'group_ss_freetest', 'title' => 'Free Water Test page',
 		'fields' => ss_acf_hero( 'freetest' ),
 		'location' => ss_acf_page_location( 'template-free-test.php' ),
+	) );
+} );
+
+/* ------------------------------------------------------------------ *
+ *  HERO IMAGE / LAYOUT TOGGLE / PAGE HERO IMAGE / SHARED SECTIONS
+ * ------------------------------------------------------------------ */
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) { return; }
+
+	/* Hero image + icon/photo choice — Problem / Product / City singles. */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_hero', 'title' => 'Hero image',
+		'fields' => array(
+			array( 'key' => 'f_hero_media', 'label' => 'Hero shows', 'name' => 'hero_media', 'type' => 'select',
+				'choices' => array( 'auto' => 'Auto (photo if set, else icon)', 'icon' => 'Icon tile', 'photo' => 'Photo background' ), 'default_value' => 'auto' ),
+			array( 'key' => 'f_hero_image', 'label' => 'Hero photo', 'name' => 'hero_image', 'type' => 'image', 'return_format' => 'array',
+				'instructions' => 'Optional. Used as the hero background (with a navy scrim). Falls back to the Featured Image if empty.' ),
+		),
+		'position' => 'side',
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_problem' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_product' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_city' ) ),
+		),
+	) );
+
+	/* BeBuilder toggle — pages + CPTs. */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_layout', 'title' => 'Layout',
+		'fields' => array(
+			array( 'key' => 'f_ss_use_builder', 'label' => 'Build this page in BeBuilder', 'name' => 'ss_use_builder', 'type' => 'true_false', 'ui' => 1,
+				'instructions' => 'Turn ON to ignore the Savanna Springs designed layout and render this page’s BeBuilder / editor content instead (inside the site header & footer).' ),
+		),
+		'position' => 'side',
+		'location' => array(
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'page' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_problem' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_product' ) ),
+			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_city' ) ),
+		),
+	) );
+
+	/* Optional hero background image — every standalone page template. */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_pagehero', 'title' => 'Hero background image',
+		'fields' => array(
+			array( 'key' => 'f_page_hero_image', 'label' => 'Hero background image', 'name' => 'page_hero_image', 'type' => 'image', 'return_format' => 'array',
+				'instructions' => 'Optional. Sits behind the hero text with a navy scrim.' ),
+		),
+		'position' => 'side',
+		'location' => ss_acf_all_page_templates(),
+	) );
+
+	/* Shared sections (used site-wide). */
+	acf_add_local_field_group( array(
+		'key' => 'group_ss_shared', 'title' => 'Shared Sections',
+		'fields' => array(
+			array( 'key' => 'f_trust_items', 'label' => 'Trust strip items', 'name' => 'trust_items', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add item', 'sub_fields' => array(
+				array( 'key' => 'f_trust_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_trust_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			) ),
+			array( 'key' => 'f_how_steps', 'label' => 'How it works steps', 'name' => 'how_steps', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add step', 'sub_fields' => array(
+				array( 'key' => 'f_how_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_how_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_how_body', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+			) ),
+			array( 'key' => 'f_fwt_perks', 'label' => 'Free Water Test perks', 'name' => 'fwt_perks', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add perk', 'sub_fields' => array(
+				array( 'key' => 'f_perk_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_perk_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+				array( 'key' => 'f_perk_body', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+			) ),
+			array( 'key' => 'f_footer_badges', 'label' => 'Footer trust badges', 'name' => 'footer_badges', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add badge', 'sub_fields' => array(
+				array( 'key' => 'f_footer_badge_t', 'label' => 'Text', 'name' => 'text', 'type' => 'text' ),
+			) ),
+		),
+		'location' => array( array( array( 'param' => 'options_page', 'operator' => '==', 'value' => 'acf-options-shared-sections' ) ) ),
 	) );
 } );

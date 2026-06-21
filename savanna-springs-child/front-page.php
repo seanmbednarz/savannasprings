@@ -8,9 +8,10 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-$hero_img = SS_CHILD_URI . '/assets/img-hero-people.png';
+if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $home     = ss_home_view();
+$hero_img = $home['hero_image'];
 $why      = $home['why'];
 $products = ss_products();
 $prod_keys = array( 'Softeners', 'RO', 'IronSulfur', 'WholeHouse', 'Salt', 'Rentals' );

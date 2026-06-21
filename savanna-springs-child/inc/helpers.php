@@ -139,6 +139,18 @@ function ss_nav_items( $location, $default ) {
 	return $default;
 }
 
+/** Render the page's own editor/BeBuilder content (used by the BeBuilder toggle). */
+function ss_render_builder_content() {
+	if ( have_posts() ) {
+		while ( have_posts() ) { the_post(); the_content(); }
+	}
+}
+
+/** Echo a full-bleed hero background image + dark scrim, if an image URL is given. */
+function ss_hero_cover( $img ) {
+	if ( $img ) { echo '<div class="ss-hero-cover" style="background-image:url(' . esc_url( $img ) . ')"></div>'; }
+}
+
 /* ------------------------------------------------------------------ *
  *  SMALL UI PARTIALS
  * ------------------------------------------------------------------ */
@@ -170,6 +182,10 @@ function ss_trust_strip() {
 		array( 'home', 'Made in USA' ),
 		array( 'wrench', 'We service all makes' ),
 	);
+	if ( ss_acf_active() ) {
+		$rows = get_field( 'trust_items', 'option' );
+		if ( is_array( $rows ) && $rows ) { $items = array_map( function ( $r ) { return array( $r['icon'] ?? 'star', $r['label'] ?? '' ); }, $rows ); }
+	}
 	echo '<div class="ss-trust"><div class="ss-wrap">';
 	$n = count( $items );
 	foreach ( $items as $i => $it ) {
@@ -186,6 +202,13 @@ function ss_how_it_works() {
 		array( '02', 'clipboard', 'We recommend', 'A custom system, right-sized to your water, your home and your budget. No upsell, no pressure.' ),
 		array( '03', 'truck', 'We install', 'Professional installation by our licensed team — and we service all makes and models for the long haul.' ),
 	);
+	if ( ss_acf_active() ) {
+		$rows = get_field( 'how_steps', 'option' );
+		if ( is_array( $rows ) && $rows ) {
+			$steps = array();
+			foreach ( $rows as $i => $r ) { $steps[] = array( str_pad( $i + 1, 2, '0', STR_PAD_LEFT ), $r['icon'] ?? 'search', $r['title'] ?? '', $r['body'] ?? '' ); }
+		}
+	}
 	echo '<section class="ss-band-water"><div class="ss-wrap ss-section">';
 	ss_section_head( 'How it works', 'Diagnose → Recommend → Install', 'Three simple steps from problem water to water you love.' );
 	echo '<div class="ss-grid ss-grid-3" style="margin-top:46px">';
@@ -243,6 +266,10 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 		array( 'clipboard', 'Custom recommendation', 'We size the right system for your home, water and budget — no upsell, no pressure.' ),
 		array( 'phone', 'We call within 24 hours', 'A Savanna Springs operator follows up within 24 business hours to schedule.' ),
 	);
+	if ( ss_acf_active() ) {
+		$rows = get_field( 'fwt_perks', 'option' );
+		if ( is_array( $rows ) && $rows ) { $perks = array_map( function ( $r ) { return array( $r['icon'] ?? 'search', $r['title'] ?? '', $r['body'] ?? '' ); }, $rows ); }
+	}
 	$concerns = array( 'Hard water', 'Contaminants', 'Odors', 'Staining', 'White deposits', 'Bad taste', 'Other' );
 	$sources  = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
 	$brand    = ss_brand();

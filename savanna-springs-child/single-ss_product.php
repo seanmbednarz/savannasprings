@@ -8,12 +8,17 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
+if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
+
 $p = ss_product_view( get_the_ID() );
 if ( ! $p ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></section>'; get_footer(); return; }
+$ss_use_photo = ss_hero_use_photo();
+$ss_hero_img  = ss_hero_image();
 ?>
 
 <!-- HERO -->
 <section class="ss-page-hero ss-page-hero--split">
+	<?php ss_hero_cover( $ss_use_photo ? $ss_hero_img : '' ); ?>
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.28;right:-70px;top:-110px"></div>
 	<div class="ss-wrap">
 		<div>
@@ -40,7 +45,7 @@ if ( ! $p ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></sect
 				<?php endif; ?>
 			</div>
 		</div>
-		<div><div class="ss-hero-icontile"><?php echo ss_icon( $p['icon'], array( 'size' => 78, 'color' => 'var(--sun-400)' ) ); ?></div></div>
+		<?php if ( ! $ss_use_photo ) : ?><div><div class="ss-hero-icontile"><?php echo ss_icon( $p['icon'], array( 'size' => 78, 'color' => 'var(--sun-400)' ) ); ?></div></div><?php endif; ?>
 	</div>
 </section>
 

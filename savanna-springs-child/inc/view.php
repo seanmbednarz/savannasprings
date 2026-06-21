@@ -25,6 +25,36 @@ function ss_pf_repeater( $name, $default, $mapper ) {
 	return $default;
 }
 
+/** Per-page "build in BeBuilder" toggle. When true, the theme renders the page's
+ *  own editor/BeBuilder content instead of the designed template. */
+function ss_use_builder( $post_id = null ) {
+	if ( ! ss_acf_active() ) { return false; }
+	$id = $post_id ? $post_id : get_the_ID();
+	return (bool) get_field( 'ss_use_builder', $id );
+}
+
+/** Resolve a URL for a hero/section image field (array|id|url), with featured-image fallback. */
+function ss_image_url( $value, $size = 'large' ) {
+	if ( is_array( $value ) ) { return $value['sizes'][ $size ] ?? ( $value['url'] ?? '' ); }
+	if ( is_numeric( $value ) ) { $u = wp_get_attachment_image_url( $value, $size ); return $u ? $u : ''; }
+	return is_string( $value ) ? $value : '';
+}
+
+/** Hero image for the current post: ACF hero_image field, else the featured image. */
+function ss_hero_image() {
+	$img = ss_acf_active() ? ss_image_url( get_field( 'hero_image', get_the_ID() ) ) : '';
+	if ( ! $img && has_post_thumbnail() ) { $img = get_the_post_thumbnail_url( get_the_ID(), 'full' ); }
+	return $img;
+}
+
+/** Should the current hero use a photo (vs the icon tile)? Mode: auto|icon|photo. */
+function ss_hero_use_photo() {
+	$mode = ss_pf( 'hero_media', 'auto' );
+	$img  = ss_hero_image();
+	if ( 'icon' === $mode ) { return false; }
+	return ( 'photo' === $mode || 'auto' === $mode ) && $img;
+}
+
 /** Option value (ACF options page) with default fallback. */
 function ss_option( $name, $default = '' ) {
 	if ( ss_acf_active() ) {
@@ -302,6 +332,7 @@ function ss_home_view() {
 		'hero_heading'   => ss_option( 'home_hero_heading', "Whatever's wrong with your water, we make it" ),
 		'hero_accent'    => ss_option( 'home_hero_accent', 'perfectly clear.' ),
 		'hero_sub'       => ss_option( 'home_hero_sub', 'Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good — for homes and businesses across Youngstown and Western PA.' ),
+		'hero_image'     => ss_image_url( ss_option( 'home_hero_image', '' ) ) ?: SS_CHILD_URI . '/assets/img-hero-people.png',
 		'why'            => $why,
 		'stats'          => $stats,
 		'products_eyebrow' => ss_option( 'home_products_eyebrow', 'Our products' ),

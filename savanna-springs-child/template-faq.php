@@ -7,9 +7,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
+
+if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 $faqs = ss_faqs_view();
 ?>
 <section class="ss-band-navy">
+	<?php ss_hero_cover( ss_image_url( ss_pf( "page_hero_image", "" ) ) ); ?>
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
 	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center;position:relative">
 		<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( ss_pf( 'faq_eyebrow', 'FAQ' ) ); ?></div>

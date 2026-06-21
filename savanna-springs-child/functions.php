@@ -392,6 +392,26 @@ function ss_seed_acf() {
 	// Reviews & FAQ options.
 	ss_seed_set( 'option', 'reviews', array_map( function ( $r ) { return array( 'quote' => $r['q'], 'name' => $r['n'] ); }, ss_reviews() ) );
 	ss_seed_set( 'option', 'faqs', array_map( function ( $f ) { return array( 'question' => $f['q'], 'answer' => $f['a'], 'link_label' => $f['link'][1], 'link_url' => ss_link( $f['link'][0] ) ); }, ss_faqs() ) );
+
+	// Shared sections.
+	ss_seed_set( 'option', 'trust_items', array(
+		array( 'icon' => 'star', 'label' => 'Since 2008' ), array( 'icon' => 'badgeCheck', 'label' => 'WQA Certified' ),
+		array( 'icon' => 'shieldCheck', 'label' => 'Water-Right® Dealer' ), array( 'icon' => 'home', 'label' => 'Made in USA' ),
+		array( 'icon' => 'wrench', 'label' => 'We service all makes' ),
+	) );
+	ss_seed_set( 'option', 'how_steps', array(
+		array( 'icon' => 'search', 'title' => 'We diagnose', 'body' => 'A free in-home water test for hardness, iron, pH and chlorine — so we treat the real problem, not a guess.' ),
+		array( 'icon' => 'clipboard', 'title' => 'We recommend', 'body' => 'A custom system, right-sized to your water, your home and your budget. No upsell, no pressure.' ),
+		array( 'icon' => 'truck', 'title' => 'We install', 'body' => 'Professional installation by our licensed team — and we service all makes and models for the long haul.' ),
+	) );
+	ss_seed_set( 'option', 'fwt_perks', array(
+		array( 'icon' => 'search', 'title' => 'On-site water analysis', 'body' => 'A licensed operator tests hardness, iron, pH and chlorine right at your tap.' ),
+		array( 'icon' => 'clipboard', 'title' => 'Custom recommendation', 'body' => 'We size the right system for your home, water and budget — no upsell, no pressure.' ),
+		array( 'icon' => 'phone', 'title' => 'We call within 24 hours', 'body' => 'A Savanna Springs operator follows up within 24 business hours to schedule.' ),
+	) );
+	ss_seed_set( 'option', 'footer_badges', array(
+		array( 'text' => 'Since 2008' ), array( 'text' => 'WQA Certified' ), array( 'text' => 'Water-Right® Dealer' ), array( 'text' => 'Made in USA' ),
+	) );
 }
 
 /* ------------------------------------------------------------------ *
