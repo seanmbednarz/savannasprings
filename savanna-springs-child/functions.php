@@ -33,11 +33,16 @@ function ss_enqueue_assets() {
 	$parent = wp_get_theme( get_template() );
 	wp_enqueue_style( 'betheme-parent', get_template_directory_uri() . '/style.css', array( 'ss-fonts' ), $parent->get( 'Version' ) ?: null );
 
-	// Child stylesheet.
-	wp_enqueue_style( 'ss-child', get_stylesheet_uri(), array( 'betheme-parent' ), SS_CHILD_VERSION );
+	// Child stylesheet. Version by file mtime so every edit auto-busts the
+	// browser/CDN cache (no manual purge needed for CSS/JS changes).
+	$css_path = get_stylesheet_directory() . '/style.css';
+	$css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : SS_CHILD_VERSION;
+	wp_enqueue_style( 'ss-child', get_stylesheet_uri(), array( 'betheme-parent' ), $css_ver );
 
 	// Interactions.
-	wp_enqueue_script( 'ss-main', SS_CHILD_URI . '/js/main.js', array(), SS_CHILD_VERSION, true );
+	$js_path = SS_CHILD_DIR . '/js/main.js';
+	$js_ver  = file_exists( $js_path ) ? filemtime( $js_path ) : SS_CHILD_VERSION;
+	wp_enqueue_script( 'ss-main', SS_CHILD_URI . '/js/main.js', array(), $js_ver, true );
 }
 add_action( 'wp_enqueue_scripts', 'ss_enqueue_assets', 20 );
 
