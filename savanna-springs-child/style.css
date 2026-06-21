@@ -146,7 +146,10 @@ Text Domain: savanna-springs-child
   padding-top: 12px; padding-bottom: 12px; }
 .ss-logo { display: inline-flex; align-items: center; flex: none; }
 .ss-logo img { display: block !important; height: 52px !important; width: auto !important;
-  max-width: 240px; opacity: 1 !important; visibility: visible !important; }
+  max-width: 220px; object-fit: contain; object-position: left center; }
+/* SVG logos collapse to ~0 width with width:auto in several browsers; give
+   them a real width box and let object-fit keep the aspect ratio correct. */
+.ss-logo img[src$=".svg"] { width: 110px !important; }
 .ss-logo-fallback { font-family: var(--font-display); font-weight: 800; font-size: 22px;
   color: var(--navy-700); letter-spacing: -.01em; }
 .ss-nav { display: flex; align-items: center; gap: 1px; }
