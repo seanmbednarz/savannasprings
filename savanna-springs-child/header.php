@@ -99,14 +99,24 @@ if ( ! $ss_nav ) {
 		<div class="ss-mobile-panel" data-ss-mobile>
 			<?php foreach ( $ss_nav as $item ) :
 				$kids = ! empty( $item['children'] ) ? $item['children'] : array();
-				?>
-				<a class="ss-m-link" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
-				<?php if ( $kids ) : ?>
-					<div class="ss-m-sub">
-						<?php foreach ( $kids as $kid ) : ?>
-							<a class="ss-m-sublink" href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
-						<?php endforeach; ?>
+				$icon = ss_icon( ss_nav_icon( $item['label'] ), array( 'size' => 20, 'color' => 'var(--spring-600)' ) );
+				if ( $kids ) : ?>
+					<div class="ss-m-acc" data-ss-acc>
+						<button class="ss-m-acc-btn" type="button" aria-expanded="false">
+							<span class="ss-m-acc-label"><?php echo $icon; ?> <?php echo esc_html( $item['label'] ); ?></span>
+							<span class="ss-m-acc-chev"><?php echo ss_icon( 'chevronDown', array( 'size' => 20, 'color' => 'var(--neutral-500)' ) ); ?></span>
+						</button>
+						<div class="ss-m-acc-panel">
+							<?php if ( ! empty( $item['url'] ) ) : ?>
+								<a class="ss-m-parentlink" href="<?php echo esc_url( $item['url'] ); ?>">All <?php echo esc_html( $item['label'] ); ?> <?php echo ss_icon( 'arrowRight', array( 'size' => 14, 'color' => 'var(--spring-700)' ) ); ?></a>
+							<?php endif; ?>
+							<?php foreach ( $kids as $kid ) : ?>
+								<a class="ss-m-sublink" href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
+							<?php endforeach; ?>
+						</div>
 					</div>
+				<?php else : ?>
+					<a class="ss-m-link" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo $icon; ?> <?php echo esc_html( $item['label'] ); ?></a>
 				<?php endif; ?>
 			<?php endforeach; ?>
 			<a class="ss-phone-link" href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--navy-700)' ) ); ?> <?php echo esc_html( $brand['phone'] ); ?></a>

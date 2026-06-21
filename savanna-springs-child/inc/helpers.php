@@ -49,6 +49,9 @@ function ss_icon_paths() {
 		'factory' => 'M2 20a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8l-7 4V8l-7 4V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z|M17 18h.01|M12 18h.01|M7 18h.01',
 		'clipboard' => 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2|M9 2h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z',
 		'search' => 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z|m21 21-4.3-4.3',
+		'user' => 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2|M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+		'box' => 'M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z|M3.3 7 12 12l8.7-5|M12 22V12',
+		'tag' => 'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z|M7.5 7.5h.01',
 		'refresh' => 'M3 12a9 9 0 0 1 15-6.7L21 8|M21 3v5h-5|M21 12a9 9 0 0 1-15 6.7L3 16|M3 21v-5h5',
 		'arrowUpRight' => 'M7 7h10v10|M7 17 17 7',
 		'sun' => 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z|M12 1v2|M12 21v2|M4.2 4.2l1.4 1.4|M18.4 18.4l1.4 1.4|M1 12h2|M21 12h2|M4.2 19.8l1.4-1.4|M18.4 5.6l1.4-1.4',
@@ -168,6 +171,22 @@ function ss_nav_tree( $location ) {
 	};
 	$tree = $build( 0 );
 	return $tree ? $tree : null;
+}
+
+/** Pick a leading icon for a top-level nav item by matching keywords in its label. */
+function ss_nav_icon( $label ) {
+	$l   = strtolower( $label );
+	$map = array(
+		'problem' => 'droplet', 'product' => 'box', 'service' => 'mapPin', 'area' => 'mapPin',
+		'financ' => 'dollarSign', 'special' => 'tag', 'deal' => 'tag', 'offer' => 'tag',
+		'about' => 'award', 'review' => 'star', 'gallery' => 'sparkle', 'faq' => 'search',
+		'question' => 'search', 'contact' => 'mail', 'login' => 'user', 'account' => 'user',
+		'water' => 'droplet',
+	);
+	foreach ( $map as $key => $icon ) {
+		if ( false !== strpos( $l, $key ) ) { return $icon; }
+	}
+	return 'chevronRight';
 }
 
 /** Render the page's own editor/BeBuilder content (used by the BeBuilder toggle). */

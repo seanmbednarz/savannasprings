@@ -14,6 +14,15 @@
 			});
 		}
 
+		/* ---- Mobile submenu accordions (tap a section to expand its links) ---- */
+		document.querySelectorAll('[data-ss-acc] > .ss-m-acc-btn').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var acc = btn.closest('[data-ss-acc]');
+				var open = acc.classList.toggle('is-open');
+				btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+			});
+		});
+
 		/* ---- FAQ accordion (one open at a time) ---- */
 		document.querySelectorAll('[data-ss-accordion]').forEach(function (acc) {
 			acc.querySelectorAll('[data-ss-faq-toggle]').forEach(function (btn) {
