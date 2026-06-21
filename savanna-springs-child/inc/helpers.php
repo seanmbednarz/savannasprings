@@ -139,6 +139,37 @@ function ss_nav_items( $location, $default ) {
 	return $default;
 }
 
+/**
+ * Return the full nested menu tree for a location (parents with children),
+ * or null when no WP menu is assigned (so the header can fall back to its
+ * flat defaults). Each node: [ 'label', 'url', 'children' => [ ...nodes ] ].
+ */
+function ss_nav_tree( $location ) {
+	$locations = function_exists( 'get_nav_menu_locations' ) ? get_nav_menu_locations() : array();
+	if ( empty( $locations[ $location ] ) ) { return null; }
+	$items = wp_get_nav_menu_items( $locations[ $location ] );
+	if ( ! $items ) { return null; }
+
+	$by_parent = array();
+	foreach ( $items as $i ) {
+		$by_parent[ (int) $i->menu_item_parent ][] = $i;
+	}
+	$build = function ( $parent_id ) use ( &$build, $by_parent ) {
+		$out = array();
+		$kids = isset( $by_parent[ $parent_id ] ) ? $by_parent[ $parent_id ] : array();
+		foreach ( $kids as $i ) {
+			$out[] = array(
+				'label'    => $i->title,
+				'url'      => $i->url,
+				'children' => $build( (int) $i->ID ),
+			);
+		}
+		return $out;
+	};
+	$tree = $build( 0 );
+	return $tree ? $tree : null;
+}
+
 /** Render the page's own editor/BeBuilder content (used by the BeBuilder toggle). */
 function ss_render_builder_content() {
 	if ( have_posts() ) {

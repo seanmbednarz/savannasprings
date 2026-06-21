@@ -20,13 +20,18 @@ elseif ( is_page( 'about' ) ) { $ss_current = 'About'; }
 elseif ( is_page( 'specials' ) ) { $ss_current = 'Specials'; }
 $ss_current_url = $ss_current ? ss_link( $ss_current ) : '';
 
-$ss_nav = ss_nav_items( 'ss_primary', array(
-	array( 'label' => 'Water Problems', 'url' => ss_link( 'Problems' ) ),
-	array( 'label' => 'Products', 'url' => ss_link( 'Products' ) ),
-	array( 'label' => 'Service Areas', 'url' => ss_link( 'ServiceAreas' ) ),
-	array( 'label' => 'About', 'url' => ss_link( 'About' ) ),
-	array( 'label' => 'Specials', 'url' => ss_link( 'Specials' ) ),
-) );
+// Full nested menu (parents + submenu children). Falls back to the flat
+// design defaults when no WP menu is assigned to the SS Header location.
+$ss_nav = ss_nav_tree( 'ss_primary' );
+if ( ! $ss_nav ) {
+	$ss_nav = array(
+		array( 'label' => 'Water Problems', 'url' => ss_link( 'Problems' ), 'children' => array() ),
+		array( 'label' => 'Products', 'url' => ss_link( 'Products' ), 'children' => array() ),
+		array( 'label' => 'Service Areas', 'url' => ss_link( 'ServiceAreas' ), 'children' => array() ),
+		array( 'label' => 'About', 'url' => ss_link( 'About' ), 'children' => array() ),
+		array( 'label' => 'Specials', 'url' => ss_link( 'Specials' ), 'children' => array() ),
+	);
+}
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -54,9 +59,19 @@ $ss_nav = ss_nav_items( 'ss_primary', array(
 
 			<nav class="ss-nav">
 				<?php foreach ( $ss_nav as $item ) :
+					$kids   = ! empty( $item['children'] ) ? $item['children'] : array();
 					$active = ( $ss_current_url && $item['url'] === $ss_current_url ) ? ' is-active' : '';
 					?>
-					<a class="<?php echo esc_attr( trim( $active ) ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+					<div class="ss-nav-item<?php echo $kids ? ' has-children' : ''; ?>">
+						<a class="ss-nav-link<?php echo esc_attr( $active ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?><?php if ( $kids ) { echo ' ' . ss_icon( 'chevronDown', array( 'size' => 14 ) ); } ?></a>
+						<?php if ( $kids ) : ?>
+							<div class="ss-dropdown">
+								<?php foreach ( $kids as $kid ) : ?>
+									<a href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+					</div>
 				<?php endforeach; ?>
 			</nav>
 
@@ -71,8 +86,17 @@ $ss_nav = ss_nav_items( 'ss_primary', array(
 		</div>
 
 		<div class="ss-mobile-panel" data-ss-mobile>
-			<?php foreach ( $ss_nav as $item ) : ?>
+			<?php foreach ( $ss_nav as $item ) :
+				$kids = ! empty( $item['children'] ) ? $item['children'] : array();
+				?>
 				<a class="ss-m-link" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+				<?php if ( $kids ) : ?>
+					<div class="ss-m-sub">
+						<?php foreach ( $kids as $kid ) : ?>
+							<a class="ss-m-sublink" href="<?php echo esc_url( $kid['url'] ); ?>"><?php echo esc_html( $kid['label'] ); ?></a>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
 			<?php endforeach; ?>
 			<a class="ss-phone-link" href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--navy-700)' ) ); ?> <?php echo esc_html( $brand['phone'] ); ?></a>
 			<div style="margin-top:8px"><a class="ss-btn ss-btn--accent ss-btn--block" href="<?php echo esc_url( ss_link( 'FreeTest' ) ); ?>">Free Water Test</a></div>
