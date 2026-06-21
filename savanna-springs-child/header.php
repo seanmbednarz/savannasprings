@@ -55,7 +55,7 @@ if ( ! $ss_nav ) {
 		<div class="ss-wrap ss-headbar">
 			<?php $ss_site_name = get_bloginfo( 'name' ) ?: 'Savanna Springs Water Solutions'; ?>
 			<a class="ss-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<img src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $ss_site_name ); ?>" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
+				<img class="skip-lazy no-lazy" src="<?php echo esc_url( $brand['logo'] ); ?>" alt="<?php echo esc_attr( $ss_site_name ); ?>" loading="eager" decoding="async" data-no-lazy="1" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';">
 				<span class="ss-logo-fallback" style="display:none"><?php echo esc_html( $ss_site_name ); ?></span>
 			</a>
 
