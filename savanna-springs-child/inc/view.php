@@ -40,6 +40,16 @@ function ss_image_url( $value, $size = 'large' ) {
 	return is_string( $value ) ? $value : '';
 }
 
+/** Featured-image URL for a CPT post identified by slug (for data-driven cards). */
+function ss_cpt_thumb( $cpt, $slug, $size = 'large' ) {
+	if ( ! $slug ) { return ''; }
+	$post = get_page_by_path( $slug, OBJECT, $cpt );
+	if ( $post && has_post_thumbnail( $post->ID ) ) {
+		return (string) get_the_post_thumbnail_url( $post->ID, $size );
+	}
+	return '';
+}
+
 /** Hero image for the current post: ACF hero_image field, else the featured image. */
 function ss_hero_image() {
 	$img = ss_acf_active() ? ss_image_url( get_field( 'hero_image', get_the_ID() ) ) : '';
@@ -323,7 +333,7 @@ function ss_faqs_view() {
 function ss_home_view() {
 	$why = ss_option( 'home_why', null );
 	$why = ( ss_acf_active() && is_array( $why ) && $why )
-		? array_map( function ( $r ) { return array( 'icon' => $r['icon'] ?? 'home', 'title' => $r['title'] ?? '', 'body' => $r['body'] ?? '' ); }, $why )
+		? array_map( function ( $r ) { return array( 'icon' => $r['icon'] ?? 'home', 'title' => $r['title'] ?? '', 'body' => $r['body'] ?? '', 'photo' => $r['photo'] ?? '' ); }, $why )
 		: ss_home_why();
 
 	$stats = ss_option( 'home_stats', null );

@@ -270,6 +270,12 @@ function ss_how_it_works() {
 }
 
 /* Problem picker grid. $items = array of [key]. */
+/** Photo header markup for a card; empty string when no image is given. */
+function ss_photo_header( $url, $alt = '' ) {
+	if ( ! $url ) { return ''; }
+	return '<div class="ss-cardphoto"><img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" loading="lazy"></div>';
+}
+
 function ss_problem_picker( $eyebrow = 'Start with your problem', $title = "What's wrong with your water?", $sub = 'Pick what sounds like your home — we diagnose the real cause, then fix it for good. Not sure? Start with a free in-home water test.', $keys = null ) {
 	$problems = ss_problems();
 	$keys = $keys ? $keys : array_slice( ss_problem_order(), 0, 6 );
@@ -279,8 +285,14 @@ function ss_problem_picker( $eyebrow = 'Start with your problem', $title = "What
 	foreach ( $keys as $k ) {
 		if ( ! isset( $problems[ $k ] ) ) { continue; }
 		$p = $problems[ $k ];
+		$photo = ss_cpt_thumb( 'ss_problem', isset( $p['slug'] ) ? $p['slug'] : '' );
 		echo '<a class="ss-card ss-card--hover" href="' . esc_url( ss_link( $k ) ) . '">';
-		echo '<div style="display:flex;align-items:center;gap:16px"><div class="ss-tile ss-tile--' . esc_attr( $p['color'] ) . '">' . ss_icon( $p['icon'], array( 'size' => 28 ) ) . '</div><h3>' . esc_html( $p['label'] ) . '</h3></div>';
+		if ( $photo ) {
+			echo ss_photo_header( $photo, $p['label'] );
+			echo '<h3>' . esc_html( $p['label'] ) . '</h3>';
+		} else {
+			echo '<div style="display:flex;align-items:center;gap:16px"><div class="ss-tile ss-tile--' . esc_attr( $p['color'] ) . '">' . ss_icon( $p['icon'], array( 'size' => 28 ) ) . '</div><h3>' . esc_html( $p['label'] ) . '</h3></div>';
+		}
 		echo '<p>' . esc_html( $p['blurb'] ) . '</p>';
 		echo '<span class="ss-arrowlink" style="margin-top:16px">See the fix ' . ss_icon( 'arrowRight', array( 'size' => 16, 'color' => 'var(--spring-700)' ) ) . '</span>';
 		echo '</a>';

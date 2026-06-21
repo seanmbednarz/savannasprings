@@ -20,10 +20,11 @@ $cities = ss_cities();
 
 <section class="ss-wrap ss-section">
 	<div class="ss-grid ss-grid-3">
-		<?php foreach ( ss_city_order() as $k ) : $c = $cities[ $k ]; ?>
+		<?php foreach ( ss_city_order() as $k ) : $c = $cities[ $k ]; $c_photo = ss_cpt_thumb( 'ss_city', isset( $c['slug'] ) ? $c['slug'] : '' ); ?>
 			<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $k ) ); ?>">
+				<?php if ( $c_photo ) { echo ss_photo_header( $c_photo, $c['city'] ); } ?>
 				<div style="display:flex;align-items:center;gap:14px">
-					<div class="ss-tile ss-tile--water"><?php echo ss_icon( 'mapPin', array( 'size' => 26, 'color' => 'var(--spring-600)' ) ); ?></div>
+					<?php if ( ! $c_photo ) : ?><div class="ss-tile ss-tile--water"><?php echo ss_icon( 'mapPin', array( 'size' => 26, 'color' => 'var(--spring-600)' ) ); ?></div><?php endif; ?>
 					<div>
 						<h3 style="font-size:19px"><?php echo esc_html( $c['city'] ); ?></h3>
 						<div style="font-size:13px;color:var(--text-muted);font-family:var(--font-display);font-weight:600"><?php echo esc_html( $c['county'] ); ?> County · <?php echo esc_html( $c['zip'] ); ?></div>

@@ -282,7 +282,7 @@ body.ss-menu-open { overflow: hidden; }
    6. CARDS
    ============================================================ */
 .ss-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl);
-  padding: 30px; box-shadow: var(--shadow-sm); }
+  padding: 30px; box-shadow: var(--shadow-sm); overflow: hidden; }
 .ss-card--pad-lg { padding: 30px; }
 .ss-card--hover { transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out); cursor: pointer; display: block; }
 .ss-card--hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
@@ -338,7 +338,13 @@ body.ss-menu-open { overflow: hidden; }
    10. WHY / VALUE CARDS + STATS
    ============================================================ */
 .ss-why { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl);
-  padding: 28px; box-shadow: var(--shadow-sm); }
+  padding: 28px; box-shadow: var(--shadow-sm); overflow: hidden; }
+
+/* Optional photo header on cards (uploaded image replaces the icon tile). */
+.ss-cardphoto { aspect-ratio: 16 / 10; background: var(--navy-50); overflow: hidden; }
+.ss-cardphoto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ss-card > .ss-cardphoto { margin: -30px -30px 20px; }
+.ss-why  > .ss-cardphoto { margin: -28px -28px 20px; }
 .ss-why .ss-tile { margin-bottom: 18px; }
 .ss-why h3 { font-weight: 700; font-size: 18.5px; margin-bottom: 8px; }
 .ss-why p { font-size: 14.5px; line-height: 1.55; color: var(--text-body); margin: 0; }

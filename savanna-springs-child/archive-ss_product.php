@@ -21,9 +21,11 @@ $products = ss_products();
 
 <section class="ss-wrap ss-section">
 	<div class="ss-grid ss-grid-3">
-		<?php foreach ( ss_product_order() as $k ) : $p = $products[ $k ]; ?>
+		<?php foreach ( ss_product_order() as $k ) : $p = $products[ $k ]; $p_photo = ss_cpt_thumb( 'ss_product', isset( $p['slug'] ) ? $p['slug'] : '' ); ?>
 			<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $k ) ); ?>">
-				<div class="ss-tile ss-tile--<?php echo esc_attr( $p['color'] ); ?>" style="margin-bottom:18px"><?php echo ss_icon( $p['icon'], array( 'size' => 28 ) ); ?></div>
+				<?php if ( $p_photo ) : echo ss_photo_header( $p_photo, $p['label'] ); else : ?>
+					<div class="ss-tile ss-tile--<?php echo esc_attr( $p['color'] ); ?>" style="margin-bottom:18px"><?php echo ss_icon( $p['icon'], array( 'size' => 28 ) ); ?></div>
+				<?php endif; ?>
 				<h3><?php echo esc_html( $p['label'] ); ?></h3>
 				<p><?php echo esc_html( $p['blurb'] ); ?></p>
 				<span class="ss-arrowlink" style="margin-top:16px">Learn more <?php echo ss_icon( 'arrowRight', array( 'size' => 16, 'color' => 'var(--spring-700)' ) ); ?></span>

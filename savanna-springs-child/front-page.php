@@ -54,7 +54,10 @@ $stats    = $home['stats'];
 	<div class="ss-grid ss-grid-4" style="margin-top:46px">
 		<?php foreach ( $why as $w ) : ?>
 			<div class="ss-why">
-				<div class="ss-tile ss-tile--navy"><?php echo ss_icon( $w['icon'], array( 'size' => 27, 'color' => 'var(--navy-700)' ) ); ?></div>
+				<?php $w_photo = isset( $w['photo'] ) ? $w['photo'] : ''; ?>
+				<?php if ( $w_photo ) : echo ss_photo_header( $w_photo, $w['title'] ); else : ?>
+					<div class="ss-tile ss-tile--navy"><?php echo ss_icon( $w['icon'], array( 'size' => 27, 'color' => 'var(--navy-700)' ) ); ?></div>
+				<?php endif; ?>
 				<h3><?php echo esc_html( $w['title'] ); ?></h3>
 				<p><?php echo esc_html( $w['body'] ); ?></p>
 			</div>
@@ -73,8 +76,11 @@ $stats    = $home['stats'];
 		<?php ss_section_head( $home['products_eyebrow'], $home['products_title'], $home['products_sub'] ); ?>
 		<div class="ss-grid ss-grid-3" style="margin-top:44px">
 			<?php foreach ( $prod_keys as $k ) : $p = $products[ $k ]; ?>
+				<?php $p_photo = ss_cpt_thumb( 'ss_product', isset( $p['slug'] ) ? $p['slug'] : '' ); ?>
 				<a class="ss-card ss-card--hover" href="<?php echo esc_url( ss_link( $k ) ); ?>">
-					<div class="ss-tile ss-tile--<?php echo esc_attr( $p['color'] ); ?>" style="margin-bottom:18px"><?php echo ss_icon( $p['icon'], array( 'size' => 28 ) ); ?></div>
+					<?php if ( $p_photo ) : echo ss_photo_header( $p_photo, $p['label'] ); else : ?>
+						<div class="ss-tile ss-tile--<?php echo esc_attr( $p['color'] ); ?>" style="margin-bottom:18px"><?php echo ss_icon( $p['icon'], array( 'size' => 28 ) ); ?></div>
+					<?php endif; ?>
 					<h3><?php echo esc_html( $p['label'] ); ?></h3>
 					<p><?php echo esc_html( $p['blurb'] ); ?></p>
 					<span class="ss-arrowlink" style="margin-top:16px">Learn more <?php echo ss_icon( 'arrowRight', array( 'size' => 16, 'color' => 'var(--spring-700)' ) ); ?></span>

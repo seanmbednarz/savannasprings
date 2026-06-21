@@ -15,7 +15,7 @@ $values = ss_pf_repeater( 'about_values', array(
 	array( 'award', 'Built to last', 'A proud Water-Right® authorized dealer installing American-made, custom-built systems.' ),
 	array( 'shieldCheck', 'Licensed & certified', 'Ohio EPA-licensed operators, WQA certified, with 35+ years of combined experience.' ),
 	array( 'wrench', 'Here for the long haul', 'We service all makes and models, deliver salt and water, and stand behind our work.' ),
-), function ( $r ) { return array( $r['icon'] ?? 'home', $r['title'] ?? '', $r['body'] ?? '' ); } );
+), function ( $r ) { return array( $r['icon'] ?? 'home', $r['title'] ?? '', $r['body'] ?? '', $r['photo'] ?? '' ); } );
 
 $stats = ss_pf_repeater( 'about_stats', array(
 	array( '2008', 'Family owned since' ), array( '35+ yrs', 'Combined experience' ),
@@ -62,7 +62,10 @@ $story_paras = ss_pf_repeater( 'about_story', array(
 		<div class="ss-grid ss-grid-4" style="margin-top:46px">
 			<?php foreach ( $values as $v ) : ?>
 				<div class="ss-why">
-					<div class="ss-tile ss-tile--navy"><?php echo ss_icon( $v[0], array( 'size' => 27, 'color' => 'var(--navy-700)' ) ); ?></div>
+					<?php $v_photo = isset( $v[3] ) ? $v[3] : ''; ?>
+					<?php if ( $v_photo ) : echo ss_photo_header( $v_photo, $v[1] ); else : ?>
+						<div class="ss-tile ss-tile--navy"><?php echo ss_icon( $v[0], array( 'size' => 27, 'color' => 'var(--navy-700)' ) ); ?></div>
+					<?php endif; ?>
 					<h3><?php echo esc_html( $v[1] ); ?></h3>
 					<p><?php echo esc_html( $v[2] ); ?></p>
 				</div>

@@ -105,6 +105,7 @@ add_action( 'acf/init', function () {
 				array( 'key' => 'f_h_why_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
 				array( 'key' => 'f_h_why_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
 				array( 'key' => 'f_h_why_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+				array( 'key' => 'f_h_why_photo', 'label' => 'Photo (optional)', 'name' => 'photo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo header on the card instead of the icon.' ),
 			) ),
 			array( 'key' => 'f_h_stats', 'label' => 'Stats row', 'name' => 'home_stats', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add stat', 'sub_fields' => array(
 				array( 'key' => 'f_h_stat_n', 'label' => 'Number', 'name' => 'number', 'type' => 'text' ),
@@ -269,6 +270,7 @@ add_action( 'acf/init', function () {
 				array( 'key' => 'f_about_val_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
 				array( 'key' => 'f_about_val_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
 				array( 'key' => 'f_about_val_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
+				array( 'key' => 'f_about_val_photo', 'label' => 'Photo (optional)', 'name' => 'photo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo header on the card instead of the icon.' ),
 			) ),
 		) ),
 		'location' => ss_acf_page_location( 'template-about.php' ),
