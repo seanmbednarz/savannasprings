@@ -438,6 +438,19 @@ body.ss-menu-open { overflow: hidden; }
   text-transform: uppercase; color: var(--sun-400); margin-bottom: 14px; }
 .ss-foot-col a { display: block; color: var(--spring-100); font-size: 14.5px; padding: 5px 0; }
 .ss-foot-col a:hover { color:#fff; }
+
+/* Brand-yellow links on the dark footer + hero (override BeTheme's global
+   link color, which uses ID-level selectors that beat our class colors). */
+.ss-foot-col a,
+.ss-foot-phone,
+.ss-foot-mail,
+.ss-hero-phone,
+.ss-callpill a { color: var(--sun-400) !important; }
+.ss-foot-col a:hover,
+.ss-foot-phone:hover,
+.ss-foot-mail:hover,
+.ss-hero-phone:hover,
+.ss-callpill a:hover { color: #fff !important; }
 .ss-foot-bottom { border-top: 1px solid rgba(255,255,255,.12); }
 .ss-foot-bottom .ss-wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
   padding-top: 18px; padding-bottom: 18px; color: var(--neutral-400); font-size: 13px; }
