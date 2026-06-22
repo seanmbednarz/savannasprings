@@ -74,22 +74,21 @@ function ss_menu_icon_duck() {
 	return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 }
 
-/** Force the duck onto the Savanna Springs admin menu (ACF options pages don't
- *  always render a data-URI icon_url; this masks it on reliably). */
+/** Force the duck onto the Savanna Springs admin menu. ACF redirects the parent
+ *  options page to its first sub-page, so the menu id is unpredictable — target
+ *  by the menu link instead, and mask the duck over whatever icon_url renders. */
 function ss_admin_menu_icon_css() {
 	$duck = ss_menu_icon_duck();
-	$sel  = '#toplevel_page_ss-settings .wp-menu-image';
-	echo '<style id="ss-admin-menu-icon">'
-		. $sel . '{background:none !important}'
-		. $sel . ' img{display:none !important}'
-		. $sel . ":before{content:'' !important;display:block;width:20px;height:34px;margin:0 auto;"
-		. 'background-color:rgba(240,245,250,.6);'
-		. "-webkit-mask:url('" . $duck . "') no-repeat center;mask:url('" . $duck . "') no-repeat center;"
+	$a    = '#adminmenu a[href*="brand-contact"] .wp-menu-image';
+	$css  = $a . '{background:none !important}'
+		. $a . ' img{display:none !important}'
+		. $a . ":before{content:'' !important;display:block;width:20px;height:34px;margin:0 auto;"
+		. 'background-color:rgba(240,245,250,.6) !important;font-family:inherit !important;'
+		. "-webkit-mask:url('" . $duck . "') no-repeat center !important;mask:url('" . $duck . "') no-repeat center !important;"
 		. '-webkit-mask-size:20px auto;mask-size:20px auto}'
-		. '#toplevel_page_ss-settings:hover .wp-menu-image:before,'
-		. '#toplevel_page_ss-settings.wp-has-current-submenu .wp-menu-image:before,'
-		. '#toplevel_page_ss-settings.current .wp-menu-image:before{background-color:#fff}'
-		. '</style>';
+		. '#adminmenu li.menu-top:hover a[href*="brand-contact"] .wp-menu-image:before,'
+		. '#adminmenu li.wp-has-current-submenu a[href*="brand-contact"] .wp-menu-image:before{background-color:#fff !important}';
+	echo '<style id="ss-admin-menu-icon">' . $css . '</style>';
 }
 add_action( 'admin_head', 'ss_admin_menu_icon_css' );
 
