@@ -41,7 +41,7 @@ add_action( 'acf/init', function () {
 		'page_title' => 'Savanna Springs',
 		'menu_title' => 'Savanna Springs',
 		'menu_slug'  => 'ss-settings',
-		'icon_url'   => function_exists( 'ss_menu_icon_droplet' ) ? ss_menu_icon_droplet() : 'dashicons-filter',
+		'icon_url'   => function_exists( 'ss_menu_icon_duck' ) ? ss_menu_icon_duck() : 'dashicons-filter',
 		'position'   => 3,
 		'capability' => 'manage_options',
 	) );
