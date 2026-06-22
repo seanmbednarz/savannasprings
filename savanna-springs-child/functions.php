@@ -74,6 +74,25 @@ function ss_menu_icon_duck() {
 	return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 }
 
+/** Force the duck onto the Savanna Springs admin menu (ACF options pages don't
+ *  always render a data-URI icon_url; this masks it on reliably). */
+function ss_admin_menu_icon_css() {
+	$duck = ss_menu_icon_duck();
+	$sel  = '#toplevel_page_ss-settings .wp-menu-image';
+	echo '<style id="ss-admin-menu-icon">'
+		. $sel . '{background:none !important}'
+		. $sel . ' img{display:none !important}'
+		. $sel . ":before{content:'' !important;display:block;width:20px;height:34px;margin:0 auto;"
+		. 'background-color:rgba(240,245,250,.6);'
+		. "-webkit-mask:url('" . $duck . "') no-repeat center;mask:url('" . $duck . "') no-repeat center;"
+		. '-webkit-mask-size:20px auto;mask-size:20px auto}'
+		. '#toplevel_page_ss-settings:hover .wp-menu-image:before,'
+		. '#toplevel_page_ss-settings.wp-has-current-submenu .wp-menu-image:before,'
+		. '#toplevel_page_ss-settings.current .wp-menu-image:before{background-color:#fff}'
+		. '</style>';
+}
+add_action( 'admin_head', 'ss_admin_menu_icon_css' );
+
 function ss_register_cpts() {
 	register_post_type( 'ss_problem', array(
 		'labels'      => array( 'name' => 'Water Problems', 'singular_name' => 'Water Problem', 'menu_name' => 'Water Problems', 'add_new_item' => 'Add Water Problem' ),
