@@ -76,6 +76,14 @@ def prodcard(ic,color,title,blurb,href,photo=None):
 def whycard(ic,title,body,photo=None):
     top=cardphoto(photo) if photo else f'<div class="ss-tile ss-tile--navy">{svg(ic,27,"var(--navy-700)")}</div>'
     return f'<div class="ss-why" style="height:100%">{top}<h3>{title}</h3><p>{body}</p></div>'
+# Native editable card: a real BeBuilder Image element (GUI-swappable, can't be
+# mangled) + a separate text body. Card box is styled in the theme CSS via the
+# .ss-ncard-body marker, so the JSON stays minimal/robust.
+BB_PLACEHOLDER=SITE+"/wp-content/themes/betheme/muffin-options/svg/placeholders/image.svg"
+def native_card(size,title,blurb,href,cta,photo=BB_PLACEHOLDER):
+    body=(f'<div class="ss-ncard-body"><h3><a href="{href}">{title}</a></h3>'
+          f'<p>{blurb}</p><a class="ss-arrowlink" href="{href}">{cta} {AR()}</a></div>')
+    return Wraw(size,[img_item(photo),text_item(body)])
 def specialcard(ic,title,body):
     return f'<div class="ss-special" style="height:100%"><div class="ss-tile ss-tile--fill-navy">{svg(ic,24,"var(--sun-400)")}</div><h3>{title}</h3><p>{body}</p></div>'
 def offercard(ic,tag,t,b):
@@ -160,9 +168,9 @@ h_service_right=f'<div class="ss-citychips">{chips}</div>'
 h_cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free water test</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.025em;margin:0 0 10px">Ready to make your water perfectly clear?</h2><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:560px;margin:0 auto 26px;line-height:1.6">Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours.</p>'+btn("Get my free water test","/free-water-test/")+'</div>'
 pages["home"]=[
  section(merge(bg(NAVY),bg_image(HIMG,pos="right 30%"),overlay(),pad(70,78)),[W("1/2",h_hero_left)]),
- section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[W("1/3",pickcard(*p,photo=PLACEHOLDER)) for p in probs]),
+ section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[native_card("1/3",p[2],p[3],p[4],"See the fix") for p in probs]),
  section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w)) for w in whys]),
- section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[W("1/3",prodcard(*p,photo=PLACEHOLDER)) for p in prods]),
+ section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[native_card("1/3",p[2],p[3],p[4],"Learn more") for p in prods]),
  section(merge(bg(TINT),pad(0,80)),[W("1/1",f'<div style="text-align:center">{btn("See all products","/products/","primary")}</div>')]),
  section(merge(navy(HERO_BLOB),pad(78,78)),[W("1/2",h_service_left),W("1/2",h_service_right)]),
  section(merge(bg(SUN),pad(60,30)),[W("1/1",'<div class="ss-wrap"><div class="ss-eyebrow" style="color:var(--navy-700);margin-bottom:10px">Specials &amp; financing</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:36px;color:var(--navy-900);letter-spacing:-.02em;margin:0">Better water, made affordable</h2></div>')]),
