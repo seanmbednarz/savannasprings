@@ -365,6 +365,8 @@ body.home .mcb-background-overlay::after { content: ""; position: absolute; righ
 .mcb-wrap-inner:has(.ss-ncard-body) .mcb-column-inner { padding: 0 !important; margin: 0 !important; }
 .mcb-wrap-inner:has(.ss-ncard-body) img { width: 100%; height: 190px; object-fit: cover; display: block;
   border-radius: 18px 18px 0 0; }
+/* gutter on the wrap (outside the card box) so cards are spaced but the image stays flush */
+.mcb-wrap:has(.ss-ncard-body) { padding: 0 12px 26px !important; }
 .ss-ncard-body { padding: 22px 24px 24px; }
 .ss-ncard-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px;
   letter-spacing: -.01em; color: var(--navy-900); margin: 0 0 8px; }
