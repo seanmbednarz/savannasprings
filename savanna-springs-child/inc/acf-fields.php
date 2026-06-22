@@ -152,6 +152,7 @@ add_action( 'acf/init', function () {
 		'key'    => 'group_ss_problem',
 		'title'  => 'Water Problem content',
 		'fields' => array(
+			array( 'key' => 'f_p_intro', 'label' => '', 'type' => 'message', 'message' => '<strong>What is this?</strong> A <em>Water Problem</em> page (e.g. "Hard water &amp; scale"). The page title/slug is set at the top of this screen; everything below fills the designed layout — no code, no rebuilding. Set a <strong>Featured Image</strong> for the photo hero, or leave it blank to use the icon.' ),
 			array( 'key' => 'f_p_tab_hero', 'label' => 'Hero & card', 'type' => 'tab', 'placement' => 'top' ),
 			array( 'key' => 'f_p_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices(), 'instructions' => 'Shown on the cards and as the hero fallback when no photo is set.' ),
 			array( 'key' => 'f_p_color', 'label' => 'Accent color', 'name' => 'color', 'type' => 'select', 'choices' => ss_acf_color_choices(), 'instructions' => 'Tints the icon tile.' ),
@@ -190,6 +191,7 @@ add_action( 'acf/init', function () {
 		'key'    => 'group_ss_product',
 		'title'  => 'Product content',
 		'fields' => array(
+			array( 'key' => 'f_pr_intro', 'label' => '', 'type' => 'message', 'message' => '<strong>What is this?</strong> A <em>Product</em> page (e.g. "Water softeners"). The page title/slug is set at the top of this screen; everything below fills the designed layout. Set a <strong>Featured Image</strong> for the photo hero, or leave it blank to use the icon.' ),
 			array( 'key' => 'f_pr_tab_hero', 'label' => 'Hero & card', 'type' => 'tab', 'placement' => 'top' ),
 			array( 'key' => 'f_pr_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices(), 'instructions' => 'Shown on the cards and as the hero fallback when no photo is set.' ),
 			array( 'key' => 'f_pr_color', 'label' => 'Accent color', 'name' => 'color', 'type' => 'select', 'choices' => ss_acf_color_choices(), 'instructions' => 'Tints the icon tile.' ),
@@ -233,6 +235,7 @@ add_action( 'acf/init', function () {
 		'key'    => 'group_ss_city',
 		'title'  => 'Service Area content',
 		'fields' => array(
+			array( 'key' => 'f_c_intro', 'label' => '', 'type' => 'message', 'message' => '<strong>What is this?</strong> A <em>Service Area</em> page (e.g. "Youngstown"). The page title/slug is set at the top of this screen; everything below fills the designed layout. Set a <strong>Featured Image</strong> for the photo hero, or leave it blank to use the icon.' ),
 			array( 'key' => 'f_c_tab_loc', 'label' => 'Location', 'type' => 'tab', 'placement' => 'top' ),
 			array( 'key' => 'f_c_city', 'label' => 'City name', 'name' => 'city', 'type' => 'text', 'instructions' => 'Used throughout the page (headline, cards, breadcrumb).' ),
 			array( 'key' => 'f_c_county', 'label' => 'County', 'name' => 'county', 'type' => 'text' ),
