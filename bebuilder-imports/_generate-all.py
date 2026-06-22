@@ -80,9 +80,10 @@ def whycard(ic,title,body,photo=None):
 # mangled) + a separate text body. Card box is styled in the theme CSS via the
 # .ss-ncard-body marker, so the JSON stays minimal/robust.
 BB_PLACEHOLDER=SITE+"/wp-content/themes/betheme/muffin-options/svg/placeholders/image.svg"
-def native_card(size,title,blurb,href,cta,photo=BB_PLACEHOLDER):
-    body=(f'<div class="ss-ncard-body"><h3><a href="{href}">{title}</a></h3>'
-          f'<p>{blurb}</p><a class="ss-arrowlink" href="{href}">{cta} {AR()}</a></div>')
+def native_card(size,title,blurb,href=None,cta=None,photo=BB_PLACEHOLDER):
+    h=f'<a href="{href}">{title}</a>' if href else title
+    link=f'<a class="ss-arrowlink" href="{href}">{cta} {AR()}</a>' if (href and cta) else ''
+    body=f'<div class="ss-ncard-body"><h3>{h}</h3><p>{blurb}</p>{link}</div>'
     return Wraw(size,[img_item(photo),text_item(body)])
 def specialcard(ic,title,body):
     return f'<div class="ss-special" style="height:100%"><div class="ss-tile ss-tile--fill-navy">{svg(ic,24,"var(--sun-400)")}</div><h3>{title}</h3><p>{body}</p></div>'
@@ -107,7 +108,7 @@ cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-da
 pages["about"]=[
  section(merge(navy(HERO_BLOB),pad(64,64)),[W("1/1",nz(hero,HERO_BLOBS))]),
  section(pad(78,78),[W("1/2",story),W("1/2",statcard)]),
- section(merge(bg(TINT),pad(78,78)),[W("1/1",head("What we stand for","A few things we never compromise on"))]+[W("1/4",whycard(*v,photo=PLACEHOLDER)) for v in vals]),
+ section(merge(bg(TINT),pad(78,78)),[W("1/1",head("What we stand for","A few things we never compromise on"))]+[native_card("1/4",v[1],v[2]) for v in vals]),
  section(pad(78,78),[W("1/1",head("Reviews","What our neighbors say","Real homeowners across the Mahoning Valley and Western PA."))]+[W("1/3",reviewcard(*r)) for r in revs]),
  FWT(),
 ]
