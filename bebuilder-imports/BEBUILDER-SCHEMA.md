@@ -96,11 +96,50 @@ Use these instead of hand-built HTML where possible.
 | `icon` / `icon_2` | single icon | `icon` |
 | `table_of_contents`, `search_results`, `filters`, `hotspot`, `helper` | dynamic/advanced widgets | (see export) |
 
+### More element types (batch 2)
+| type | purpose | key attrs |
+|------|---------|-----------|
+| `visual` | rich-text (TinyMCE), same as `column` | `content` (HTML) |
+| `plain_text` | plain text block | `content` |
+| `tabs` | tabbed content | `title`, `tabs:[{title,content}]`, `type`("horizontal"), `padding` |
+| `toggle` | toggles | `tabs:[{title,content}]`, `tag`, `icon`, `active_icon`, `open_first/all` |
+| `timeline` | timeline | `tabs:[{title,date,content}]` |
+| `progress_bars` | bars | `title`, `tabs:[{title,value,size,color}]` |
+| `progress_icons` | icon meter | `icon`, `count`, `active` |
+| `quick_fact` | big number fact | `heading`, `title`, `content`, `number` |
+| `pricing_item` | pricing card | `image`, `title`, `price`, `tabs:[{title}]`, `icon_position`, `style`("box") |
+| `opening_hours` | hours table | `title`, `tabs:[{days,hours}]`, `content` |
+| `our_team` | team member | `heading`, `image`, `title`, `subtitle`, `style` |
+| `photo_box` | photo + title + text | `image`, `title`, `content` |
+| `promo_box` | promo (image + text, position) | `image`, `title`, `content`, `position`("left") |
+| `story_box` | image + title + text | `image`, `title`, `content` |
+| `sliding_box` | hover-slide box | `image`, `title` |
+| `trailer_box` | slogan + title over image | `image`, `slogan`, `title` |
+| `zoom_box` | zoom-on-hover | `image`, `content` |
+| `media_carousel` | image carousel | `tabs:[{image,link,title,content}]`, `columns`, `custom_arrow_*` |
+| `marquee_text` | scrolling ticker | `tabs:[{title,link}]`, `css_marque_speed`, `css_marque_item_gap` |
+| `video` | video embed | `video` (YouTube id), `object_position`, `mask_shape_*` |
+| `map` / `map_basic` | Google map | `lat`, `lng`, `zoom`, `type`("ROADMAP") / `zoom`, `height` |
+| `opening_hours`, `contact_box` | local-business info | (above) |
+| `share` | social share | `facebook/twitter/linkedin:"1"` + `*_icon`, `copy_link` |
+| `livesearch` | live search box | `min_characters`, `container_height`, `featured_image` |
+| `megamenu_menu` | nav menu widget | `menu_style`, `submenu*` |
+| `sidebar_widget` | render a WP sidebar | `sidebar` ("footer-area-1") |
+| `payment_methods` | payment icons | css opacity |
+| `lottie` | Lottie animation | `source_switcher`, `trigger`, `speed`, `frame_*` |
+| `our_team_list` | team row | `image`, `title`, `subtitle` |
+
 ### Icons
-Widget `icon` values use BeTheme's icon set, e.g. `icon-lamp`, `icon-book`,
-`icon-bucket`, `icon-check`, `icon-dot`. (Not Lucide — our brand SVGs only exist
-in the theme via `ss_icon()`, so for pixel-perfect brand icons we still embed
-SVG in `column`/`html` items.)
+Widget `icon` values accept **two icon sets**:
+- BeTheme/Mfn: `icon-lamp`, `icon-book`, `icon-bucket`, `icon-check`, `icon-dot`,
+  `icon-facebook`, `icon-x-twitter`, `icon-linkedin`, …
+- FontAwesome: `fas fa-plus`, `fas fa-minus`, `far fa-copy`, `fas fa-arrow-down`, …
+
+(Not Lucide — our brand SVGs only exist in the theme via `ss_icon()`, so for
+pixel-perfect brand icons we still embed SVG in `column`/`html` items.)
+
+`button` supports a `button_function` (e.g. `mfn-read-more`,
+`mfn-copy-to-clipboard`).
 
 ## Practical notes
 - For brand-styled cards we use: a wrap with a `classes` hook + a native `image`
