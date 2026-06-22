@@ -161,7 +161,7 @@ h_cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-
 pages["home"]=[
  section(merge(bg(NAVY),bg_image(HIMG,pos="right 30%"),overlay(),pad(70,78)),[W("1/2",h_hero_left)]),
  section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[W("1/3",pickcard(*p,photo=PLACEHOLDER)) for p in probs]),
- section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w,photo=PLACEHOLDER)) for w in whys]),
+ section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w)) for w in whys]),
  section(merge(bg(TINT),pad(80,40)),[W("1/1",head("Our products","American-made, built for your water","We only install equipment made in America, custom-built and sized to your home."))]+[W("1/3",prodcard(*p,photo=PLACEHOLDER)) for p in prods]),
  section(merge(bg(TINT),pad(0,80)),[W("1/1",f'<div style="text-align:center">{btn("See all products","/products/","primary")}</div>')]),
  section(merge(navy(HERO_BLOB),pad(78,78)),[W("1/2",h_service_left),W("1/2",h_service_right)]),
