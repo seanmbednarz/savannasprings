@@ -64,10 +64,12 @@ function ss_menu_icon_droplet() {
 
 /** A rubber-duck admin-menu icon for the Savanna Springs settings menu. */
 function ss_menu_icon_duck() {
+	// Single combined path (head + beak + body) so WP's admin-menu SVG masking
+	// renders it the same way it renders the droplet CPT icon.
 	$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black">'
-		. '<circle cx="15.5" cy="7" r="3.2"/>'
-		. '<path d="M18.4 7.6l3.1.5-2.9 1.4z"/>'
-		. '<path d="M12.8 8.2C11.9 7.7 10.9 7.4 9.8 7.4 6.3 7.4 3.5 10 3.2 13.3A1.4 1.4 0 0 0 2 14.7 1.4 1.4 0 0 0 3.4 16.1H10c3 0 5.4-2.3 5.5-5.2.04-1-.2-2-.7-2.8z"/>'
+		. '<path d="M15.5 3.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4z'
+		. 'M18.4 7.6l3.1.5-2.9 1.4z'
+		. 'M12.8 8.2C11.9 7.7 10.9 7.4 9.8 7.4 6.3 7.4 3.5 10 3.2 13.3A1.4 1.4 0 0 0 2 14.7 1.4 1.4 0 0 0 3.4 16.1H10c3 0 5.4-2.3 5.5-5.2.04-1-.2-2-.7-2.8z"/>'
 		. '</svg>';
 	return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 }

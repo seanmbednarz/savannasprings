@@ -361,7 +361,8 @@ body.home .mcb-background-overlay::after { content: ""; position: absolute; righ
 .mcb-wrap-inner:has(.ss-ncard-body) {
   background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
   overflow: hidden; box-shadow: var(--shadow-sm); padding: 0 !important; gap: 0 !important; height: 100%; }
-.mcb-wrap-inner:has(.ss-ncard-body) img { width: 100%; height: 190px; object-fit: cover; display: block; }
+.mcb-wrap-inner:has(.ss-ncard-body) img { width: 100%; height: 190px; object-fit: cover; display: block;
+  border-radius: 18px 18px 0 0; }
 .ss-ncard-body { padding: 22px 24px 24px; }
 .ss-ncard-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px;
   letter-spacing: -.01em; color: var(--navy-900); margin: 0 0 8px; }
