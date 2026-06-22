@@ -147,8 +147,8 @@ function ss_brand_colors() {
  * ------------------------------------------------------------------ */
 function ss_ref_from_key( $key ) {
 	$P = ss_problems(); $PR = ss_products();
-	if ( isset( $P[ $key ] ) )  { return array( 'url' => ss_link( $key ), 'label' => $P[ $key ]['label'],  'icon' => $P[ $key ]['icon'],  'color' => $P[ $key ]['color'] ); }
-	if ( isset( $PR[ $key ] ) ) { return array( 'url' => ss_link( $key ), 'label' => $PR[ $key ]['label'], 'icon' => $PR[ $key ]['icon'], 'color' => $PR[ $key ]['color'] ); }
+	if ( isset( $P[ $key ] ) )  { return array( 'url' => ss_link( $key ), 'label' => $P[ $key ]['label'],  'icon' => $P[ $key ]['icon'],  'color' => $P[ $key ]['color'], 'image' => ss_cpt_thumb( 'ss_problem', $P[ $key ]['slug'] ) ); }
+	if ( isset( $PR[ $key ] ) ) { return array( 'url' => ss_link( $key ), 'label' => $PR[ $key ]['label'], 'icon' => $PR[ $key ]['icon'], 'color' => $PR[ $key ]['color'], 'image' => ss_cpt_thumb( 'ss_product', $PR[ $key ]['slug'] ) ); }
 	return null;
 }
 function ss_ref_from_post( $post, $type ) {
@@ -162,6 +162,7 @@ function ss_ref_from_post( $post, $type ) {
 		'label' => get_the_title( $post ),
 		'icon'  => ss_get( $post->ID, 'icon', isset( $def['icon'] ) ? $def['icon'] : 'droplet' ),
 		'color' => ss_get( $post->ID, 'color', isset( $def['color'] ) ? $def['color'] : 'water' ),
+		'image' => has_post_thumbnail( $post->ID ) ? (string) get_the_post_thumbnail_url( $post->ID, 'large' ) : '',
 	);
 }
 function ss_resolve_refs( $acf_value, $default_keys, $type ) {
@@ -202,6 +203,7 @@ function ss_problem_view( $post_id ) {
 
 	$v['recommend']         = ss_get( $post_id, 'recommend_body', $def['recommend'] );
 	$v['product']['name']   = ss_get( $post_id, 'product_name', $def['product']['name'] );
+	$v['product']['image']  = ss_image_url( ss_get( $post_id, 'recommend_image', '' ) );
 	$badges                 = ss_get( $post_id, 'badges', null );
 	$v['product']['badges'] = ( ss_acf_active() && is_array( $badges ) && $badges ) ? ss_repeater_values( $badges, 'text' ) : $def['product']['badges'];
 	$plink                  = ss_get( $post_id, 'product_link', null );
@@ -249,6 +251,7 @@ function ss_product_view( $post_id ) {
 				'blurb'    => $m['blurb'] ?? '',
 				'features' => ss_lines( $m['features'] ?? '' ),
 				'warranty' => $m['warranty'] ?? '',
+				'image'    => isset( $m['image'] ) ? ss_image_url( $m['image'] ) : '',
 			);
 		}, $models );
 	}

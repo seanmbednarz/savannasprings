@@ -96,7 +96,11 @@ $ss_hero_img  = ss_hero_image();
 			<a class="ss-btn ss-btn--accent" href="<?php echo esc_url( $p['product']['url'] ); ?>">Explore this solution <?php echo ss_icon( 'arrowRight', array( 'size' => 18 ) ); ?></a>
 		</div>
 		<div class="ss-spotlight__visual">
-			<div class="ss-spotlight__device"><?php echo ss_icon( $p['icon'], array( 'size' => 56, 'color' => 'var(--spring-300)' ) ); ?><span>MADE IN USA</span></div>
+			<?php if ( ! empty( $p['product']['image'] ) ) : ?>
+				<img class="ss-spotlight__img" src="<?php echo esc_url( $p['product']['image'] ); ?>" alt="<?php echo esc_attr( $p['product']['name'] ); ?>" loading="lazy">
+			<?php else : ?>
+				<div class="ss-spotlight__device"><?php echo ss_icon( $p['icon'], array( 'size' => 56, 'color' => 'var(--spring-300)' ) ); ?><span>MADE IN USA</span></div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

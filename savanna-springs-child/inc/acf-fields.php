@@ -171,6 +171,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'f_p_recommend', 'label' => 'Recommended system — description', 'name' => 'recommend_body', 'type' => 'textarea', 'rows' => 3 ),
 			array( 'key' => 'f_p_product_name', 'label' => 'Recommended system — name', 'name' => 'product_name', 'type' => 'text' ),
 			array( 'key' => 'f_p_product_link', 'label' => 'Recommended product page', 'name' => 'product_link', 'type' => 'post_object', 'post_type' => array( 'ss_product' ), 'return_format' => 'object', 'ui' => 1 ),
+			array( 'key' => 'f_p_rec_img', 'label' => 'Recommended system photo (optional)', 'name' => 'recommend_image', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo in the "What we recommend" panel instead of the icon.' ),
 			array( 'key' => 'f_p_badges', 'label' => 'Badges', 'name' => 'badges', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add badge', 'sub_fields' => array(
 				array( 'key' => 'f_p_badge_t', 'label' => 'Text', 'name' => 'text', 'type' => 'text' ),
 			) ),
@@ -210,6 +211,7 @@ add_action( 'acf/init', function () {
 				array( 'key' => 'f_pr_m_blurb', 'label' => 'Blurb', 'name' => 'blurb', 'type' => 'textarea', 'rows' => 2 ),
 				array( 'key' => 'f_pr_m_feat', 'label' => 'Features (one per line)', 'name' => 'features', 'type' => 'textarea', 'rows' => 4 ),
 				array( 'key' => 'f_pr_m_warr', 'label' => 'Warranty (optional)', 'name' => 'warranty', 'type' => 'text' ),
+				array( 'key' => 'f_pr_m_image', 'label' => 'Photo (optional)', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo header on this model card.' ),
 			) ),
 			array( 'key' => 'f_pr_tab_bands', 'label' => 'Optional bands', 'type' => 'tab', 'placement' => 'top' ),
 			array( 'key' => 'f_pr_hl_en', 'label' => 'Show highlights band?', 'name' => 'highlights_enable', 'type' => 'true_false', 'ui' => 1 ),

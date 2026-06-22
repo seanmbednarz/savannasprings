@@ -575,7 +575,12 @@ body.ss-menu-open { overflow: hidden; }
 
 /* Product model cards */
 .ss-model { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl);
-  padding: 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+  padding: 30px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; overflow: hidden; }
+.ss-model > .ss-cardphoto { margin: -30px -30px 22px; }
+/* recommended-system spotlight photo (replaces the icon device when set) */
+.ss-spotlight { overflow: hidden; }
+.ss-spotlight__visual:has(.ss-spotlight__img) { padding: 0; }
+.ss-spotlight__img { width: 100%; height: 100%; min-height: 300px; object-fit: cover; display: block; }
 .ss-model__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
 .ss-model h3 { font-weight: 700; font-size: 21px; line-height: 1.2; }
 .ss-pill-tag { display: inline-flex; align-items: center; background: var(--sun-100); color: var(--sun-700);

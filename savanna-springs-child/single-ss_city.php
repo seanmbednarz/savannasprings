@@ -65,8 +65,9 @@ $ss_hero_img  = ss_hero_image();
 		<div class="ss-grid ss-grid-3">
 			<?php foreach ( $c['problem_items'] as $r ) : ?>
 				<a class="ss-card ss-card--hover" href="<?php echo esc_url( $r['url'] ); ?>">
+					<?php if ( ! empty( $r['image'] ) ) { echo ss_photo_header( $r['image'], $r['label'] ); } ?>
 					<div class="ss-relcard">
-						<div class="ss-tile ss-tile--<?php echo esc_attr( $r['color'] ); ?>"><?php echo ss_icon( $r['icon'], array( 'size' => 24 ) ); ?></div>
+						<?php if ( empty( $r['image'] ) ) : ?><div class="ss-tile ss-tile--<?php echo esc_attr( $r['color'] ); ?>"><?php echo ss_icon( $r['icon'], array( 'size' => 24 ) ); ?></div><?php endif; ?>
 						<div><h3><?php echo esc_html( $r['label'] ); ?></h3><span class="ss-arrowlink" style="font-size:13.5px;margin-top:4px">See the fix <?php echo ss_icon( 'arrowRight', array( 'size' => 14, 'color' => 'var(--spring-700)' ) ); ?></span></div>
 					</div>
 				</a>
@@ -81,7 +82,9 @@ $ss_hero_img  = ss_hero_image();
 	<div class="ss-grid ss-grid-4">
 		<?php foreach ( $c['service_items'] as $pr ) : ?>
 			<a class="ss-card ss-card--hover" href="<?php echo esc_url( $pr['url'] ); ?>">
-				<div class="ss-tile ss-tile--<?php echo esc_attr( $pr['color'] ); ?>" style="margin-bottom:14px"><?php echo ss_icon( $pr['icon'], array( 'size' => 26 ) ); ?></div>
+				<?php if ( ! empty( $pr['image'] ) ) : echo ss_photo_header( $pr['image'], $pr['label'] ); else : ?>
+					<div class="ss-tile ss-tile--<?php echo esc_attr( $pr['color'] ); ?>" style="margin-bottom:14px"><?php echo ss_icon( $pr['icon'], array( 'size' => 26 ) ); ?></div>
+				<?php endif; ?>
 				<h3 style="font-size:17px"><?php echo esc_html( $pr['label'] ); ?></h3>
 			</a>
 		<?php endforeach; ?>

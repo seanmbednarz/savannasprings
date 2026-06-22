@@ -62,6 +62,7 @@ $ss_hero_img  = ss_hero_image();
 		<div class="ss-grid ss-grid-2" style="margin-top:44px">
 			<?php foreach ( $p['models'] as $m ) : ?>
 				<div class="ss-model">
+					<?php if ( ! empty( $m['image'] ) ) { echo ss_photo_header( $m['image'], $m['name'] ); } ?>
 					<div class="ss-model__head">
 						<h3><?php echo esc_html( $m['name'] ); ?></h3>
 						<?php if ( ! empty( $m['tag'] ) ) : ?><span class="ss-pill-tag"><?php echo esc_html( $m['tag'] ); ?></span><?php endif; ?>
