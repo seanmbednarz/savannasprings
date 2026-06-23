@@ -1,0 +1,13 @@
+{
+  "name": "savanna-springs-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Savanna Springs Water Solutions — design system + marketing site (build-free, in-browser React/Babel).",
+  "scripts": {
+    "dev": "live-server --port=8080 --open=/ui_kits/website/index.html --watch=ui_kits,components,guidelines,styles.css,_ds_bundle.js,tokens,assets",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

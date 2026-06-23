@@ -130,3 +130,24 @@ Plus cool neutrals (slightly blue-gray) and standard semantic hues. Full ramps l
   // <Button variant="accent">Get a free water test</Button>
 </script>
 ```
+
+---
+
+## Previewing locally (live reload)
+
+This is a **build-free** site: React + Babel load from a CDN and the `.jsx`
+files compile in the browser. There's no Webpack/Vite step — you just need a
+local web server (opening the HTML as a `file://` won't work, the browser
+blocks the external scripts).
+
+```bash
+npm install   # one time — installs live-server
+npm run dev    # serves at http://localhost:8080 and opens the marketing site
+```
+
+`npm run dev` starts a [live-server](https://www.npmjs.com/package/live-server)
+that **auto-reloads the page whenever you save** a file in `ui_kits/`,
+`components/`, `guidelines/`, `tokens/`, `assets/`, `styles.css` or
+`_ds_bundle.js` — so you see changes the moment they're made. It opens the
+full marketing site (`/ui_kits/website/index.html`); navigate to other pages
+(e.g. component cards) from the same `http://localhost:8080/…` root.
