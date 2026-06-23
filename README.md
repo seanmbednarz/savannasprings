@@ -1,108 +1,132 @@
-# Handoff: Savanna Springs Water Solutions — Marketing Website
+# Savanna Springs Water Solutions — Design System
 
-## Overview
-A complete marketing website for **Savanna Springs Water Solutions** — a family-owned water-treatment company serving Northeast Ohio & Western PA. The site is organized around the customer's *problem* (smelly, hard, rusty, bad-tasting water) and drives every page to one action: **book a free in-home water test** (phone backup **(877) 750-1420**).
+A modern, locked-down brand and component system for **Savanna Springs Water Solutions**, a family-owned water-treatment company serving Northeast Ohio & Western Pennsylvania since 2008. This system refreshes a dated WordPress-era look into a clean, friendly, trustworthy identity while keeping the beloved brand marks (the script wordmark + rubber-duck) front and center.
 
-Full site map: Home · 8 problem pages + hub · 8 product pages + hub · 9 service-area (city) pages + hub · About · Reviews · Gallery · FAQ · Specials · Financing · Free Water Test · Contact.
-
-## About the design files
-The files in this bundle are **design references created in HTML/React-in-the-browser** — a working prototype that demonstrates the intended look, copy, and behavior. They are **not** meant to be shipped as-is. The task is to **recreate these designs in the target codebase's environment** (Next.js, Astro, WordPress, Vue, etc.) using its established patterns, routing, component library, and CMS. If no environment exists yet, pick the most appropriate framework (a static-site or React framework suits this content-heavy, SEO-driven site well) and implement there.
-
-`savanna-springs-site.html` is a single, self-contained file (all scripts, styles, fonts links, logo, and hero image inlined) — open it directly in any browser to explore the full click-through, no server needed.
-
-## Fidelity
-**High-fidelity.** Final colors, typography, spacing, radii, shadows, copy, and interactions are all specified below and present in the prototype. Recreate the UI pixel-faithfully using the exact tokens. The prototype is built on the Savanna Springs design system — reuse those tokens/components verbatim where the target stack allows.
+> **Consumers link one file:** `styles.css` (tokens + fonts). Components compile to `window.SavannaSpringsDesignSystem_15883b`.
 
 ---
 
-## Design tokens
+## Company & product context
 
-### Color (locked brand palette)
-**Brand**
-- Navy (primary) `--navy-700 #1f2b6e` · ramp: 50 `#eef0fa`, 100 `#d7dcf1`, 200 `#b0bae2`, 300 `#8493d0`, 400 `#5868bb`, 500 `#3a49a3`, 600 `#2b3886`, **700 `#1f2b6e`**, 800 `#161f54`, 900 `#0e1438`
-- Spring blue (water/secondary) `--spring-400 #49ade4` · ramp: 50 `#ecf7fd`, 100 `#d2edfb`, 200 `#a8dcf6`, 300 `#74c5ef`, **400 `#49ade4`**, 500 `#2f97d4`, 600 `#1f7bb4`, 700 `#1a6191`, 800 `#194f74`, 900 `#163f5c`
-- Sun yellow (hero CTA / duck) `--sun-400 #fcca21` · ramp: 50 `#fffaeb`, 100 `#fff1c4`, 200 `#ffe488`, 300 `#ffd750`, **400 `#fcca21`**, 500 `#efb40c`, 600 `#ce8d04`, 700 `#a46a08`, 800 `#87550f`, 900 `#724711`
-- Duck orange (small spark accent only) `--orange-500 #f5851f` · 300 `#ffb867`, 400 `#fa9b3c`, **500 `#f5851f`**, 600 `#e06d10`, 700 `#ba560c`
+Savanna Springs sells, services and rents **custom-built, American-made water-treatment systems**. They are a proud **Water-Right® Authorized Dealer**, and their staff are **Ohio EPA-licensed operators**. Tagline: *"We make one thing perfectly clear…"*
 
-**Neutrals (cool, blue-gray):** 0 `#ffffff`, 50 `#f6f8fb`, 100 `#eef1f6`, 200 `#e0e5ee`, 300 `#c8d0de`, 400 `#9aa6bd`, 500 `#6b7891`, 600 `#4d5870`, 700 `#39435a`, 800 `#262e42`, 900 `#161c2d`
+**Products represented** (from the site + collateral):
+- **Water Softeners** — Impression Plus Series®, Impression Plus® RC (Resin/Carbon), Crystal-Right/Carbon, Twin, Filter series.
+- **Drinking Water** — Impression Series® reverse-osmosis (R.O.) systems.
+- **Well Water** — iron / sulfur / sediment solutions.
+- **Commercial Water** — larger custom systems.
+- **Water Delivery** — bottled spring/distilled water.
+- **Water Coolers** — rental & sales.
+- **Salt Delivery** — free delivery + loading of softener salt ("Salt Delivery. The Better Way.").
+- Plus: FAQ, Common Water Problems, Specials/financing, Free Water Analysis, Quick Quote, Apply for Credit, Blog, Testimonials.
 
-**Semantic:** success `#2e9e6b` (tint `#d6f1e3`, dark `#1d6b46`), danger `#d8463c`, warning `#e8a317`, info `#2f97d4`
+**Contact:** 875 River Road, Lowellville, OH 44436 · (877) 750-1420.
 
-**Common aliases used throughout:** page bg `--color-bg #f6f8fb`, surface/card `#ffffff`, text-heading `#0e1438`, text-body `#39435a`, text-muted `#6b7891`, border `#e0e5ee`, border-strong `#c8d0de`, focus ring `#49ade4`.
-
-### Typography
-- **Display:** `Outfit` (Google Fonts, weights 300–800) — headings & eyebrows. Body fallback stack: `system-ui, -apple-system, 'Segoe UI', sans-serif`.
-- **Body:** `Figtree` (Google Fonts, weights 300–800).
-- **Mono:** `ui-monospace, 'SFMono-Regular', Menlo, monospace` (only used for gallery placeholder labels).
-- Google Fonts import: `https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Figtree:wght@300;400;500;600;700;800&display=swap`
-- **Scale (px):** 11, 12, 14, 16, 18, 22, 28, 36, 46, 60, 76. Hero H1 ~58px/800; page H1 ~46–50px/800; section H2 ~34–42px/800; card H3 ~18–22px/700; body 14.5–18px/400–500.
-- **Headlines:** weight 700–800, sentence case, letter-spacing `-0.02em` (tight). **Eyebrows/labels:** uppercase Outfit 700, 13px, letter-spacing `0.12–0.14em`, colored navy on light / spring-300 or sun-400 on navy. **Line-heights:** headings 1.05–1.22, body 1.5–1.7.
-
-### Spacing (4px base)
-4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 112. Section vertical padding 64–84px. Page max-width **1180px**, 24px gutters.
-
-### Radius (rounded, friendly)
-xs 4 · sm 8 · md 12 (inputs) · lg 18 (icon tiles) · xl 26 (cards) · 2xl 36 (large panels) · pill 999 (buttons, chips). Buttons are pills by default.
-
-### Shadows (soft, navy-tinted — never flat gray)
-- xs `0 1px 2px rgba(20,28,70,.06)` · sm `0 2px 6px rgba(20,28,70,.08)` · md `0 8px 20px rgba(20,28,70,.10)` · lg `0 16px 40px rgba(20,28,70,.14)` · xl `0 28px 64px rgba(20,28,70,.18)`
-- accent (under yellow/orange CTAs) `0 10px 24px rgba(245,133,31,.28)`
-
-### Motion
-Durations 120 / 200 / 360ms. Easing: out `cubic-bezier(.16,.84,.44,1)`, spring `cubic-bezier(.34,1.56,.64,1)`. Subtle fades + small translateY; hover lifts cards `-3px`. Respect `prefers-reduced-motion`.
-
-### Focus
-3px spring-blue ring (`#49ade4`) + 2px offset.
+### Sources provided (stored for reference — reader may not have access)
+- `uploads/1–19 *.jpeg` — full-page screenshots of the current live website (Home, Welcome/About, Testimonials, each product page, FAQ, Common Water Problems, Specials, Free Water Analysis, Quick Quote, Apply for Credit, Blog).
+- `uploads/SSWS-Logo-2022.png` — primary logo (script wordmark + rubber duck). **Now in `assets/logo-savanna-springs.png`.**
+- `uploads/Savanna Springs Potential Brand Board.pdf` — an 8-option rebrand concept board the company explored but never shipped. **Note:** the board is lorem-ipsum placeholder layouts (low information value) and could not be reliably rasterized in this environment; this system is a fresh modern direction informed by the real collateral rather than a literal trace of any single board option.
+- Numerous PDF/PNG/JPG **ads & flyers** (`SSWS-FB-Ad-2022.png`, `SS-Flyer-Summer-Special*.png`, `Savanna Springs Facebook R.O. Ad *.png`, `SS-Flyer-Salt-Bags.png`, salt/financing/RO/chlorine flyers, bottled-water wrapper, postcards). These were the primary basis for the locked color palette, photography vibe and headline style.
 
 ---
 
-## Reusable components (build these once)
+## CONTENT FUNDAMENTALS — how Savanna Springs writes
 
-- **Sticky header** — navy utility bar (county line + email) over a white blurred bar (`rgba(255,255,255,.92)` + `backdrop-filter: blur`). Logo left; nav: Water Problems / Products / Service Areas / About / Specials; right: phone link (navy pill icon) + **yellow "Free Water Test" pill button**. Collapses to a hamburger + slide-down panel at ≤1040px.
-- **Footer** — navy-800, 4 columns: (1) logo + address/phone/email + trust-badge pills (Since 2008 · WQA Certified · Water-Right® Dealer · Made in USA) + italic tagline "We make one thing perfectly clear…"; (2) Solutions (problem links); (3) Products; (4) Service Areas (9 cities). Bottom utility row: About · Reviews · Gallery · FAQ · Financing · Contact + copyright.
-- **Trust strip** — centered row: Since 2008 · WQA Certified · Water-Right® Dealer · Made in USA · We service all makes, separated by dots.
-- **Problem picker** — responsive card grid (3-up → 2 → 1). Each card: tinted rounded icon tile + title + one-line blurb + "See the fix →". Hoverable (lift -3px). Links to the matching problem page.
-- **How it works (3-step)** — Diagnose → Recommend → Install. Numbered cards (navy icon tile + ghost number).
-- **Reviews block** — quote-mark, 5 filled stars (`#fcca21`), testimonial, avatar + name. 3-up grid; "Read all reviews" button. (Seed testimonials provided; production = Elfsight live Google reviews.)
-- **Free Water Test form** — navy section, two columns: left pitch (perks + phone) / right white form card. Fields: Full name, Phone, ZIP, Email, "I'm concerned about" (select), "Describe your water concerns" (textarea), "How did you find us?" (select), Coupon code. Yellow submit "Book my free water test". Shows a success confirmation state on submit. (Production = POST to Zapier.)
-- **Design-system primitives** used everywhere: Button (variants: primary=navy, accent=sun-yellow, water=spring, secondary, outline, ghost; sizes sm/md/lg; pill), Card (elevated/soft/outline/water/brand; hoverable), Badge (navy/water/sun/orange/success; soft|solid), Input, Select, Checkbox, Avatar, Alert.
+**Voice:** warm, plain-spoken, confident, local. A knowledgeable neighbor, not a corporation. Family-owned pride shows up often ("family-owned and operated," "since 2008," "made right here in America").
 
-## Page archetypes (templates — most pages are data-driven)
+**Person:** speaks to **"you / your"** ("your home, your family, your budget"); refers to itself as **"we / Savanna Springs."** First-name, on-the-ground ("Steve worked with us…").
 
-1. **Homepage** — Hero (navy, scrimmed photo right, decorative spring/orange "bubbles") → trust strip → problem picker (6) → 3-step → "Why Savanna Springs" (4 value cards + stats) → products grid (spring-tint band) → service-area band (navy, 9 city chips) → reviews → specials & financing band (sun-yellow) → free water test → footer.
-2. **Problem page template** (×8, data: `problems-data.js`) — Hero (breadcrumb + H1 + lead + CTA/phone + big icon tile) → "The Problem" / "The Cause" two cards → "Diagnose → Recommend → Install" 3 steps → recommended-system spotlight (navy panel, cross-links to the product page) → optional payoff stats → related problems → free water test.
-3. **Product page template** (×8, data: `products-data.js`) — Hero → optional intro band → model/series cards (badges, feature checklist, warranty callout, product-visual placeholder) → eco/value highlights band → optional "who we serve" / delivery info → "Problems this solves" cross-links → free water test. (Commercial variant: no models, segment grid + call-first CTA band.)
-4. **City page template** (×9, data: `cities-data.js`) — Hero (county·ZIP eyebrow, localized H1+lead, map-pin tile) → "[City] water, explained" context + "Most common here" list → "What we fix in [City]" problem links → "Services in [City]" product links → 3-step → reviews → "Proudly serving [City] & nearby…" with 9-city chip rail (current highlighted) → free water test (ZIP prefilled).
-5. **Content pages** — About (story + values + stats + credentials), Reviews (6 testimonials + Elfsight slot), Gallery (before/after, grouped by problem), FAQ (accordion + FAQ JSON-LD schema, each answer cross-linked), Specials (4 offer cards), Financing (5-tier table), Contact (info + hours + social + embedded Google map + message form).
+**Casing:**
+- **Headlines:** sentence case in the refreshed system (e.g. *"Better water, made simple."*). The legacy site used ALL-CAPS section headers (*"HARD WATER CREATES PROBLEMS"*); ad headlines were bold uppercase (*"DO YOU WANT BETTER WATER?"*). Keep occasional uppercase for short **eyebrows/labels** only.
+- **Eyebrows/labels:** UPPERCASE with wide tracking (e.g. *WE MAKE ONE THING PERFECTLY CLEAR*, *OUR SOLUTIONS*).
+- **Body:** sentence case, generous, benefit-led.
 
-## Interactions & behavior
-- **Routing:** single-page client router in the prototype (`App.jsx`, `navigate(pageKey)` + `scrollTo(0)`). In production, use real routes/URLs (slugs from the brief, e.g. `/smelly-water/`, `/water-softeners/`, `/water-softeners-youngstown-oh/`).
-- **Hover:** cards lift `translateY(-3px)` + deepen shadow; buttons darken same-hue; nav items get a navy-50 pill bg when active.
-- **Forms:** client-side validation on required fields; on submit, swap the form for a success confirmation card. **Wire to Zapier** in production (Free Water Test, Contact).
-- **FAQ:** accordion (one open at a time), chevron rotates 180°. Injects **FAQPage JSON-LD** schema into `<head>`.
-- **Responsive:** header → hamburger ≤1040px; multi-column grids collapse 3→2→1 at ~980/600px; hero/split sections stack ≤860px.
-- **Mobile menu:** slide-down panel with nav links, phone, and the yellow Free Water Test button.
+**Tone & vibe:** reassuring and problem→solution. Lead with the pain ("Hauling salt bags a pain? Running out of soft water?"), then the friendly fix ("Salt Delivery. The Better Way."). Benefit-driven bullet lists (percent savings, eco-friendly, made in USA). Light optimism from the duck — friendly, never silly.
 
-## State management
-Lightweight, per the prototype: current route/page; mobile-menu open/closed; per-form field state + submitted flag; FAQ open-index. In production these map to router state + local component state; form submissions go to Zapier.
+**Punctuation/quirks:** the ellipsis tagline "…perfectly clear…"; product names carry ® (Impression Plus Series®, Water-Right®, Crystal-Right®). Numbers stated as concrete benefits ("reduces detergents by 50%," "up to 47% more efficient").
 
-## SEO
-Each page has a meta title (provided in the source content files). Add per-page `<title>`/meta description, FAQ schema on the FAQ page, city pages keyed to their focus keyword, and cross-links (problems↔products↔cities, footer Service Areas column).
+**Emoji:** none. Don't use emoji. The **rubber duck** is the brand's single playful device — use the logo/mark, not emoji.
 
-## Assets
-- **Logo:** `logo-savanna-springs.png` (script wordmark + rubber-duck mark; transparent) — inlined in the bundle. Use the brand lockup, not a redrawn duck.
-- **Hero photo:** `img-hero-people.png` (lifestyle, scrimmed under navy) — inlined in the bundle.
-- **Icons:** single-weight 2px-round line set (Lucide-style), `currentColor` stroke. Filled stars are the one exception (`#fcca21`).
-- **Product/gallery visuals:** styled placeholders in the prototype — replace with real product cut-outs and real before/after customer photos.
-- **Map:** Contact page embeds Google Maps (`maps?q=875+River+Road,+Lowellville,+OH+44436&output=embed`).
-- No emoji anywhere — the rubber duck is the only playful device.
+**Example copy that's on-brand:**
+- Eyebrow: *We make one thing perfectly clear*
+- H1: *Better water, made simple.*
+- Sub: *Family-owned, American-made water treatment — custom-built for your home, your family and your budget.*
+- CTA: *Get a free water test* · *Receive a quick quote* · *Salt Delivery. The Better Way.*
 
-## Files in this bundle
-- `savanna-springs-site.html` — the complete, self-contained click-through prototype (open in a browser). All page templates, components, content data, tokens, fonts links, logo, and hero image are inlined.
-- `screenshots/` — reference captures of the key page archetypes: `01-home`, `02-problem-rotten-egg`, `03-product-softeners`, `04-city-youngstown`, `05-faq`, `06-contact`.
-- `README.md` — this document.
+---
 
-> The same source also lives un-bundled in the design-system project under `ui_kits/website/` (separate `.jsx` templates + `*-data.js` content files + `styles.css`/`tokens/` + `_ds_bundle.js`) if you have access and prefer to read the split source.
+## VISUAL FOUNDATIONS
 
-## Company facts (for copy accuracy)
-Family owned since 2008 (named after the owners' daughter, Savannah) · Ohio EPA Licensed Operators, 35+ yrs combined experience · Authorized Water-Right® dealer · WQA Certified · Made in USA · serves Mahoning, Columbiana & Trumbull counties + Western PA · 875 River Road, Lowellville, OH 44436 · (877) 750-1420 · info@savannaspringswater.com · tagline "We make one thing perfectly clear…"
+**Color (locked).** Four brand colors, pulled straight from the mark and ads:
+- **Navy `#1F2B6E`** (`--navy-700`) — primary. Backgrounds, headlines, primary buttons, the wordmark outline. The anchor of trust.
+- **Spring Blue `#49ADE4`** (`--spring-400`) — clean water / secondary. Links, water accents, info.
+- **Sun Yellow `#FCCA21`** (`--sun-400`) — the duck / hero accent. High-impact CTAs, highlights, pills. (The brand's ad headlines literally alternate navy + yellow.)
+- **Duck Orange `#F5851F`** (`--orange-500`) — the beak. A small spark accent only — never a large field.
+Plus cool neutrals (slightly blue-gray) and standard semantic hues. Full ramps live in `tokens/colors.css`; reference **semantic aliases** (`--brand`, `--accent`, `--water`, `--surface-card`, `--text-body`…) in components.
+
+**Type.** Display = **Outfit** (geometric, friendly, rounded — echoes the bubbly logo). Body = **Figtree** (humanist, warm, legible). Headlines are heavy (700–800), tight tracking, sentence case; eyebrows are uppercase Outfit with 0.12em tracking. The **script logo is a lockup image**, not a UI font — don't try to set type in the script style.
+
+**Backgrounds.** Mostly clean white / off-white (`--neutral-50`) with **navy** and **spring-tint** section bands for rhythm. Decorative **soft circular "blobs"** (spring blue + a single orange dot) sit behind navy heroes — a nod to water bubbles. Real **photography** is bright, clean, fresh: water splashes, faucets, people drinking water, blue-and-white, naturally lit (warm-cool, never moody/grainy). No heavy gradients as a crutch; the one gradient that's allowed is a subtle navy→transparent scrim over hero photos.
+
+**Spacing & layout.** 4px base scale. Max content width ~1180px, 24px gutters. Generous section padding (64–84px). Centered section heads with an eyebrow → H2 → sub pattern; left-aligned for split layouts.
+
+**Corner radii — rounded & friendly.** Cards `--radius-xl` (26px), buttons are **pills** by default, inputs `--radius-md` (12px), small chips/pills everywhere. This roundness is core to the brand's approachability.
+
+**Cards.** White surface, 1px hairline border (`--border`), soft **navy-tinted** shadow (`--shadow-md`), 26px radius. Variants: elevated (default), soft (navy tint), outline, water (spring tint), brand (navy w/ white text). Hoverable cards lift `-3px` and deepen the shadow.
+
+**Shadows.** Soft and **cool/navy-tinted** (never flat gray): `rgba(20,28,70,…)`. A special **warm `--shadow-accent`** glows under yellow/orange CTAs.
+
+**Borders.** Hairline `1px` neutral-200 for structure; `1.5px` neutral-300 for inputs/outline controls; focus uses a `3px` spring-blue ring + tint halo.
+
+**Buttons & states.** Pill, Outfit 700. Variants: primary (navy), accent (sun yellow — the hero CTA), water (spring), secondary (navy tint), outline, ghost. **Hover** = darker shade of the same hue (navy→navy-800, yellow→sun-500). **Press** = `translateY(1px)` nudge. Disabled = neutral-200 fill / neutral-400 text. Focus = visible ring.
+
+**Animation.** Subtle and quick. Durations 120/200/360ms. Easing: `--ease-out` for most, `--ease-spring` for toggles/playful lifts. Fades + small translateY rises; no bounce-heavy or infinite decorative loops. Respect `prefers-reduced-motion`.
+
+**Transparency / blur.** Used sparingly: the sticky header is `rgba(255,255,255,0.92)` + `backdrop-filter: blur`. Navy bands use low-opacity white panels (`rgba(255,255,255,0.06)`) for nested cards.
+
+**Imagery color vibe.** Warm-cool natural daylight, high-key, lots of white and sky-blue, crisp water. Avoid black-and-white, heavy grain, or dark/moody treatments.
+
+---
+
+## ICONOGRAPHY
+
+- **System:** **Lucide** (MIT) — a clean, modern, single-weight (2px round) line set that matches the friendly-but-trustworthy tone and pairs well with Outfit. The legacy site used heavier FontAwesome-style glyphs; Lucide is the modern replacement.
+- **Delivery:** to keep the kit self-contained and offline-safe, a curated subset of Lucide paths is inlined in `ui_kits/website/Icon.jsx` (`window.SSIcon`, used as `<Icon name="droplet" size={24} />`). When building new surfaces you may also load Lucide from CDN (`https://unpkg.com/lucide@latest`) — keep the **same 2px round stroke**. Add new glyphs to `SS_ICON_PATHS` as needed.
+- **Style rules:** line icons (not filled) by default; stroke `currentColor` so they inherit text/brand color; sit in tinted rounded squares (`--radius-lg`) for feature/problem tiles. Stars in ratings are the one **filled** exception (filled `--sun-400`).
+- **Emoji:** never. **Unicode glyphs as icons:** no. **The duck:** the rubber duck (in the logo) is the brand's mascot/spark — reach for the logo lockup rather than drawing a duck icon.
+- **Logo/marks:** `assets/logo-savanna-springs.png` (transparent). Works on white, light tints and sun-yellow; on navy it's used with a soft drop-shadow (see footer). Clear space ≈ the duck's height on all sides.
+
+---
+
+## Index / manifest
+
+**Root**
+- `styles.css` — global entry (consumers link this). `@import`s the token files.
+- `readme.md` — this guide.
+- `SKILL.md` — Agent-Skills-compatible front-matter so the system can be used in Claude Code.
+
+**`tokens/`** — `fonts.css` (Outfit + Figtree), `colors.css`, `typography.css`, `spacing.css` (spacing/radius/shadow/motion/z), `base.css` (element defaults + `.ss-eyebrow`).
+
+**`assets/`** — `logo-savanna-springs.png` (primary), `img-hero-people.png` (cropped lifestyle), plus reference collateral (`img-water-faucet.png`, `img-people-drinking.png`, `product-ro-system.png`, `img-salt-softener.png`).
+
+**`components/`** — reusable primitives (each: `.jsx`, `.d.ts`, `.prompt.md`, + one card per group):
+- `actions/` — **Button**, **IconButton**
+- `forms/` — **Input**, **Select**, **Checkbox**, **Switch**
+- `display/` — **Card**, **Badge**, **Avatar**
+- `feedback/` — **Alert**
+
+**`guidelines/cards/`** — foundation specimen cards for the Design System tab (Colors ×6, Type ×3, Spacing ×3, Brand ×2).
+
+**`ui_kits/website/`** — click-through marketing-site recreation (`index.html` + Header/Footer/Hero/HomePage/ProductsPage/QuotePage/SpecialsPage/App + `Icon.jsx`). See its `README.md`.
+
+---
+
+## Using the system
+```html
+<link rel="stylesheet" href="styles.css">
+<script src="_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Button, Card, Badge } = window.SavannaSpringsDesignSystem_15883b;
+  // <Button variant="accent">Get a free water test</Button>
+</script>
+```
