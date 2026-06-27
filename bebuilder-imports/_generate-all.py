@@ -37,7 +37,7 @@ HERO_BLOBS=FWT_BLOBS=None
 SITE="https://savannaspristg.wpenginepowered.com"
 UPLOADS=SITE+"/wp-content/uploads/2026/06/"
 HERO_BLOB=UPLOADS+"ss-blobs-hero.svg"; FWT_BLOB=UPLOADS+"ss-blobs-fwt.svg"
-HIMG=SITE+"/wp-content/themes/savanna-springs-child/assets/img-hero-people.png"
+HIMG=SITE+"/wp-content/uploads/2026/06/SSWS-Hero-Image-3.jpg"
 def navy(blob=None):
     return merge(bg("#1F2B6E"), bg_image(blob)) if blob else bg("#1F2B6E")
 def fwt_pitch(heading,sub):
