@@ -105,12 +105,18 @@ statcard='<div class="ss-card" style="padding:36px"><div class="ss-stats" style=
 vals=[("home","Family first","Named after our daughter Savannah. We treat your home like our own &mdash; honest advice, no pressure."),("award","Built to last","A proud Water-Right&reg; authorized dealer installing American-made, custom-built systems."),("shieldCheck","Licensed &amp; certified","Ohio EPA-licensed operators, WQA certified, with 35+ years of combined experience."),("wrench","Here for the long haul","We service all makes and models, deliver salt and water, and stand behind our work.")]
 revs=[("Beyond happy with the customer service and attention to detail. They did a water test to make sure we got the best system for our home. Highly recommend!","Madison M."),("Super job! Matt and Steve were excellent installers &mdash; very clean and responsive. Great price with even better service.","Margaret F."),("Love our new water softener and reverse osmosis system. Even our heating guy commented on the quality of the work.","Brian F.")]
 cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free water test</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.025em;margin:0 0 10px">Ready to make your water perfectly clear?</h2><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:560px;margin:0 auto 26px;line-height:1.6">Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours.</p>'+btn("Get my free water test","/free-water-test/")+'</div>'
+# Our Story: 1/2 text + 4 stats underneath (left) | swappable image (right).
+about_stats=[("2008","Family owned since"),("35+ yrs","Combined experience"),("20-yr","Warranties available"),("EPA","Licensed operators")]
+story_stats='<div class="ss-stats" style="margin-top:30px;padding-top:26px;gap:30px;border-top:1px solid var(--border)">'+''.join(f'<div class="ss-stat"><div class="ss-stat__n">{n}</div><div class="ss-stat__l">{l}</div></div>' for n,l in about_stats)+'</div>'
+ABOUT_IMG=SITE+"/wp-content/uploads/2026/06/SSWS-Hero-Image-3.jpg"  # placeholder; swap in the builder
+about_imgwrap=Wraw("1/2",[img_item(ABOUT_IMG)]); about_imgwrap["attr"]["classes"]="ss-aboutimg"
+about_fwt=FWT(); about_fwt["attr"]["classes"]="ss-blobs-fwt"  # CSS decorative circles
 pages["about"]=[
- section(merge(navy(HERO_BLOB),pad(64,64)),[W("1/1",nz(hero,HERO_BLOBS))]),
- section(pad(78,78),[W("1/2",story),W("1/2",statcard)]),
+ section(merge(bg(NAVY),pad(64,64),{"classes":"ss-blobs-navy"}),[W("1/1",hero)]),
+ section(pad(78,78),[W("1/2",story+story_stats),about_imgwrap]),
  section(merge(bg(TINT),pad(78,78)),[W("1/1",head("What we stand for","A few things we never compromise on"))]+[native_card("1/4",v[1],v[2]) for v in vals]),
  section(pad(78,78),[W("1/1",head("Reviews","What our neighbors say","Real homeowners across the Mahoning Valley and Western PA."))]+[W("1/3",reviewcard(*r)) for r in revs]),
- FWT(),
+ about_fwt,
 ]
 # ---- SPECIALS ----
 offers=[("refresh","On softener rentals","One month free rent","Rent an Impression Plus&reg; softener and get your first month of rent free."),("truck","With softener purchase","One year of free salt","Buy a qualifying Water-Right&reg; softener and we&rsquo;ll deliver a year of salt &mdash; free."),("droplet","On RO rentals","RO for pennies a day","Bottle-quality reverse-osmosis drinking water &mdash; one month free for a limited time."),("dollarSign","Financing available","6 months no interest","Flexible financing to spread the cost of better water across your budget.")]

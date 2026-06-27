@@ -4,7 +4,7 @@ Theme URI: https://savannaspringswater.com
 Description: Custom BeTheme child theme for Savanna Springs Water Solutions. Provides the high-fidelity branded marketing design — header/footer chrome, design tokens, and custom templates for the Water Problems, Products and Service-Area page archetypes — on top of BeTheme. Build the remaining content visually in Muffin Builder; it renders inside the Savanna Springs header/footer.
 Author: Savanna Springs
 Template: betheme
-Version: 1.0.5
+Version: 1.0.6
 Text Domain: savanna-springs-child
 */
 
@@ -284,6 +284,23 @@ body.ss-menu-open { overflow: hidden; }
 .ss-blob { position: absolute; border-radius: 50%; }
 .ss-blob--spring { background: var(--spring-500); }
 .ss-blob--orange { background: var(--orange-500); }
+
+/* CSS-driven decorative circles for BUILDER navy bands (no uploaded SVG needed).
+   Add classes "ss-blobs-navy" / "ss-blobs-fwt" to a BeBuilder section. */
+.ss-blobs-navy, .ss-blobs-fwt { position: relative; overflow: hidden; }
+.ss-blobs-navy .section_wrapper, .ss-blobs-fwt .section_wrapper { position: relative; z-index: 1; }
+.ss-blobs-navy::before { content: ""; position: absolute; right: -80px; top: -120px;
+  width: 320px; height: 320px; border-radius: 50%; background: var(--spring-500); opacity: .24;
+  pointer-events: none; z-index: 0; }
+.ss-blobs-fwt::before { content: ""; position: absolute; left: -100px; bottom: -130px;
+  width: 340px; height: 340px; border-radius: 50%; background: var(--spring-500); opacity: .2;
+  pointer-events: none; z-index: 0; }
+.ss-blobs-fwt::after { content: ""; position: absolute; left: 44%; top: 34px;
+  width: 92px; height: 92px; border-radius: 50%; background: var(--orange-500); opacity: .9;
+  pointer-events: none; z-index: 0; }
+/* About: Our Story swappable image */
+.ss-aboutimg img, .ss-aboutimg .image_frame img { border-radius: 18px; display: block;
+  width: 100%; height: auto; }
 
 /* ============================================================
    6. CARDS
