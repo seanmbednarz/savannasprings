@@ -394,6 +394,9 @@ add_action( 'acf/init', function () {
 				'choices' => array( 'auto' => 'Auto (photo if set, else icon)', 'icon' => 'Icon tile', 'photo' => 'Photo background' ), 'default_value' => 'auto' ),
 			array( 'key' => 'f_hero_image', 'label' => 'Hero photo', 'name' => 'hero_image', 'type' => 'image', 'return_format' => 'array',
 				'instructions' => 'Optional. Used as the hero background (with a navy scrim). Falls back to the Featured Image if empty.' ),
+			array( 'key' => 'f_hero_focus', 'label' => 'Hero photo focus', 'name' => 'hero_focus', 'type' => 'select', 'allow_null' => 1,
+				'choices' => array( 'top' => 'Top', 'center' => 'Center', 'bottom' => 'Bottom', 'left' => 'Left', 'right' => 'Right' ),
+				'instructions' => 'Which part of the photo to keep in view. Leave blank for the default framing.' ),
 		),
 		'position' => 'side',
 		'location' => array(

@@ -196,9 +196,14 @@ function ss_render_builder_content() {
 	}
 }
 
-/** Echo a full-bleed hero background image + dark scrim, if an image URL is given. */
+/** Echo a full-bleed hero background image + dark scrim, if an image URL is given.
+ *  Applies the per-post "Hero photo focus" as background-position when set. */
 function ss_hero_cover( $img ) {
-	if ( $img ) { echo '<div class="ss-hero-cover" style="background-image:url(' . esc_url( $img ) . ')"></div>'; }
+	if ( ! $img ) { return; }
+	$style = 'background-image:url(' . esc_url( $img ) . ')';
+	$focus = function_exists( 'ss_hero_focus' ) ? ss_hero_focus() : '';
+	if ( $focus ) { $style .= ';background-position:' . esc_attr( $focus ); }
+	echo '<div class="ss-hero-cover" style="' . $style . '"></div>';
 }
 
 /* ------------------------------------------------------------------ *

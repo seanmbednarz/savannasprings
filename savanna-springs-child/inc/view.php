@@ -57,6 +57,14 @@ function ss_hero_image() {
 	return $img;
 }
 
+/** Per-post hero photo focus -> background-position. Empty = CSS default. */
+function ss_hero_focus() {
+	if ( ! ss_acf_active() ) { return ''; }
+	$map = array( 'top' => 'center top', 'center' => 'center center', 'bottom' => 'center bottom', 'left' => 'left center', 'right' => 'right center' );
+	$f   = get_field( 'hero_focus', get_the_ID() );
+	return isset( $map[ $f ] ) ? $map[ $f ] : '';
+}
+
 /** Should the current hero use a photo (vs the icon tile)? Mode: auto|icon|photo. */
 function ss_hero_use_photo() {
 	$mode = ss_pf( 'hero_media', 'auto' );
