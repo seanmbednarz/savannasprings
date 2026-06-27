@@ -60,9 +60,41 @@ function ss_hero_image() {
 /** Per-post hero photo focus -> background-position. Empty = CSS default. */
 function ss_hero_focus() {
 	if ( ! ss_acf_active() ) { return ''; }
-	$map = array( 'top' => 'center top', 'center' => 'center center', 'bottom' => 'center bottom', 'left' => 'left center', 'right' => 'right center' );
-	$f   = get_field( 'hero_focus', get_the_ID() );
+	$map = array(
+		// Current BeBuilder-style position keys.
+		'center_center' => 'center center', 'center_left' => 'left center', 'center_right' => 'right center',
+		'top_left' => 'left top', 'top_right' => 'right top', 'top_center' => 'center top',
+		'bottom_left' => 'left bottom', 'bottom_right' => 'right bottom', 'bottom_center' => 'center bottom',
+		// Legacy keys (kept so older saved values still resolve).
+		'top' => 'center top', 'center' => 'center center', 'bottom' => 'center bottom', 'left' => 'left center', 'right' => 'right center',
+	);
+	$f = get_field( 'hero_focus', get_the_ID() );
+	if ( 'custom' === $f ) {
+		return trim( (string) get_field( 'hero_focus_custom', get_the_ID() ) );
+	}
 	return isset( $map[ $f ] ) ? $map[ $f ] : '';
+}
+
+/** Per-post hero photo size. Returns array( 'size' => css|'', 'ultrawide' => bool ). */
+function ss_hero_size() {
+	$out = array( 'size' => '', 'ultrawide' => false );
+	if ( ! ss_acf_active() ) { return $out; }
+	$s = get_field( 'hero_size', get_the_ID() );
+	switch ( $s ) {
+		case 'auto':
+		case 'contain':
+		case 'cover':
+			$out['size'] = $s;
+			break;
+		case 'cover_uw':
+			// Cover only above 1920px (handled by a CSS class + media query).
+			$out['ultrawide'] = true;
+			break;
+		case 'custom':
+			$out['size'] = trim( (string) get_field( 'hero_size_custom', get_the_ID() ) );
+			break;
+	}
+	return $out;
 }
 
 /** Should the current hero use a photo (vs the icon tile)? Mode: auto|icon|photo. */

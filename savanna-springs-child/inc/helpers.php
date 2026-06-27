@@ -201,9 +201,17 @@ function ss_render_builder_content() {
 function ss_hero_cover( $img ) {
 	if ( ! $img ) { return; }
 	$style = 'background-image:url(' . esc_url( $img ) . ')';
+	$class = 'ss-hero-cover';
 	$focus = function_exists( 'ss_hero_focus' ) ? ss_hero_focus() : '';
 	if ( $focus ) { $style .= ';background-position:' . esc_attr( $focus ); }
-	echo '<div class="ss-hero-cover" style="' . $style . '"></div>';
+	$size = function_exists( 'ss_hero_size' ) ? ss_hero_size() : array( 'size' => '', 'ultrawide' => false );
+	if ( ! empty( $size['size'] ) ) {
+		$style .= ';background-size:' . esc_attr( $size['size'] );
+	} elseif ( ! empty( $size['ultrawide'] ) ) {
+		// CSS handles the >1920px media query for this modifier.
+		$class .= ' ss-hero-cover--uw';
+	}
+	echo '<div class="' . esc_attr( $class ) . '" style="' . $style . '"></div>';
 }
 
 /* ------------------------------------------------------------------ *

@@ -4,7 +4,7 @@ Theme URI: https://savannaspringswater.com
 Description: Custom BeTheme child theme for Savanna Springs Water Solutions. Provides the high-fidelity branded marketing design — header/footer chrome, design tokens, and custom templates for the Water Problems, Products and Service-Area page archetypes — on top of BeTheme. Build the remaining content visually in Muffin Builder; it renders inside the Savanna Springs header/footer.
 Author: Savanna Springs
 Template: betheme
-Version: 1.0.1
+Version: 1.0.2
 Text Domain: savanna-springs-child
 */
 
@@ -271,6 +271,9 @@ body.ss-menu-open { overflow: hidden; }
 /* full-bleed hero/section background image + dark scrim (over navy bands) */
 .ss-hero-cover { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; }
 .ss-hero-cover::after { content: ''; position: absolute; inset: 0; background: rgba(14,20,56,.64); }
+/* "Cover, on ultrawide screens only > 1920px": natural size below, cover above. */
+.ss-hero-cover--uw { background-size: auto; }
+@media (min-width: 1921px) { .ss-hero-cover--uw { background-size: cover; } }
 /* CPT split heroes with a photo: home-style left-navy -> right-reveal gradient */
 .ss-page-hero--split .ss-hero-cover { background-position: center 40%; }
 .ss-page-hero--split .ss-hero-cover::after {
