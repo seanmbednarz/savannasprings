@@ -636,6 +636,20 @@ add_shortcode( 'ss_how_it_works', function () {
 	ss_how_it_works();
 	return ob_get_clean();
 } );
+/* Hero trust row (yellow icons + chips). Use [ss_hero_trust] inside a builder
+ * text element so BeBuilder can't strip the inline SVGs the way it does raw HTML. */
+add_shortcode( 'ss_hero_trust', function () {
+	$items = array(
+		array( 'badgeCheck', 'Family owned since 2008' ),
+		array( 'shieldCheck', 'Water-Right&reg; authorized dealer' ),
+		array( 'home', 'American-made equipment' ),
+	);
+	$out = '<div class="ss-hero-trust">';
+	foreach ( $items as $i ) {
+		$out .= '<span>' . ss_icon( $i[0], array( 'size' => 18, 'color' => 'var(--sun-400)' ) ) . ' ' . $i[1] . '</span>';
+	}
+	return $out . '</div>';
+} );
 
 /* Register editable nav locations (header + footer columns). */
 function ss_register_menus() {

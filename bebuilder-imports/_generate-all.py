@@ -158,10 +158,8 @@ h_hero_left=(
  '<p style="font-family:var(--font-body);font-size:19px;color:var(--spring-100);margin:22px 0 30px;line-height:1.6;max-width:540px">Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good &mdash; for homes and businesses across Youngstown and Western PA.</p>'
  '<div class="ss-hero-actions">'+btn("Get my free water test","/free-water-test/")+
  f'<a class="ss-hero-phone" href="tel:18777501420"><span class="ss-phone-dot">{svg("phone",19,"var(--sun-400)")}</span> (877) 750-1420</a></div>'
- '<div class="ss-hero-trust">'
- f'<span>{svg("badgeCheck",18,"var(--sun-400)")} Family owned since 2008</span>'
- f'<span>{svg("shieldCheck",18,"var(--sun-400)")} Water-Right&reg; authorized dealer</span>'
- f'<span>{svg("home",18,"var(--sun-400)")} American-made equipment</span></div>'
+ # Trust row via shortcode so BeBuilder's editor can't strip the inline SVG icons.
+ '[ss_hero_trust]'
 )
 cities=[("Youngstown","/service-areas/water-softeners-youngstown-oh/"),("Boardman","/service-areas/water-softeners-boardman-oh/"),("Poland","/service-areas/water-softeners-poland-oh/"),("Canfield","/service-areas/well-water-treatment-canfield-oh/"),("Struthers","/service-areas/water-softeners-struthers-oh/"),("Lowellville","/service-areas/water-softeners-lowellville-oh/"),("Austintown","/service-areas/water-softeners-austintown-oh/"),("Salem","/service-areas/water-softeners-salem-oh/"),("South Range / N. Lima","/service-areas/well-water-treatment-south-range-oh/")]
 chips=''.join(f'<a class="ss-chip" href="{href}">{svg("mapPin",16,"var(--sun-400)")} {n}</a>' for n,href in cities)
