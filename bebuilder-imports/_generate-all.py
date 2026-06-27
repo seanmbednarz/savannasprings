@@ -158,16 +158,24 @@ h_hero_left=(
  '<p style="font-family:var(--font-body);font-size:19px;color:var(--spring-100);margin:22px 0 30px;line-height:1.6;max-width:540px">Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good &mdash; for homes and businesses across Youngstown and Western PA.</p>'
  '<div class="ss-hero-actions">'+btn("Get my free water test","/free-water-test/")+
  f'<a class="ss-hero-phone" href="tel:18777501420"><span class="ss-phone-dot">{svg("phone",19,"var(--sun-400)")}</span> (877) 750-1420</a></div>'
- # Trust row via shortcode so BeBuilder's editor can't strip the inline SVG icons.
- '[ss_hero_trust]'
 )
+# Native, builder-editable trust badges: real BeBuilder Icon Box elements (icon +
+# label), laid out + recolored yellow in the theme CSS via the .ss-trustbox hook.
+def icon_box_item(label, icon):
+    return {"type":"icon_box","jsclass":"icon_box","title":"Icon Box","icon":"icon_box",
+            "attr":{"title":label,"title_tag":"div","content":"","icon":icon,
+                    "icon_position":{"desktop":"left"},"classes":"ss-trustbox",
+                    "vb_postid":PID,"vb":1,"rwd":"desktop"},
+            "uid":uid(),"size":"1/3","tablet_size":"1/1","laptop_size":"1/3","mobile_size":"1/1","tablet_resized":"0"}
+HERO_TRUST=[("Family owned since 2008","fas fa-check-circle"),("Water-Right&reg; authorized dealer","fas fa-shield-alt"),("American-made equipment","fas fa-home")]
+hero_left_wrap=Wraw("1/2",[text_item(h_hero_left)]+[icon_box_item(l,i) for l,i in HERO_TRUST])
 cities=[("Youngstown","/service-areas/water-softeners-youngstown-oh/"),("Boardman","/service-areas/water-softeners-boardman-oh/"),("Poland","/service-areas/water-softeners-poland-oh/"),("Canfield","/service-areas/well-water-treatment-canfield-oh/"),("Struthers","/service-areas/water-softeners-struthers-oh/"),("Lowellville","/service-areas/water-softeners-lowellville-oh/"),("Austintown","/service-areas/water-softeners-austintown-oh/"),("Salem","/service-areas/water-softeners-salem-oh/"),("South Range / N. Lima","/service-areas/well-water-treatment-south-range-oh/")]
 chips=''.join(f'<a class="ss-chip" href="{href}">{svg("mapPin",16,"var(--sun-400)")} {n}</a>' for n,href in cities)
 h_service_left=f'<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Service area</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.02em;margin:0">Serving Youngstown, the Mahoning Valley &amp; Western PA</h2><p style="font-family:var(--font-body);font-size:17.5px;color:var(--spring-100);margin:16px 0 24px;line-height:1.6">From our shop on River Road in Lowellville, we serve Mahoning, Columbiana &amp; Trumbull counties plus Western PA.</p>{btn("Find your town","/service-areas/")}'
 h_service_right=f'<div class="ss-citychips">{chips}</div>'
 h_cta='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free water test</div><h2 style="font-family:var(--font-display);font-weight:800;font-size:40px;color:#fff;letter-spacing:-.025em;margin:0 0 10px">Ready to make your water perfectly clear?</h2><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:560px;margin:0 auto 26px;line-height:1.6">Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours.</p>'+btn("Get my free water test","/free-water-test/")+'</div>'
 pages["home"]=[
- section(merge(bg(NAVY),bg_image(HIMG,pos="right 30%"),overlay(),pad(70,78)),[W("1/2",h_hero_left),W("1/2","")]),
+ section(merge(bg(NAVY),bg_image(HIMG,pos="right 30%"),overlay(),pad(70,78)),[hero_left_wrap,W("1/2","")]),
  section(pad(0,0),[W("1/1","[ss_trust]")]),
  section(pad(78,40),[W("1/1",head("Start with your problem","What&rsquo;s wrong with your water?","Pick what sounds like your home &mdash; we diagnose the real cause, then fix it for good."))]+[native_card("1/3",p[2],p[3],p[4],"See the fix") for p in probs]),
  section(pad(40,80),[W("1/1",head("Why Savanna Springs","A water team your neighbors actually trust","Not a faceless sales outfit &mdash; a family business that fixes the real problem and stands behind the work."))]+[W("1/4",whycard(*w)) for w in whys]),
