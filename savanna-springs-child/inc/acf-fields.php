@@ -131,17 +131,11 @@ add_action( 'acf/init', function () {
 	/* ---- Reviews & FAQ ---- */
 	acf_add_local_field_group( array(
 		'key'    => 'group_ss_content',
-		'title'  => 'Reviews & FAQ',
+		'title'  => 'Reviews',
 		'fields' => array(
 			array( 'key' => 'f_reviews', 'label' => 'Reviews', 'name' => 'reviews', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add review', 'sub_fields' => array(
 				array( 'key' => 'f_rev_q', 'label' => 'Quote', 'name' => 'quote', 'type' => 'textarea', 'rows' => 3 ),
 				array( 'key' => 'f_rev_n', 'label' => 'Name', 'name' => 'name', 'type' => 'text' ),
-			) ),
-			array( 'key' => 'f_faqs', 'label' => 'FAQs', 'name' => 'faqs', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add FAQ', 'sub_fields' => array(
-				array( 'key' => 'f_faq_q', 'label' => 'Question', 'name' => 'question', 'type' => 'text' ),
-				array( 'key' => 'f_faq_a', 'label' => 'Answer', 'name' => 'answer', 'type' => 'textarea', 'rows' => 3 ),
-				array( 'key' => 'f_faq_ll', 'label' => 'Link label', 'name' => 'link_label', 'type' => 'text' ),
-				array( 'key' => 'f_faq_lu', 'label' => 'Link URL', 'name' => 'link_url', 'type' => 'url' ),
 			) ),
 		),
 		'location' => array( array( array( 'param' => 'options_page', 'operator' => '==', 'value' => 'acf-options-reviews-faq' ) ) ),
@@ -366,8 +360,15 @@ add_action( 'acf/init', function () {
 	acf_add_local_field_group( array(
 		'key' => 'group_ss_faq_page', 'title' => 'FAQ page',
 		'fields' => array_merge( ss_acf_hero( 'faq' ), array(
+			array( 'key' => 'f_faqp_faqs', 'label' => 'FAQs', 'name' => 'faqs', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add FAQ',
+				'instructions' => 'The questions and answers on this page. Leave empty to show the built-in defaults.', 'sub_fields' => array(
+				array( 'key' => 'f_faqp_q', 'label' => 'Question', 'name' => 'question', 'type' => 'text' ),
+				array( 'key' => 'f_faqp_a', 'label' => 'Answer', 'name' => 'answer', 'type' => 'textarea', 'rows' => 3 ),
+				array( 'key' => 'f_faqp_ll', 'label' => 'Link label (optional)', 'name' => 'link_label', 'type' => 'text' ),
+				array( 'key' => 'f_faqp_lu', 'label' => 'Link URL (optional)', 'name' => 'link_url', 'type' => 'url' ),
+			) ),
 			array( 'key' => 'f_faq_cta_title', 'label' => 'CTA title', 'name' => 'faq_cta_title', 'type' => 'text' ),
-			array( 'key' => 'f_faq_cta_body', 'label' => 'CTA body', 'name' => 'faq_cta_body', 'type' => 'text', 'instructions' => 'The FAQ questions themselves are edited under Savanna Springs → Reviews & FAQ.' ),
+			array( 'key' => 'f_faq_cta_body', 'label' => 'CTA body', 'name' => 'faq_cta_body', 'type' => 'text' ),
 		) ),
 		'location' => ss_acf_page_location( 'template-faq.php' ),
 	) );

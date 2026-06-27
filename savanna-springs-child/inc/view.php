@@ -361,7 +361,10 @@ function ss_reviews_view() {
 	return ss_reviews();
 }
 function ss_faqs_view() {
-	$rows = ss_option( 'faqs', null );
+	// Page-level FAQs (edited right on the FAQ page) win; fall back to the legacy
+	// options repeater, then to the built-in defaults.
+	$rows = ss_acf_active() ? ss_get( get_the_ID(), 'faqs', null ) : null;
+	if ( ! ( is_array( $rows ) && $rows ) ) { $rows = ss_option( 'faqs', null ); }
 	if ( ss_acf_active() && is_array( $rows ) && $rows ) {
 		return array_map( function ( $r ) {
 			return array( 'q' => $r['question'] ?? '', 'a' => $r['answer'] ?? '', 'link' => array( '', $r['link_label'] ?? '' ), 'link_url' => $r['link_url'] ?? '' );
