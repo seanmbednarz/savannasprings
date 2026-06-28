@@ -41,6 +41,29 @@ function ss_use_builder( $post_id = null ) {
 	return $id ? (bool) get_field( 'ss_use_builder', $id ) : false;
 }
 
+/** True when a page is built with BeTheme's BeBuilder (independent of our toggle). */
+function ss_has_bebuilder( $id ) {
+	$id = (int) $id;
+	if ( ! $id ) { return false; }
+	if ( 'true' === (string) get_post_meta( $id, 'mfn-builder-status', true ) ) { return true; }
+	foreach ( array( 'mfn-page-items-2', 'mfn-page-items' ) as $k ) {
+		if ( ! empty( get_post_meta( $id, $k, true ) ) ) { return true; }
+	}
+	return false;
+}
+
+/**
+ * Whether the front page should render its BeBuilder content. True when the ACF
+ * "Use builder" toggle is on OR BeBuilder is active on the page — so a theme
+ * update that resets the toggle can't silently revert the homepage to the
+ * coded fallback.
+ */
+function ss_front_uses_builder() {
+	$id = (int) ( function_exists( 'get_option' ) ? get_option( 'page_on_front' ) : 0 );
+	if ( ! $id ) { return false; }
+	return ss_use_builder( $id ) || ss_has_bebuilder( $id );
+}
+
 /** Resolve a URL for a hero/section image field (array|id|url), with featured-image fallback. */
 function ss_image_url( $value, $size = 'large' ) {
 	if ( is_array( $value ) ) { return $value['sizes'][ $size ] ?? ( $value['url'] ?? '' ); }

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 // When the homepage is built in BeBuilder, hand off to BeTheme's native page
 // template so the builder content renders exactly as it does on every other
 // BeBuilder page (BeTheme only outputs builder content through its own flow).
-if ( ss_use_builder() ) {
+if ( ss_front_uses_builder() ) {
 	$bt_page = get_template_directory() . '/page.php';
 	if ( file_exists( $bt_page ) ) { load_template( $bt_page ); return; }
 	get_header(); ss_render_builder_content(); get_footer(); return;
