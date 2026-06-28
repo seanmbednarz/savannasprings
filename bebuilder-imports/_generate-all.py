@@ -131,10 +131,11 @@ pages["financing"]=[section(merge(bg(SUN),pad(54,56)),[W("1/1",fin_hero)]),secti
 # ---- GALLERY ----
 groups=[("Rust & iron staining","flame","orange",["Stained tub &rarr; spotless","Orange toilet tank &rarr; clear","Rusty laundry &rarr; bright"]),("Hard water & scale","droplet","water",["Crusty faucet &rarr; clean","Spotty glassware &rarr; spot-free","Scaled heater element &rarr; protected"]),("Well water installs","home","water",["Sanitizer Plus install","Basement system tidy-up","Twin-tank setup"])]
 gal_hero='<div class="ss-wrap" style="text-align:center"><div class="ss-eyebrow is-dark" style="margin-bottom:12px">Gallery</div><h1 style="font-family:var(--font-display);font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em;margin:0">Before &amp; after, around the Valley</h1><p style="font-family:var(--font-body);font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6">Real homes, real water problems, real fixes. Swap these placeholders for your own customer photos.</p></div>'
-gs=[section(merge(bg(NAVY),pad(54,56),{"classes":"ss-blobs-navy"}),[W("1/1",gal_hero)])]
-for title,ic,color,items in groups:
+gs=[section(merge(bg(NAVY),pad(54,40),{"classes":"ss-blobs-navy"}),[W("1/1",gal_hero)])]
+ng=len(groups)
+for gi,(title,ic,color,items) in enumerate(groups):
     ghead=f'<div style="display:flex;align-items:center;gap:14px"><div class="ss-tile ss-tile--{color}">{svg(ic,26,INKS[color])}</div><h2 style="font-size:28px;margin:0">{title}</h2></div>'
-    gs.append(section(pad(56,8),[W("1/1",ghead)]+[W("1/3",galcard(l)) for l in items]))
+    gs.append(section(pad(40,8 if gi==ng-1 else 40),[W("1/1",ghead)]+[W("1/3",galcard(l)) for l in items]))
 _gfwt=FWT(); _gfwt["attr"]["classes"]="ss-blobs-fwt"; gs.append(_gfwt)
 pages["gallery"]=gs
 # ---- REVIEWS ----

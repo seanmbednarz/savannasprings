@@ -49,8 +49,8 @@ if ( ss_acf_active() ) {
 	</div>
 </section>
 
-<?php foreach ( $groups as $g ) : ?>
-	<section class="ss-wrap ss-section" style="padding-bottom:24px">
+<?php $ss_last = count( $groups ) - 1; foreach ( $groups as $ss_gi => $g ) : ?>
+	<section class="ss-wrap ss-section" style="padding-top:40px;padding-bottom:<?php echo $ss_gi === $ss_last ? '8px' : '40px'; ?>">
 		<div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
 			<div class="ss-tile ss-tile--<?php echo esc_attr( $g['color'] ); ?>"><?php echo ss_icon( $g['icon'], array( 'size' => 26 ) ); ?></div>
 			<h2 style="font-size:28px"><?php echo esc_html( $g['title'] ); ?></h2>
