@@ -211,6 +211,85 @@ function ss_maybe_reseed() {
 }
 add_action( 'admin_init', 'ss_maybe_reseed' );
 
+/** Recursively run str replacements over a (possibly nested) value. */
+function ss_deep_strtr( $data, $pairs ) {
+	if ( is_array( $data ) ) {
+		foreach ( $data as $k => $v ) { $data[ $k ] = ss_deep_strtr( $v, $pairs ); }
+		return $data;
+	}
+	return is_string( $data ) ? strtr( $data, $pairs ) : $data;
+}
+
+/**
+ * One-time brand/address migration: visit /wp-admin/?ss_migrate_brand=1 as an
+ * admin. Updates the address and replaces "Water-Right" with "A.O. Smith"
+ * across already-saved content (options, ACF fields, builder pages). Safe to
+ * run more than once — it only touches values that still contain the old text.
+ */
+function ss_migrate_brand() {
+	if ( ! ( is_admin() && current_user_can( 'manage_options' ) && isset( $_GET['ss_migrate_brand'] ) ) ) { return; }
+	global $wpdb;
+
+	$new_addr = '1026 1/2 5th St, Struthers, OH 44471';
+
+	// Authoritative new values for the global options.
+	if ( function_exists( 'update_field' ) ) {
+		update_field( 'address', $new_addr, 'option' );
+		update_field( 'home_service_sub', 'From our shop in Struthers, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.', 'option' );
+	}
+
+	$pairs = array(
+		'Water-Right&reg;' => 'A.O. Smith',
+		'Water-Right®'     => 'A.O. Smith',
+		'Water-Right'      => 'A.O. Smith',
+		'Water Right'      => 'A.O. Smith',
+		'875 River Road, Lowellville, OH 44436'      => $new_addr,
+		'From our shop on River Road in Lowellville' => 'From our shop in Struthers',
+	);
+	$like_a = '%Water-Right%';
+	$like_b = '%River Road, Lowellville%';
+	$count  = 0;
+
+	// Builder/page content (post_content is a plain string — safe to replace).
+	$posts = $wpdb->get_results( $wpdb->prepare(
+		"SELECT ID, post_content FROM {$wpdb->posts} WHERE post_content LIKE %s OR post_content LIKE %s",
+		$like_a, $like_b
+	) );
+	foreach ( $posts as $p ) {
+		$new = strtr( $p->post_content, $pairs );
+		if ( $new !== $p->post_content ) { wp_update_post( array( 'ID' => $p->ID, 'post_content' => $new ) ); $count++; }
+	}
+
+	// ACF field values (serialize-safe via unserialize → replace → re-save).
+	$metas = $wpdb->get_results( $wpdb->prepare(
+		"SELECT post_id, meta_key, meta_value FROM {$wpdb->postmeta} WHERE meta_value LIKE %s OR meta_value LIKE %s",
+		$like_a, $like_b
+	) );
+	foreach ( $metas as $m ) {
+		$val = maybe_unserialize( $m->meta_value );
+		$new = ss_deep_strtr( $val, $pairs );
+		if ( $new !== $val ) { update_post_meta( $m->post_id, $m->meta_key, $new ); $count++; }
+	}
+
+	// Theme options (skip transients/cron blobs).
+	$opts = $wpdb->get_results( $wpdb->prepare(
+		"SELECT option_name, option_value FROM {$wpdb->options}
+		 WHERE ( option_value LIKE %s OR option_value LIKE %s )
+		 AND option_name NOT LIKE %s AND option_name NOT LIKE %s",
+		$like_a, $like_b, '\_transient%', '\_site_transient%'
+	) );
+	foreach ( $opts as $o ) {
+		$val = maybe_unserialize( $o->option_value );
+		$new = ss_deep_strtr( $val, $pairs );
+		if ( $new !== $val ) { update_option( $o->option_name, $new ); $count++; }
+	}
+
+	add_action( 'admin_notices', function () use ( $count ) {
+		echo '<div class="notice notice-success"><p>Savanna Springs brand/address migration complete — ' . intval( $count ) . ' record(s) updated.</p></div>';
+	} );
+}
+add_action( 'admin_init', 'ss_migrate_brand' );
+
 /* ------------------------------------------------------------------ *
  *  ACF FIELD/OPTION SEEDING (fills only empty fields — never overwrites edits)
  * ------------------------------------------------------------------ */
@@ -311,7 +390,7 @@ function ss_seed_acf() {
 		ss_seed_set( $id, 'about_story_title', 'Named after our daughter, run like a family' );
 		ss_seed_set( $id, 'about_story', array(
 			array( 'paragraph' => 'Savanna Springs Water Solutions started in 2008 with a simple idea: treat people honestly, fix the real problem, and stand behind the work. We named the company after our daughter, Savannah — and we’ve treated every customer like part of the family ever since.' ),
-			array( 'paragraph' => 'Today we’re a proud Water-Right® authorized dealer with Ohio EPA-licensed operators and more than 35 years of combined experience. We sell, service and rent custom-built, American-made systems — and we service all makes and models, whoever installed them.' ),
+			array( 'paragraph' => 'Today we’re a proud A.O. Smith authorized dealer with Ohio EPA-licensed operators and more than 35 years of combined experience. We sell, service and rent custom-built, American-made systems — and we service all makes and models, whoever installed them.' ),
 		) );
 		ss_seed_set( $id, 'about_stats', array(
 			array( 'number' => '2008', 'label' => 'Family owned since' ), array( 'number' => '35+ yrs', 'label' => 'Combined experience' ),
@@ -321,7 +400,7 @@ function ss_seed_acf() {
 		ss_seed_set( $id, 'about_values_title', 'A few things we never compromise on' );
 		ss_seed_set( $id, 'about_values', array(
 			array( 'icon' => 'home', 'title' => 'Family first', 'body' => 'Named after our daughter Savannah. We treat your home like our own — honest advice, no pressure.' ),
-			array( 'icon' => 'award', 'title' => 'Built to last', 'body' => 'A proud Water-Right® authorized dealer installing American-made, custom-built systems.' ),
+			array( 'icon' => 'award', 'title' => 'Built to last', 'body' => 'A proud A.O. Smith authorized dealer installing American-made, custom-built systems.' ),
 			array( 'icon' => 'shieldCheck', 'title' => 'Licensed & certified', 'body' => 'Ohio EPA-licensed operators, WQA certified, with 35+ years of combined experience.' ),
 			array( 'icon' => 'wrench', 'title' => 'Here for the long haul', 'body' => 'We service all makes and models, deliver salt and water, and stand behind our work.' ),
 		) );
@@ -333,7 +412,7 @@ function ss_seed_acf() {
 		ss_seed_set( $id, 'specials_sub', 'Current offers to lower the cost of getting your water right. Ask about them on your free in-home water test.' );
 		ss_seed_set( $id, 'specials_offers', array(
 			array( 'icon' => 'refresh', 'tag' => 'On softener rentals', 'title' => 'One month free rent', 'body' => 'Rent an Impression Plus® softener and get your first month of rent free.' ),
-			array( 'icon' => 'truck', 'tag' => 'With softener purchase', 'title' => 'One year of free salt', 'body' => 'Buy a qualifying Water-Right® softener and we’ll deliver a year of salt — free.' ),
+			array( 'icon' => 'truck', 'tag' => 'With softener purchase', 'title' => 'One year of free salt', 'body' => 'Buy a qualifying A.O. Smith softener and we’ll deliver a year of salt — free.' ),
 			array( 'icon' => 'droplet', 'tag' => 'On RO rentals', 'title' => 'RO for pennies a day', 'body' => 'Bottle-quality reverse-osmosis drinking water — one month free for a limited time.' ),
 			array( 'icon' => 'dollarSign', 'tag' => 'Financing available', 'title' => '6 months no interest', 'body' => 'Flexible financing to spread the cost of better water across your budget.' ),
 		) );
@@ -405,7 +484,7 @@ function ss_seed_acf() {
 	ss_seed_set( 'option', 'phone_display', '(877) 750-1420' );
 	ss_seed_set( 'option', 'phone_tel', '18777501420' );
 	ss_seed_set( 'option', 'email', 'info@savannaspringswater.com' );
-	ss_seed_set( 'option', 'address', '875 River Road, Lowellville, OH 44436' );
+	ss_seed_set( 'option', 'address', '1026 1/2 5th St, Struthers, OH 44471' );
 	ss_seed_set( 'option', 'utility_text', 'Serving Mahoning, Columbiana & Trumbull counties + Western PA' );
 	ss_seed_set( 'option', 'footer_tagline', 'We make one thing perfectly clear…' );
 
@@ -425,7 +504,7 @@ function ss_seed_acf() {
 	ss_seed_set( 'option', 'home_products_title', 'American-made, built for your water' );
 	ss_seed_set( 'option', 'home_products_sub', 'We only install equipment made in America, custom-built and sized to your home.' );
 	ss_seed_set( 'option', 'home_service_title', 'Serving Youngstown, the Mahoning Valley & Western PA' );
-	ss_seed_set( 'option', 'home_service_sub', 'From our shop on River Road in Lowellville, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.' );
+	ss_seed_set( 'option', 'home_service_sub', 'From our shop in Struthers, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.' );
 	ss_seed_set( 'option', 'home_specials_title', 'Better water, made affordable' );
 	ss_seed_set( 'option', 'home_specials', array_map( function ( $s ) { return array( 'icon' => $s[0], 'title' => $s[1], 'body' => $s[2] ); }, ss_home_specials() ) );
 	ss_seed_set( 'option', 'home_fwt_heading', 'Ready to make your water perfectly clear?' );
@@ -438,7 +517,7 @@ function ss_seed_acf() {
 	// Shared sections.
 	ss_seed_set( 'option', 'trust_items', array(
 		array( 'icon' => 'star', 'label' => 'Since 2008' ), array( 'icon' => 'badgeCheck', 'label' => 'WQA Certified' ),
-		array( 'icon' => 'shieldCheck', 'label' => 'Water-Right® Dealer' ), array( 'icon' => 'home', 'label' => 'Made in USA' ),
+		array( 'icon' => 'shieldCheck', 'label' => 'A.O. Smith Dealer' ), array( 'icon' => 'home', 'label' => 'Made in USA' ),
 		array( 'icon' => 'wrench', 'label' => 'We service all makes' ),
 	) );
 	ss_seed_set( 'option', 'how_steps', array(
@@ -452,7 +531,7 @@ function ss_seed_acf() {
 		array( 'icon' => 'phone', 'title' => 'We call within 24 hours', 'body' => 'A Savanna Springs operator follows up within 24 business hours to schedule.' ),
 	) );
 	ss_seed_set( 'option', 'footer_badges', array(
-		array( 'text' => 'Since 2008' ), array( 'text' => 'WQA Certified' ), array( 'text' => 'Water-Right® Dealer' ), array( 'text' => 'Made in USA' ),
+		array( 'text' => 'Since 2008' ), array( 'text' => 'WQA Certified' ), array( 'text' => 'A.O. Smith Dealer' ), array( 'text' => 'Made in USA' ),
 	) );
 }
 
@@ -847,7 +926,7 @@ add_shortcode( 'ss_how_it_works', function () {
 add_shortcode( 'ss_hero_trust', function () {
 	$items = array(
 		array( 'badgeCheck', 'Family owned since 2008' ),
-		array( 'shieldCheck', 'Water-Right&reg; authorized dealer' ),
+		array( 'shieldCheck', 'A.O. Smith authorized dealer' ),
 		array( 'home', 'American-made equipment' ),
 	);
 	$out = '<div class="ss-hero-trust">';

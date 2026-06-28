@@ -32,6 +32,20 @@ if ( ! $ss_nav ) {
 		array( 'label' => 'Specials', 'url' => ss_link( 'Specials' ), 'children' => array() ),
 	);
 }
+
+// Populate the Service Areas dropdown with city links when it has no submenu yet.
+$ss_sa_url     = ss_link( 'ServiceAreas' );
+$ss_cities_map = function_exists( 'ss_cities' ) ? ss_cities() : array();
+foreach ( $ss_nav as &$ss_nav_item ) {
+	if ( empty( $ss_nav_item['children'] ) && ( 'Service Areas' === $ss_nav_item['label'] || ( $ss_sa_url && $ss_nav_item['url'] === $ss_sa_url ) ) ) {
+		foreach ( ss_city_order() as $ss_ck ) {
+			if ( isset( $ss_cities_map[ $ss_ck ] ) ) {
+				$ss_nav_item['children'][] = array( 'label' => $ss_cities_map[ $ss_ck ]['city'], 'url' => ss_link( $ss_ck ) );
+			}
+		}
+	}
+}
+unset( $ss_nav_item );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

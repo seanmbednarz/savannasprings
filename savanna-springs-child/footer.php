@@ -28,7 +28,7 @@ $ss_futility = ss_nav_items( 'ss_footer_utility', array(
 	array( 'label' => 'About', 'url' => ss_link( 'About' ) ), array( 'label' => 'Reviews', 'url' => ss_link( 'Reviews' ) ), array( 'label' => 'Gallery', 'url' => ss_link( 'Gallery' ) ),
 	array( 'label' => 'FAQ', 'url' => ss_link( 'FAQ' ) ), array( 'label' => 'Financing', 'url' => ss_link( 'Financing' ) ), array( 'label' => 'Contact', 'url' => ss_link( 'Contact' ) ),
 ) );
-$ss_badges = array( 'Since 2008', 'WQA Certified', 'Water-Right® Dealer', 'Made in USA' );
+$ss_badges = array( 'Since 2008', 'WQA Certified', 'A.O. Smith Dealer', 'Made in USA' );
 if ( ss_acf_active() ) {
 	$rows = get_field( 'footer_badges', 'option' );
 	if ( is_array( $rows ) && $rows ) { $ss_badges = array_map( function ( $r ) { return $r['text'] ?? ''; }, $rows ); }
@@ -55,18 +55,24 @@ if ( ss_acf_active() ) {
 						<?php if ( $brand['instagram'] ) : ?><a href="<?php echo esc_url( $brand['instagram'] ); ?>" aria-label="Instagram" target="_blank" rel="noopener"><?php echo ss_icon( 'instagram', array( 'size' => 18 ) ); ?></a><?php endif; ?>
 					</div>
 				<?php endif; ?>
+				<?php
+				$ss_cert = ss_option( 'footer_cert_logo', 'https://savannaspristg.wpenginepowered.com/wp-content/uploads/2026/06/Savanna-Springs-Water-Certified-Water-Specialist-White.png' );
+				if ( is_array( $ss_cert ) ) { $ss_cert = isset( $ss_cert['url'] ) ? $ss_cert['url'] : ''; }
+				if ( $ss_cert ) : ?>
+					<img class="ss-foot-cert" src="<?php echo esc_url( $ss_cert ); ?>" alt="Certified Water Specialist" loading="lazy">
+				<?php endif; ?>
 			</div>
 
 			<div class="ss-foot-col">
-				<h4>Solutions</h4>
+				<h4><a href="<?php echo esc_url( ss_link( 'Problems' ) ); ?>">Solutions</a></h4>
 				<?php foreach ( $ss_solutions as $l ) : ?><a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a><?php endforeach; ?>
 			</div>
 			<div class="ss-foot-col">
-				<h4>Products</h4>
+				<h4><a href="<?php echo esc_url( ss_link( 'Products' ) ); ?>">Products</a></h4>
 				<?php foreach ( $ss_fproducts as $l ) : ?><a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a><?php endforeach; ?>
 			</div>
 			<div class="ss-foot-col">
-				<h4>Service Areas</h4>
+				<h4><a href="<?php echo esc_url( ss_link( 'ServiceAreas' ) ); ?>">Service Areas</a></h4>
 				<?php foreach ( $ss_fcities as $l ) : ?><a href="<?php echo esc_url( $l['url'] ); ?>"><?php echo esc_html( $l['label'] ); ?></a><?php endforeach; ?>
 			</div>
 		</div>

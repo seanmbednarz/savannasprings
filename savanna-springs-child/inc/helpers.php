@@ -253,7 +253,7 @@ function ss_trust_strip() {
 	$items = array(
 		array( 'star', 'Since 2008' ),
 		array( 'badgeCheck', 'WQA Certified' ),
-		array( 'shieldCheck', 'Water-Right® Dealer' ),
+		array( 'shieldCheck', 'A.O. Smith Dealer' ),
 		array( 'home', 'Made in USA' ),
 		array( 'wrench', 'We service all makes' ),
 	);

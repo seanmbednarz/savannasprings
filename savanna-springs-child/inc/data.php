@@ -350,18 +350,18 @@ function ss_cities() {
 			'problems' => array( 'Well', 'Smelly', 'Rust', 'HardWater', 'Sediment', 'Taste' ),
 			'nearby' => array( 'Boardman', 'Austintown', 'North Lima', 'South Range' ),
 			'meta' => 'Well Water Treatment & Softeners Canfield, OH | Savanna Springs' ),
-		'Struthers' => array( 'slug' => 'water-softeners-struthers-oh', 'city' => 'Struthers', 'county' => 'Mahoning', 'zip' => '44471', 'type' => 'municipal',
+		'Struthers' => array( 'slug' => 'water-softeners-struthers-oh', 'city' => 'Struthers', 'county' => 'Mahoning', 'zip' => '44471', 'type' => 'municipal', 'hometown' => true,
 			'h1' => 'Water Softeners & Water Treatment in Struthers, OH',
-			'lead' => 'Hard-water scale, an old softener that quit, or a chlorine taste in Struthers? We install new systems and service every brand — book a free water test.',
-			'context' => 'An older river town on municipal water, Struthers sees hard-water scale, chlorine taste, and aging softeners installed by other companies. We service all makes and models, and we’re just minutes away in Lowellville.',
+			'lead' => 'Struthers is our hometown — our shop is right here on 5th Street. Nobody knows this town’s water better, and nobody gets to you faster. Free water test, always.',
+			'context' => 'Our home base on 5th Street. An older river town on municipal water, Struthers sees hard-water scale, chlorine taste, and aging softeners installed by other companies. We service all makes and models, and we’re right around the corner.',
 			'mostCommon' => array( 'Hard-water scale', 'Chlorine taste', 'Aging / failed softeners', 'RO drinking water' ),
 			'problems' => array( 'HardWater', 'Chlorine', 'SoftWaterOut', 'Taste', 'Rust', 'Sediment' ),
 			'nearby' => array( 'Youngstown', 'Campbell', 'Poland', 'Lowellville' ),
 			'meta' => 'Water Softeners Struthers, OH | Savanna Springs' ),
-		'Lowellville' => array( 'slug' => 'water-softeners-lowellville-oh', 'city' => 'Lowellville', 'county' => 'Mahoning', 'zip' => '44436', 'type' => 'mixed', 'hometown' => true,
+		'Lowellville' => array( 'slug' => 'water-softeners-lowellville-oh', 'city' => 'Lowellville', 'county' => 'Mahoning', 'zip' => '44436', 'type' => 'mixed',
 			'h1' => 'Water Softeners & Water Treatment in Lowellville, OH',
-			'lead' => 'Lowellville is our hometown — our shop is right on River Road. Nobody knows this village’s water better, and nobody gets to you faster. Free water test, always.',
-			'context' => 'Our home base, right by the Pennsylvania line. Whether you’re on municipal water or a private well, we test free and fix it fast — softening, iron and odor removal, or reverse osmosis for drinking water.',
+			'lead' => 'Lowellville is right next door to our Struthers shop — nobody knows this village’s water better, and nobody gets to you faster. Free water test, always.',
+			'context' => 'Just minutes from our shop and right by the Pennsylvania line. Whether you’re on municipal water or a private well, we test free and fix it fast — softening, iron and odor removal, or reverse osmosis for drinking water.',
 			'mostCommon' => array( 'Hardness & scale', 'Iron & sulfur (wells)', 'Fast local service', 'RO drinking water' ),
 			'problems' => array( 'HardWater', 'Smelly', 'Rust', 'Chlorine', 'Taste', 'SoftWaterOut' ),
 			'nearby' => array( 'Struthers', 'Poland', 'Coitsville', 'New Middletown' ),
@@ -536,7 +536,7 @@ function ss_faqs() {
 		array( 'q' => 'Do you service systems you didn’t install?', 'link' => array( 'Products', 'Browse products' ),
 			'a' => 'Yes — we service all makes and models, whoever installed them, plus salt and water delivery. If your old softener quit or you inherited one with the house, we can get it running or right-size a replacement.' ),
 		array( 'q' => 'Is your equipment really made in the USA?', 'link' => array( 'Products', 'Our products' ),
-			'a' => 'Yes. We’re a proud Water-Right® authorized dealer and only install American-made, custom-built systems — backed by warranties up to 20 years.' ),
+			'a' => 'Yes. We’re a proud A.O. Smith authorized dealer and only install American-made, custom-built systems — backed by warranties up to 20 years.' ),
 		array( 'q' => 'How much does a system cost, and do you offer financing?', 'link' => array( 'Financing', 'See financing' ),
 			'a' => 'Every system is right-sized and quoted to your water, home and budget, so pricing varies. We offer flexible financing — including 6 months no interest — plus rentals with one month free to lower the upfront cost.' ),
 		array( 'q' => 'Is the in-home water test really free?', 'link' => array( 'FreeTest', 'Book a free test' ),
@@ -547,7 +547,7 @@ function ss_faqs() {
 function ss_home_why() {
 	return array(
 		array( 'icon' => 'home', 'title' => 'Local & family owned', 'body' => 'Named after our daughter Savannah — serving the Valley since 2008. You know who the owners are.' ),
-		array( 'icon' => 'award', 'title' => 'American-made equipment', 'body' => 'A proud authorized Water-Right® dealer. Custom-built, made in the USA — built to last.' ),
+		array( 'icon' => 'award', 'title' => 'American-made equipment', 'body' => 'A proud authorized A.O. Smith dealer. Custom-built, made in the USA — built to last.' ),
 		array( 'icon' => 'wrench', 'title' => 'We service everything', 'body' => 'All makes and models, plus salt and water delivery. We keep your system running for the long haul.' ),
 		array( 'icon' => 'dollarSign', 'title' => 'Honest & affordable', 'body' => 'Right-sized systems and flexible financing — including 6 months no interest. No pressure, ever.' ),
 	);
@@ -556,7 +556,7 @@ function ss_home_why() {
 function ss_home_specials() {
 	return array(
 		array( 'refresh', 'One month free rent', 'on Impression Plus® softeners' ),
-		array( 'truck', 'One year of free salt', 'with a Water-Right® softener' ),
+		array( 'truck', 'One year of free salt', 'with a A.O. Smith softener' ),
 		array( 'droplet', 'RO for pennies a day', 'bottle-quality drinking water' ),
 		array( 'dollarSign', '6 months no interest', 'flexible financing available' ),
 	);

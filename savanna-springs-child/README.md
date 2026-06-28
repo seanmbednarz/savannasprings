@@ -166,6 +166,6 @@ custom templates can be adapted to call BeTheme’s instead).
 ## Company facts (kept accurate in the copy)
 
 Family owned since 2008 (named after the owners’ daughter, Savannah) · Ohio EPA Licensed
-Operators · Authorized Water-Right® dealer · WQA Certified · Made in USA · serves Mahoning,
+Operators · Authorized A.O. Smith dealer · WQA Certified · Made in USA · serves Mahoning,
 Columbiana & Trumbull counties + Western PA · 875 River Road, Lowellville, OH 44436 ·
 (877) 750-1420 · info@savannaspringswater.com · *“We make one thing perfectly clear…”*

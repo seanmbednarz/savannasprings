@@ -12,7 +12,7 @@ if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $values = ss_pf_repeater( 'about_values', array(
 	array( 'home', 'Family first', 'Named after our daughter Savannah. We treat your home like our own — honest advice, no pressure.' ),
-	array( 'award', 'Built to last', 'A proud Water-Right® authorized dealer installing American-made, custom-built systems.' ),
+	array( 'award', 'Built to last', 'A proud A.O. Smith authorized dealer installing American-made, custom-built systems.' ),
 	array( 'shieldCheck', 'Licensed & certified', 'Ohio EPA-licensed operators, WQA certified, with 35+ years of combined experience.' ),
 	array( 'wrench', 'Here for the long haul', 'We service all makes and models, deliver salt and water, and stand behind our work.' ),
 ), function ( $r ) { return array( $r['icon'] ?? 'home', $r['title'] ?? '', $r['body'] ?? '', $r['photo'] ?? '' ); } );
@@ -24,7 +24,7 @@ $stats = ss_pf_repeater( 'about_stats', array(
 
 $story_paras = ss_pf_repeater( 'about_story', array(
 	array( 'p' => 'Savanna Springs Water Solutions started in 2008 with a simple idea: treat people honestly, fix the real problem, and stand behind the work. We named the company after our daughter, Savannah — and we’ve treated every customer like part of the family ever since.' ),
-	array( 'p' => 'Today we’re a proud Water-Right® authorized dealer with Ohio EPA-licensed operators and more than 35 years of combined experience. We sell, service and rent custom-built, American-made systems — and we service all makes and models, whoever installed them.' ),
+	array( 'p' => 'Today we’re a proud A.O. Smith authorized dealer with Ohio EPA-licensed operators and more than 35 years of combined experience. We sell, service and rent custom-built, American-made systems — and we service all makes and models, whoever installed them.' ),
 ), function ( $r ) { return array( 'p' => $r['paragraph'] ?? ( $r['p'] ?? '' ) ); } );
 ?>
 <section class="ss-band-navy">

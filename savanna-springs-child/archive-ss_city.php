@@ -14,7 +14,7 @@ $cities = ss_cities();
 	<div class="ss-wrap" style="padding-top:54px;padding-bottom:58px;text-align:center;position:relative">
 		<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Service areas</div>
 		<h1 style="font-weight:800;font-size:50px;color:#fff;letter-spacing:-.025em">Your local water team across the Valley</h1>
-		<p style="font-size:18px;color:var(--spring-100);max-width:620px;margin:16px auto 0;line-height:1.6">From our shop on River Road in Lowellville, we serve Mahoning, Columbiana &amp; Trumbull counties plus Western PA — city water and private wells alike.</p>
+		<p style="font-size:18px;color:var(--spring-100);max-width:620px;margin:16px auto 0;line-height:1.6">From our shop in Struthers, we serve Mahoning, Columbiana &amp; Trumbull counties plus Western PA — city water and private wells alike.</p>
 	</div>
 </section>
 

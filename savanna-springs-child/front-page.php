@@ -44,7 +44,7 @@ $stats    = $home['stats'];
 		</div>
 		<div class="ss-hero-trust">
 			<span><?php echo ss_icon( 'badgeCheck', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> Family owned since 2008</span>
-			<span><?php echo ss_icon( 'shieldCheck', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> Water-Right® authorized dealer</span>
+			<span><?php echo ss_icon( 'shieldCheck', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> A.O. Smith authorized dealer</span>
 			<span><?php echo ss_icon( 'home', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> American-made equipment</span>
 		</div>
 	</div>
