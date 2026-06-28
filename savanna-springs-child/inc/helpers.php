@@ -194,21 +194,12 @@ function ss_nav_icon( $label ) {
  *  loop can be exhausted by header menu queries. Returns true if anything was
  *  actually rendered, so callers can fall back to the designed template. */
 function ss_render_builder_content() {
-	$id = get_queried_object_id();
-	if ( ! $id && function_exists( 'is_front_page' ) && is_front_page() ) {
-		$id = (int) get_option( 'page_on_front' );
-	}
+	// BeTheme only outputs builder content for the MAIN query, so render in place.
+	// Rewind first in case the header's menu queries exhausted the loop pointer
+	// (which on the front page left the body blank).
+	rewind_posts();
 	$html = '';
-	if ( $id ) {
-		$q = new WP_Query( array( 'page_id' => $id, 'post_status' => 'publish' ) );
-		while ( $q->have_posts() ) {
-			$q->the_post();
-			ob_start();
-			the_content();
-			$html .= ob_get_clean();
-		}
-		wp_reset_postdata();
-	} elseif ( have_posts() ) {
+	if ( have_posts() ) {
 		ob_start();
 		while ( have_posts() ) { the_post(); the_content(); }
 		$html = ob_get_clean();
