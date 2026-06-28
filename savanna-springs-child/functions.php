@@ -515,14 +515,19 @@ function ss_handle_free_water_test() {
 		wp_safe_redirect( home_url( '/' ) );
 		exit;
 	}
-	$fields = array( 'name', 'phone', 'email', 'zip', 'concern', 'notes', 'source', 'coupon' );
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'zip', 'source', 'coupon' );
 	$data   = array();
 	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['notes']     = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+	$interests         = ( isset( $_POST['interests'] ) && is_array( $_POST['interests'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['interests'] ) ) : array();
+	$data['interests'] = implode( ', ', $interests );
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
 
 	// Store the lead.
 	$lead_id = wp_insert_post( array(
 		'post_type'   => 'ss_lead',
-		'post_title'  => sprintf( '%s — %s', $data['name'] ?: 'Lead', $data['zip'] ),
+		'post_title'  => sprintf( '%s — %s', $name ?: 'Lead', $data['zip'] ),
 		'post_status' => 'private',
 	) );
 	if ( $lead_id && ! is_wp_error( $lead_id ) ) {
@@ -532,7 +537,7 @@ function ss_handle_free_water_test() {
 	// Notify.
 	$to   = get_option( 'admin_email' );
 	$body = "New free water test request:\n\n";
-	foreach ( $data as $k => $v ) { $body .= ucfirst( $k ) . ": $v\n"; }
+	foreach ( $data as $k => $v ) { $body .= ucwords( str_replace( '_', ' ', $k ) ) . ": $v\n"; }
 	wp_mail( $to, 'New Free Water Test request', $body );
 
 	$back = wp_get_referer() ?: home_url( '/' );

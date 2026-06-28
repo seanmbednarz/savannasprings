@@ -349,8 +349,8 @@ function ss_reviews_block( $count = 3, $eyebrow = 'Reviews', $title = 'What our 
 /* Free Water Test section (reusable). */
 /* Free Water Test — just the white form card (reusable / shortcode). */
 function ss_water_test_form( $default_zip = '' ) {
-	$concerns = array( 'Hard water', 'Contaminants', 'Odors', 'Staining', 'White deposits', 'Bad taste', 'Other' );
-	$sources  = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
+	$interests = array( 'Hard water', 'Concerned about contaminants', 'Odors in water', 'Staining on fixtures & appliances', 'White deposits', 'Bad taste', 'Other' );
+	$sources   = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
 	?>
 	<div class="ss-formcard">
 		<div class="ss-form-success is-hidden" data-ss-success>
@@ -365,21 +365,26 @@ function ss_water_test_form( $default_zip = '' ) {
 			<h3>Book your free test</h3>
 			<p class="ss-form-sub">It only takes a minute.</p>
 			<div class="ss-form-rows">
-				<label class="ss-field"><label>Full name</label><input class="ss-input" type="text" name="name" placeholder="Jane Smith" required></label>
 				<div class="ss-form-2">
-					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
-					<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512" value="<?php echo esc_attr( $default_zip ); ?>" required></label>
+					<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+					<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
 				</div>
-				<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
-				<label class="ss-field"><label>I'm concerned about</label>
-					<select class="ss-select" name="concern"><option value="">Choose one</option>
-						<?php foreach ( $concerns as $c ) { echo '<option>' . esc_html( $c ) . '</option>'; } ?>
-					</select>
-				</label>
-				<label class="ss-field"><label>Describe your water concerns</label><textarea class="ss-textarea" name="notes" placeholder="Tell us what you're noticing — smell, stains, taste, spots…"></textarea></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+				</div>
+				<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512" value="<?php echo esc_attr( $default_zip ); ?>"></label>
+				<div class="ss-field"><label>I'm interested in</label>
+					<div class="ss-checkgroup">
+						<?php foreach ( $interests as $i ) : ?>
+							<label class="ss-checkitem"><input type="checkbox" name="interests[]" value="<?php echo esc_attr( $i ); ?>"> <span><?php echo esc_html( $i ); ?></span></label>
+						<?php endforeach; ?>
+					</div>
+				</div>
+				<label class="ss-field"><label>Please describe your water concerns</label><textarea class="ss-textarea" name="notes" placeholder="Tell us what you're noticing — smell, stains, taste, spots…" required></textarea></label>
 				<div class="ss-form-2">
 					<label class="ss-field"><label>How did you find us?</label>
-						<select class="ss-select" name="source"><option value="">Select</option>
+						<select class="ss-select" name="source" required><option value="">Select</option>
 							<?php foreach ( $sources as $s ) { echo '<option>' . esc_html( $s ) . '</option>'; } ?>
 						</select>
 					</label>
