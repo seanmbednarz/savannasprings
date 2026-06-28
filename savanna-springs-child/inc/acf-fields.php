@@ -188,7 +188,7 @@ add_action( 'acf/init', function () {
 		'key'    => 'group_ss_product',
 		'title'  => 'Product content',
 		'fields' => array(
-			array( 'key' => 'f_pr_intro', 'label' => '', 'type' => 'message', 'message' => '<strong>What is this?</strong> A <em>Product</em> page (e.g. "Water softeners"). The page title/slug is set at the top of this screen; everything below fills the designed layout. Set a <strong>Featured Image</strong> for the photo hero, or leave it blank to use the icon.' ),
+			array( 'key' => 'f_pr_note', 'label' => '', 'type' => 'message', 'message' => '<strong>What is this?</strong> A <em>Product</em> page (e.g. "Water softeners"). The page title/slug is set at the top of this screen; everything below fills the designed layout. Set a <strong>Featured Image</strong> for the photo hero, or leave it blank to use the icon.' ),
 			array( 'key' => 'f_pr_tab_hero', 'label' => 'Hero & card', 'type' => 'tab', 'placement' => 'top' ),
 			array( 'key' => 'f_pr_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices(), 'instructions' => 'Shown on the cards and as the hero fallback when no photo is set.' ),
 			array( 'key' => 'f_pr_color', 'label' => 'Accent color', 'name' => 'color', 'type' => 'select', 'choices' => ss_acf_color_choices(), 'instructions' => 'Tints the icon tile.' ),
