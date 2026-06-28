@@ -215,6 +215,25 @@ function ss_maybe_reseed() {
 }
 add_action( 'admin_init', 'ss_maybe_reseed' );
 
+/**
+ * TEMP diagnostic: load any page with ?ss_debug=1 while logged in as an admin
+ * to print the underlying fatal error (file + line) instead of the generic
+ * "critical error" page. Admin-gated; remove once the issue is found.
+ */
+function ss_debug_surface_errors() {
+	if ( ! ( isset( $_GET['ss_debug'] ) && function_exists( 'current_user_can' ) && current_user_can( 'manage_options' ) ) ) { return; }
+	@ini_set( 'display_errors', '1' );
+	error_reporting( E_ALL );
+	register_shutdown_function( function () {
+		$e = error_get_last();
+		if ( $e && in_array( $e['type'], array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_RECOVERABLE_ERROR ), true ) ) {
+			echo '<pre style="position:relative;z-index:999999;background:#fff3f3;border:3px solid #cc0000;color:#900;padding:20px;margin:20px;font:13px/1.6 monospace;white-space:pre-wrap;overflow:auto">SS DEBUG — fatal error:' . "\n\n"
+				. esc_html( $e['message'] ) . "\n\nFile: " . esc_html( $e['file'] ) . "\nLine: " . intval( $e['line'] ) . '</pre>';
+		}
+	} );
+}
+add_action( 'wp', 'ss_debug_surface_errors' );
+
 /** Recursively run str replacements over a (possibly nested) value. */
 function ss_deep_strtr( $data, $pairs ) {
 	if ( is_array( $data ) ) {
