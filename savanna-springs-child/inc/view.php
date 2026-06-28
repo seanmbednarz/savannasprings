@@ -29,8 +29,16 @@ function ss_pf_repeater( $name, $default, $mapper ) {
  *  own editor/BeBuilder content instead of the designed template. */
 function ss_use_builder( $post_id = null ) {
 	if ( ! ss_acf_active() ) { return false; }
-	$id = $post_id ? $post_id : get_the_ID();
-	return (bool) get_field( 'ss_use_builder', $id );
+	if ( $post_id ) {
+		$id = $post_id;
+	} elseif ( function_exists( 'is_front_page' ) && is_front_page() ) {
+		// On the front page the global post can be clobbered by header queries,
+		// so resolve the front-page ID directly instead of trusting get_the_ID().
+		$id = (int) get_option( 'page_on_front' );
+	} else {
+		$id = get_the_ID();
+	}
+	return $id ? (bool) get_field( 'ss_use_builder', $id ) : false;
 }
 
 /** Resolve a URL for a hero/section image field (array|id|url), with featured-image fallback. */
