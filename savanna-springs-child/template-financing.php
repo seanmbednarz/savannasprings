@@ -18,13 +18,11 @@ $tiers = ss_pf_repeater( 'financing_tiers', array(
 	array( 'Custom', 'Built to budget', 'We right-size the system to your home and your budget — no overselling.' ),
 ), function ( $r ) { return array( $r['tag'] ?? '', $r['title'] ?? '', $r['body'] ?? '' ); } );
 ?>
-<section class="ss-band-navy">
-	<?php ss_hero_cover( ss_image_url( ss_pf( "page_hero_image", "" ), 'full' ) ); ?>
-	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.26;right:-70px;top:-110px"></div>
-	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center;position:relative">
-		<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( ss_pf( 'financing_eyebrow', 'Financing' ) ); ?></div>
-		<h1 style="font-weight:800;font-size:48px;color:#fff;letter-spacing:-.025em"><?php echo esc_html( ss_pf( 'financing_h1', 'Flexible ways to pay' ) ); ?></h1>
-		<p style="font-size:18px;color:var(--spring-100);max-width:600px;margin:16px auto 0;line-height:1.6"><?php echo esc_html( ss_pf( 'financing_sub', 'Better water shouldn’t wait for the perfect month. Choose the option that fits your budget — including 6 months no interest.' ) ); ?></p>
+<section class="ss-band-sun">
+	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center">
+		<div class="ss-eyebrow" style="margin-bottom:12px"><?php echo esc_html( ss_pf( 'financing_eyebrow', 'Financing' ) ); ?></div>
+		<h1 style="font-weight:800;font-size:48px;color:var(--navy-900);letter-spacing:-.025em"><?php echo esc_html( ss_pf( 'financing_h1', 'Flexible ways to pay' ) ); ?></h1>
+		<p style="font-size:18px;color:var(--navy-800);max-width:600px;margin:16px auto 0;line-height:1.6"><?php echo esc_html( ss_pf( 'financing_sub', 'Better water shouldn’t wait for the perfect month. Choose the option that fits your budget — including 6 months no interest.' ) ); ?></p>
 	</div>
 </section>
 
