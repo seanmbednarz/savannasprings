@@ -204,35 +204,6 @@ function ss_seed_content() {
 }
 add_action( 'after_switch_theme', 'ss_seed_content' );
 
-/**
- * Detach the BeTheme parent so this becomes a true standalone theme.
- * Visit /wp-admin/?ss_make_standalone=1 as an admin once, then verify the site.
- * WordPress keeps the parent in the `template` option (not style.css), so this
- * is what actually completes the conversion. Reversible via ?ss_reattach_betheme=1
- * (as long as BeTheme is still installed).
- */
-function ss_make_standalone() {
-	if ( ! ( is_admin() && current_user_can( 'switch_themes' ) && isset( $_GET['ss_make_standalone'] ) ) ) { return; }
-	$sheet = (string) get_option( 'stylesheet' );
-	if ( $sheet && get_option( 'template' ) !== $sheet ) {
-		update_option( 'template', $sheet );
-	}
-	add_action( 'admin_notices', function () {
-		echo '<div class="notice notice-success"><p>Savanna Springs is now a <strong>standalone theme</strong> — the BeTheme parent is detached. Check the front end. If anything looks wrong, revert instantly at <code>/wp-admin/?ss_reattach_betheme=1</code> (keep BeTheme installed until you’re confident).</p></div>';
-	} );
-}
-add_action( 'admin_init', 'ss_make_standalone' );
-
-/* One-click revert: re-attach the BeTheme parent (requires BeTheme still installed). */
-function ss_reattach_betheme() {
-	if ( ! ( is_admin() && current_user_can( 'switch_themes' ) && isset( $_GET['ss_reattach_betheme'] ) ) ) { return; }
-	if ( 'betheme' !== get_option( 'template' ) ) { update_option( 'template', 'betheme' ); }
-	add_action( 'admin_notices', function () {
-		echo '<div class="notice notice-warning"><p>Re-attached the BeTheme parent. The site is back to the child-theme setup.</p></div>';
-	} );
-}
-add_action( 'admin_init', 'ss_reattach_betheme' );
-
 /* Manual re-seed: visit /wp-admin/?ss_reseed=1 as an admin. */
 function ss_maybe_reseed() {
 	if ( is_admin() && current_user_can( 'manage_options' ) && isset( $_GET['ss_reseed'] ) ) {
@@ -954,21 +925,6 @@ add_shortcode( 'ss_how_it_works', function () {
 	ss_how_it_works();
 	return ob_get_clean();
 } );
-/* Hero trust row (yellow icons + chips). Use [ss_hero_trust] inside a builder
- * text element so BeBuilder can't strip the inline SVGs the way it does raw HTML. */
-add_shortcode( 'ss_hero_trust', function () {
-	$items = array(
-		array( 'badgeCheck', 'Family owned since 2008' ),
-		array( 'shieldCheck', 'A.O. Smith authorized dealer' ),
-		array( 'home', 'American-made equipment' ),
-	);
-	$out = '<div class="ss-hero-trust">';
-	foreach ( $items as $i ) {
-		$out .= '<span>' . ss_icon( $i[0], array( 'size' => 18, 'color' => 'var(--sun-400)' ) ) . ' ' . $i[1] . '</span>';
-	}
-	return $out . '</div>';
-} );
-
 /* Register editable nav locations (header + footer columns). */
 function ss_register_menus() {
 	register_nav_menus( array(
