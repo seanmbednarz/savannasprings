@@ -45,11 +45,16 @@ foreach ( $ss_nav as &$ss_nav_item ) {
 		|| ( false !== strpos( $ss_lbl, 'areas we serve' ) )
 		|| ( false !== strpos( $ss_url, '/service-areas' ) )
 		|| ( $ss_sa_url && $ss_url === $ss_sa_url );
-	if ( $ss_is_sa && empty( $ss_nav_item['children'] ) ) {
+	if ( $ss_is_sa ) {
+		if ( empty( $ss_nav_item['children'] ) ) { $ss_nav_item['children'] = array(); }
+		// Track URLs already in the submenu so we only append the missing cities.
+		$ss_have = array();
+		foreach ( $ss_nav_item['children'] as $ss_ch ) { $ss_have[ untrailingslashit( (string) $ss_ch['url'] ) ] = true; }
 		foreach ( ss_city_order() as $ss_ck ) {
-			if ( isset( $ss_cities_map[ $ss_ck ] ) ) {
-				$ss_nav_item['children'][] = array( 'label' => $ss_cities_map[ $ss_ck ]['city'], 'url' => ss_link( $ss_ck ) );
-			}
+			if ( ! isset( $ss_cities_map[ $ss_ck ] ) ) { continue; }
+			$ss_curl = ss_link( $ss_ck );
+			if ( isset( $ss_have[ untrailingslashit( (string) $ss_curl ) ] ) ) { continue; }
+			$ss_nav_item['children'][] = array( 'label' => $ss_cities_map[ $ss_ck ]['city'], 'url' => $ss_curl );
 		}
 	}
 }
