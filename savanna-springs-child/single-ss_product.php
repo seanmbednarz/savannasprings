@@ -113,7 +113,7 @@ $ss_hero_img  = ss_hero_image();
 
 <?php if ( ! empty( $p['delivery'] ) ) : ?>
 	<!-- DELIVERY INFO -->
-	<section class="ss-wrap" style="padding-top:56px;padding-bottom:16px">
+	<section class="ss-wrap" style="padding-top:56px;padding-bottom:56px">
 		<div class="ss-cta-card">
 			<div>
 				<h2><?php echo esc_html( $p['delivery']['title'] ); ?></h2>
