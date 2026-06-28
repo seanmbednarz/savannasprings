@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 $faqs = ss_faqs_view();
 ?>
 <section class="ss-band-navy">

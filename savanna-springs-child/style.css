@@ -1,10 +1,9 @@
 /*
-Theme Name: Savanna Springs (BeTheme Child)
+Theme Name: Savanna Springs
 Theme URI: https://savannaspringswater.com
-Description: Custom BeTheme child theme for Savanna Springs Water Solutions. Provides the high-fidelity branded marketing design — header/footer chrome, design tokens, and custom templates for the Water Problems, Products and Service-Area page archetypes — on top of BeTheme. Build the remaining content visually in Muffin Builder; it renders inside the Savanna Springs header/footer.
+Description: Custom standalone WordPress theme for Savanna Springs Water Solutions. A self-contained, ACF-driven marketing site — branded header/footer chrome, design tokens, and coded templates for the homepage, Water Problems, Products, Service Areas and standalone pages. No page-builder dependency; all content is edited via ACF.
 Author: Savanna Springs
-Template: betheme
-Version: 1.4.1
+Version: 1.5.0
 Text Domain: savanna-springs-child
 */
 
@@ -316,6 +315,23 @@ body.ss-menu-open { overflow: hidden; }
 .ss-aboutimg-coded { display: flex; }
 .ss-aboutimg-coded img { width: 100%; height: 100%; min-height: 300px; object-fit: cover;
   border-radius: 18px; display: block; box-shadow: 0 18px 44px rgba(16,24,52,.16); }
+/* Rich text — generic page/post content (page.php, single.php, the editor). */
+.ss-richtext { max-width: 820px; margin: 0 auto; font-family: var(--font-body);
+  font-size: 17.5px; line-height: 1.7; color: var(--navy-900); }
+.ss-richtext > *:first-child { margin-top: 0; }
+.ss-richtext h2 { font-size: 30px; line-height: 1.15; margin: 38px 0 14px; }
+.ss-richtext h3 { font-size: 23px; line-height: 1.2; margin: 30px 0 12px; }
+.ss-richtext h4 { font-size: 19px; margin: 24px 0 10px; }
+.ss-richtext p { margin: 0 0 18px; }
+.ss-richtext ul, .ss-richtext ol { margin: 0 0 18px; padding-left: 22px; }
+.ss-richtext li { margin-bottom: 8px; }
+.ss-richtext a { color: var(--spring-700); text-decoration: underline; }
+.ss-richtext a:hover { color: var(--spring-800); }
+.ss-richtext img { border-radius: 14px; margin: 8px 0 20px; height: auto; }
+.ss-richtext blockquote { margin: 24px 0; padding: 6px 0 6px 22px;
+  border-left: 4px solid var(--sun-400); font-family: var(--font-display);
+  font-size: 21px; font-style: italic; color: var(--navy-800); }
+.ss-richtext hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
 /* Native BeBuilder FAQ element wrapper (brand styling refined after first render) */
 .ss-faqnative { max-width: 860px; margin: 0 auto; }
 

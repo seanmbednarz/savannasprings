@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $p = ss_product_view( get_the_ID() );
 if ( ! $p ) { echo '<section class="ss-wrap ss-section"><h1>Not found</h1></section>'; get_footer(); return; }

@@ -429,22 +429,6 @@ add_action( 'acf/init', function () {
 		),
 	) );
 
-	/* BeBuilder toggle — pages + CPTs. */
-	acf_add_local_field_group( array(
-		'key' => 'group_ss_layout', 'title' => 'Layout',
-		'fields' => array(
-			array( 'key' => 'f_ss_use_builder', 'label' => 'Build this page in BeBuilder', 'name' => 'ss_use_builder', 'type' => 'true_false', 'ui' => 1,
-				'instructions' => 'Turn ON to ignore the Savanna Springs designed layout and render this page’s BeBuilder / editor content instead (inside the site header & footer).' ),
-		),
-		'position' => 'side',
-		'location' => array(
-			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'page' ) ),
-			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_problem' ) ),
-			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_product' ) ),
-			array( array( 'param' => 'post_type', 'operator' => '==', 'value' => 'ss_city' ) ),
-		),
-	) );
-
 	/* Optional hero background image — every standalone page template. */
 	acf_add_local_field_group( array(
 		'key' => 'group_ss_pagehero', 'title' => 'Hero background image',

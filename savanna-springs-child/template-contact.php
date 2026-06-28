@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 $brand   = ss_brand();
 $map_q   = rawurlencode( $brand['address'] );
 ?>

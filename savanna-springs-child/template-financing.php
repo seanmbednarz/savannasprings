@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $tiers = ss_pf_repeater( 'financing_tiers', array(
 	array( '6 months', 'No interest', 'Pay it off within 6 months and pay zero interest. Great for getting started now.' ),

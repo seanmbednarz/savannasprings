@@ -6,8 +6,8 @@ branded header/footer chrome, the locked design tokens, and data-driven template
 the **Water Problems**, **Products** and **Service-Area** page archetypes — plus Home,
 FAQ, About, Reviews, Gallery, Specials, Financing, Free Water Test and Contact.
 
-It runs **on top of BeTheme** (declared `Template: betheme`), so you keep BeTheme and
-the Muffin Builder for any pages you want to build visually — they render inside the
+It is a **standalone WordPress theme** — no page-builder or parent-theme dependency.
+All content is edited through ACF and the coded templates, rendered inside the
 Savanna Springs header and footer.
 
 ---
@@ -87,11 +87,9 @@ comes from the ACF fields (or, as a fallback, `inc/data.php`).
 
 ## Install
 
-1. **Make sure the parent BeTheme is installed** under `wp-content/themes/betheme`
-   (the folder must be named exactly `betheme`). This child declares `Template: betheme`.
-2. Copy the `savanna-springs-child/` folder into `wp-content/themes/`.
-3. In **Appearance → Themes**, activate **“Savanna Springs (BeTheme Child)”**.
-4. On activation the theme automatically:
+1. Copy the `savanna-springs-child/` folder into `wp-content/themes/`.
+2. In **Appearance → Themes**, activate **“Savanna Springs”**.
+3. On activation the theme automatically:
    - registers the 3 custom post types and seeds all Problem / Product / City posts,
    - creates the Home, FAQ, About, Reviews, Gallery, Specials, Financing, Free Water
      Test and Contact pages (with their templates assigned),

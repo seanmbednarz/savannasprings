@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $offers = ss_pf_repeater( 'specials_offers', array(
 	array( 'refresh', 'One month free rent', 'Rent an Impression Plus® softener and get your first month of rent free.', 'On softener rentals', '' ),

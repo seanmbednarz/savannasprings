@@ -8,7 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 ?>
 <section class="ss-band-surface">
 	<div class="ss-wrap" style="padding-top:46px;padding-bottom:36px;text-align:center">

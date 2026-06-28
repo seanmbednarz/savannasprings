@@ -1,6 +1,6 @@
 <?php
 /**
- * Savanna Springs (BeTheme Child) — theme functions.
+ * Savanna Springs — standalone theme functions.
  *
  * @package savanna-springs-child
  */
@@ -29,15 +29,11 @@ function ss_enqueue_assets() {
 		null
 	);
 
-	// Parent BeTheme stylesheet (loads first so our tokens/components win).
-	$parent = wp_get_theme( get_template() );
-	wp_enqueue_style( 'betheme-parent', get_template_directory_uri() . '/style.css', array( 'ss-fonts' ), $parent->get( 'Version' ) ?: null );
-
-	// Child stylesheet. Version by file mtime so every edit auto-busts the
+	// Theme stylesheet. Version by file mtime so every edit auto-busts the
 	// browser/CDN cache (no manual purge needed for CSS/JS changes).
 	$css_path = get_stylesheet_directory() . '/style.css';
 	$css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : SS_CHILD_VERSION;
-	wp_enqueue_style( 'ss-child', get_stylesheet_uri(), array( 'betheme-parent' ), $css_ver );
+	wp_enqueue_style( 'ss-child', get_stylesheet_uri(), array( 'ss-fonts' ), $css_ver );
 
 	// Interactions.
 	$js_path = SS_CHILD_DIR . '/js/main.js';
@@ -207,6 +203,35 @@ function ss_seed_content() {
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'ss_seed_content' );
+
+/**
+ * Detach the BeTheme parent so this becomes a true standalone theme.
+ * Visit /wp-admin/?ss_make_standalone=1 as an admin once, then verify the site.
+ * WordPress keeps the parent in the `template` option (not style.css), so this
+ * is what actually completes the conversion. Reversible via ?ss_reattach_betheme=1
+ * (as long as BeTheme is still installed).
+ */
+function ss_make_standalone() {
+	if ( ! ( is_admin() && current_user_can( 'switch_themes' ) && isset( $_GET['ss_make_standalone'] ) ) ) { return; }
+	$sheet = (string) get_option( 'stylesheet' );
+	if ( $sheet && get_option( 'template' ) !== $sheet ) {
+		update_option( 'template', $sheet );
+	}
+	add_action( 'admin_notices', function () {
+		echo '<div class="notice notice-success"><p>Savanna Springs is now a <strong>standalone theme</strong> — the BeTheme parent is detached. Check the front end. If anything looks wrong, revert instantly at <code>/wp-admin/?ss_reattach_betheme=1</code> (keep BeTheme installed until you’re confident).</p></div>';
+	} );
+}
+add_action( 'admin_init', 'ss_make_standalone' );
+
+/* One-click revert: re-attach the BeTheme parent (requires BeTheme still installed). */
+function ss_reattach_betheme() {
+	if ( ! ( is_admin() && current_user_can( 'switch_themes' ) && isset( $_GET['ss_reattach_betheme'] ) ) ) { return; }
+	if ( 'betheme' !== get_option( 'template' ) ) { update_option( 'template', 'betheme' ); }
+	add_action( 'admin_notices', function () {
+		echo '<div class="notice notice-warning"><p>Re-attached the BeTheme parent. The site is back to the child-theme setup.</p></div>';
+	} );
+}
+add_action( 'admin_init', 'ss_reattach_betheme' );
 
 /* Manual re-seed: visit /wp-admin/?ss_reseed=1 as an admin. */
 function ss_maybe_reseed() {
