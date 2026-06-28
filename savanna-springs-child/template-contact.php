@@ -58,15 +58,22 @@ $map_q   = rawurlencode( $brand['address'] );
 				<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Send another message</button>
 			</div>
 			<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
-				<input type="hidden" name="action" value="ss_free_water_test">
-				<?php wp_nonce_field( 'ss_fwt', 'ss_fwt_nonce' ); ?>
+				<input type="hidden" name="action" value="ss_contact">
+				<?php wp_nonce_field( 'ss_contact', 'ss_contact_nonce' ); ?>
 				<h3><?php echo esc_html( ss_pf( 'contact_form_heading', 'Send us a message' ) ); ?></h3>
 				<p class="ss-form-sub"><?php echo esc_html( ss_pf( 'contact_form_sub', 'We’ll reply within 24 business hours.' ) ); ?></p>
 				<div class="ss-form-rows">
-					<label class="ss-field"><label>Full name</label><input class="ss-input" type="text" name="name" placeholder="Jane Smith" required></label>
 					<div class="ss-form-2">
-						<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+						<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+						<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
+					</div>
+					<div class="ss-form-2">
 						<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+						<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+					</div>
+					<div class="ss-form-2">
+						<label class="ss-field"><label>City</label><input class="ss-input" type="text" name="city" placeholder="Youngstown"></label>
+						<label class="ss-field"><label>State</label><input class="ss-input" type="text" name="state" placeholder="OH"></label>
 					</div>
 					<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512"></label>
 					<label class="ss-field"><label>How can we help?</label><textarea class="ss-textarea" name="notes" placeholder="Tell us about your water or what you need…" required></textarea></label>

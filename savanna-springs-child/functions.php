@@ -710,6 +710,26 @@ function ss_handle_specials() {
 add_action( 'admin_post_nopriv_ss_specials', 'ss_handle_specials' );
 add_action( 'admin_post_ss_specials', 'ss_handle_specials' );
 
+function ss_handle_contact() {
+	if ( ! isset( $_POST['ss_contact_nonce'] ) || ! wp_verify_nonce( $_POST['ss_contact_nonce'], 'ss_contact' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'city', 'state', 'zip' );
+	$data   = array();
+	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['notes'] = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
+	ss_store_lead( 'Contact', sprintf( 'Contact — %s', $name ?: 'Lead' ), $data, 'New Contact message' );
+
+	$back = wp_get_referer() ?: home_url( '/' );
+	wp_safe_redirect( add_query_arg( 'ss_sent', '1', $back ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_ss_contact', 'ss_handle_contact' );
+add_action( 'admin_post_ss_contact', 'ss_handle_contact' );
+
 /* Hidden CPT to store leads. */
 function ss_register_lead_cpt() {
 	register_post_type( 'ss_lead', array(
