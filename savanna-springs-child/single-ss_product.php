@@ -154,6 +154,12 @@ if ( 'salt' === $ss_lead_form ) {
 	ss_free_water_test( $p['cta'], 'Salt is heavy, messy, and bulky — let us handle it. Tell us your address and how many bags, and we’ll set up your delivery route.', '', 'salt' );
 } elseif ( 'delivery' === $ss_lead_form ) {
 	ss_free_water_test( $p['cta'], 'Skip the grocery-store hauling. Tell us where to deliver and what you need, and we’ll set up a delivery schedule that fits your home or office.', '', 'delivery' );
+} elseif ( 'order' === $ss_lead_form ) {
+	ss_free_water_test( $p['cta'], 'Order products for all of your residential or commercial water filtration needs — we’ll confirm the details and timing.', '', 'order' );
+} elseif ( 'quote' === $ss_lead_form ) {
+	ss_free_water_test( $p['cta'], 'Answer a few quick questions about your water and we’ll get back to you with a free quote within 24 hours.', '', 'quote' );
+} elseif ( 'specials' === $ss_lead_form ) {
+	ss_free_water_test( $p['cta'], 'Choose the special you’re interested in and tell us a little about your water — we’ll reply within 24 hours.', '', 'specials' );
 } else {
 	ss_free_water_test( $p['cta'] );
 }

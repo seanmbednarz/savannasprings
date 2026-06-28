@@ -491,9 +491,164 @@ function ss_water_delivery_form() {
 	<?php
 }
 
+/** Render a labelled checkbox group (matches legacy multi-select questions). */
+function ss_checkgroup( $label, $name, $items ) {
+	?>
+	<div class="ss-field"><label><?php echo esc_html( $label ); ?></label>
+		<div class="ss-checkgroup">
+			<?php foreach ( $items as $i ) : ?>
+				<label class="ss-checkitem"><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[]" value="<?php echo esc_attr( $i ); ?>"> <span><?php echo esc_html( $i ); ?></span></label>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<?php
+}
+
+/** Order water products lead form (legacy "Order Water Products"). */
+function ss_order_form() {
+	?>
+	<div class="ss-formcard">
+		<div class="ss-form-success is-hidden" data-ss-success>
+			<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
+			<h3>Order received!</h3>
+			<p>Thanks — we’ll confirm your order and delivery details shortly.</p>
+			<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Place another order</button>
+		</div>
+		<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+			<input type="hidden" name="action" value="ss_order">
+			<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_order', 'ss_order_nonce' ); } ?>
+			<h3>Order water products</h3>
+			<p class="ss-form-sub">For all of your residential or commercial water filtration needs.</p>
+			<div class="ss-form-rows">
+				<div class="ss-form-2">
+					<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+					<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+				</div>
+				<label class="ss-field"><label>Street address</label><input class="ss-input" type="text" name="address" placeholder="123 Main St" required></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>City</label><input class="ss-input" type="text" name="city" placeholder="Youngstown" required></label>
+					<label class="ss-field"><label>State</label><input class="ss-input" type="text" name="state" placeholder="OH" required></label>
+				</div>
+				<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512"></label>
+				<label class="ss-field"><label>What products are you interested in?</label><input class="ss-input" type="text" name="products" placeholder="Salt, filters, bottled water, a softener…" required></label>
+				<label class="ss-field"><label>Account number (optional)</label><input class="ss-input" type="text" name="account" placeholder="If you're an existing customer"></label>
+				<label class="ss-field"><label>Your message (optional)</label><textarea class="ss-textarea" name="notes" placeholder="Anything else we should know?"></textarea></label>
+				<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Place my order <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
+				<p class="ss-form-fine">No obligation. We'll never share your information.</p>
+			</div>
+		</form>
+	</div>
+	<?php
+}
+
+/** Quick quote lead form (legacy "Receive a Quick Quote Within 24 Hours"). */
+function ss_quick_quote_form() {
+	$sources = array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' );
+	?>
+	<div class="ss-formcard">
+		<div class="ss-form-success is-hidden" data-ss-success>
+			<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
+			<h3>Request received!</h3>
+			<p>Thanks — we’ll get back to you with your quote within 24 hours.</p>
+			<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Submit another request</button>
+		</div>
+		<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+			<input type="hidden" name="action" value="ss_quick_quote">
+			<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_qq', 'ss_qq_nonce' ); } ?>
+			<h3>Get your quick quote</h3>
+			<p class="ss-form-sub">Answer a few questions and we’ll reply within 24 hours.</p>
+			<div class="ss-form-rows">
+				<div class="ss-form-2">
+					<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+					<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>City</label><input class="ss-input" type="text" name="city" placeholder="Youngstown"></label>
+					<label class="ss-field"><label>State</label><input class="ss-input" type="text" name="state" placeholder="OH"></label>
+				</div>
+				<?php
+				ss_checkgroup( 'What is your water source?', 'water_source', array( 'City', 'Well', 'Rural' ) );
+				ss_checkgroup( 'What are your water issues?', 'water_issues', array( 'Hard (Lime Scale)', 'Iron (Rust Stains)', 'Taste & Odor', 'Other' ) );
+				ss_checkgroup( 'Do you have existing equipment?', 'existing_equipment', array( 'Yes', 'No' ) );
+				ss_checkgroup( 'What are you interested in?', 'interested', array( 'Water Softeners', 'Drinking Water Systems', 'Problem Water Systems', 'Commercial Applications', 'Delivered Bottled Water', 'Salt Delivery', 'Filters', 'Repairs' ) );
+				ss_checkgroup( 'When is the best time to contact you?', 'best_time', array( 'Morning', 'Afternoon', 'Evening' ) );
+				?>
+				<label class="ss-field"><label>If you’d like, please describe any water concerns you have</label><textarea class="ss-textarea" name="notes" placeholder="Smell, stains, taste, spots…"></textarea></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>How did you find us?</label>
+						<select class="ss-select" name="source" required><option value="">Select</option>
+							<?php foreach ( $sources as $s ) { echo '<option>' . esc_html( $s ) . '</option>'; } ?>
+						</select>
+					</label>
+					<label class="ss-field"><label>Coupon code (optional)</label><input class="ss-input" type="text" name="coupon" placeholder="e.g. CLEAR25"></label>
+				</div>
+				<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Send my quote request <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
+				<p class="ss-form-fine">No obligation. We'll never share your information.</p>
+			</div>
+		</form>
+	</div>
+	<?php
+}
+
+/** Specials request lead form (legacy "Request Specials"). */
+function ss_specials_form() {
+	?>
+	<div class="ss-formcard">
+		<div class="ss-form-success is-hidden" data-ss-success>
+			<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
+			<h3>Request received!</h3>
+			<p>Thanks for your interest in our specials — we’ll be in touch within 24 hours.</p>
+			<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Submit another request</button>
+		</div>
+		<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+			<input type="hidden" name="action" value="ss_specials">
+			<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_sp', 'ss_sp_nonce' ); } ?>
+			<h3>Request our specials</h3>
+			<p class="ss-form-sub">Choose your special and tell us about your water.</p>
+			<div class="ss-form-rows">
+				<div class="ss-form-2">
+					<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+					<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>City</label><input class="ss-input" type="text" name="city" placeholder="Youngstown"></label>
+					<label class="ss-field"><label>State</label><input class="ss-input" type="text" name="state" placeholder="OH"></label>
+				</div>
+				<?php
+				ss_checkgroup( 'What special are you interested in?', 'special', array( 'Impression Series® R.O.', 'One year of free salt', 'One month free rent' ) );
+				ss_checkgroup( 'What is your water source?', 'water_source', array( 'City', 'Well', 'Rural' ) );
+				ss_checkgroup( 'What are your water issues?', 'water_issues', array( 'Hard (Lime Scale)', 'Iron (Rust Stains)', 'Taste & Odor', 'Other' ) );
+				ss_checkgroup( 'Do you have existing equipment?', 'existing_equipment', array( 'Yes', 'No' ) );
+				ss_checkgroup( 'What are you interested in?', 'interested', array( 'Water Softeners', 'Drinking Water Systems', 'Problem Water Systems', 'Commercial Applications', 'Delivered Bottled Water', 'Filters', 'Repairs' ) );
+				ss_checkgroup( 'When is the best time to contact you?', 'best_time', array( 'Morning', 'Afternoon', 'Evening' ) );
+				?>
+				<label class="ss-field"><label>Your message (optional)</label><textarea class="ss-textarea" name="notes" placeholder="Anything else we should know?"></textarea></label>
+				<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Send my specials request <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
+				<p class="ss-form-fine">No obligation. We'll never share your information.</p>
+			</div>
+		</form>
+	</div>
+	<?php
+}
+
 function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.', $default_zip = '', $variant = 'water' ) {
 	$is_salt     = ( 'salt' === $variant );
 	$is_delivery = ( 'delivery' === $variant );
+	$is_order    = ( 'order' === $variant );
+	$is_quote    = ( 'quote' === $variant );
+	$is_specials = ( 'specials' === $variant );
 	if ( $is_salt ) {
 		$perks = array(
 			array( 'truck', 'Weekly delivery routes', 'Regular Pro’s Pick Dura-Cube® routes across the Mahoning Valley.' ),
@@ -505,6 +660,24 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 			array( 'truck', 'Free local delivery', 'Bottles and coolers delivered across Mahoning, Columbiana & Trumbull counties plus Western PA.' ),
 			array( 'refresh', 'We swap your empties', 'Leave your empty bottles out — we swap them for full ones on your schedule.' ),
 			array( 'phone', 'Friendly reminders', 'Residential customers get an email reminder before each delivery day.' ),
+		);
+	} elseif ( $is_order ) {
+		$perks = array(
+			array( 'truck', 'Residential & commercial', 'Order salt, filters, bottled water or a full system for home or business.' ),
+			array( 'refresh', 'Reorder in seconds', 'Existing customers can add an account number to speed up every order.' ),
+			array( 'phone', 'We confirm your order', 'A Savanna Springs operator follows up to confirm details and timing.' ),
+		);
+	} elseif ( $is_quote ) {
+		$perks = array(
+			array( 'search', 'Free, no-obligation quote', 'Tell us about your water and we’ll price the right solution — no pressure.' ),
+			array( 'clipboard', 'Tailored to your water', 'Your answers help us recommend exactly what fits your home or business.' ),
+			array( 'phone', 'Back to you within 24 hours', 'A Savanna Springs operator follows up within 24 business hours.' ),
+		);
+	} elseif ( $is_specials ) {
+		$perks = array(
+			array( 'clipboard', 'Current promotions', 'Impression Series® R.O., a year of free salt, a month of free rent and more.' ),
+			array( 'search', 'Matched to your needs', 'We pair the right special with your water source, issues and equipment.' ),
+			array( 'phone', '24-hour response', 'A Savanna Springs operator follows up within 24 business hours.' ),
 		);
 	} else {
 		$perks = array(
@@ -524,7 +697,15 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 		<div class="ss-blob ss-blob--orange" style="width:90px;height:90px;opacity:.85;left:42%;top:40px"></div>
 		<div class="ss-wrap">
 			<div>
-				<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( $is_salt ? 'Salt delivery' : ( $is_delivery ? 'Water delivery' : 'Free Water Test' ) ); ?></div>
+				<?php
+				$ss_eyebrow = 'Free Water Test';
+				if ( $is_salt ) { $ss_eyebrow = 'Salt delivery'; }
+				elseif ( $is_delivery ) { $ss_eyebrow = 'Water delivery'; }
+				elseif ( $is_order ) { $ss_eyebrow = 'Order products'; }
+				elseif ( $is_quote ) { $ss_eyebrow = 'Quick quote'; }
+				elseif ( $is_specials ) { $ss_eyebrow = 'Specials'; }
+				?>
+				<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( $ss_eyebrow ); ?></div>
 				<h2><?php echo esc_html( $heading ); ?></h2>
 				<p class="ss-fwt__lead"><?php echo esc_html( $sub ); ?></p>
 				<div class="ss-perks">
@@ -538,7 +719,14 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 				<div class="ss-callpill"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> <span>Prefer to call? <a href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo esc_html( $brand['phone'] ); ?></a></span></div>
 			</div>
 
-			<?php if ( $is_salt ) { ss_salt_delivery_form(); } elseif ( $is_delivery ) { ss_water_delivery_form(); } else { ss_water_test_form( $default_zip ); } ?>
+			<?php
+			if ( $is_salt ) { ss_salt_delivery_form(); }
+			elseif ( $is_delivery ) { ss_water_delivery_form(); }
+			elseif ( $is_order ) { ss_order_form(); }
+			elseif ( $is_quote ) { ss_quick_quote_form(); }
+			elseif ( $is_specials ) { ss_specials_form(); }
+			else { ss_water_test_form( $default_zip ); }
+			?>
 		</div>
 	</section>
 	<?php

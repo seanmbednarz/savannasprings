@@ -616,6 +616,100 @@ function ss_handle_water_delivery() {
 add_action( 'admin_post_nopriv_ss_water_delivery', 'ss_handle_water_delivery' );
 add_action( 'admin_post_ss_water_delivery', 'ss_handle_water_delivery' );
 
+/** Collect a checkbox-group array field from $_POST as a clean comma list. */
+function ss_post_list( $key ) {
+	if ( empty( $_POST[ $key ] ) || ! is_array( $_POST[ $key ] ) ) { return ''; }
+	$vals = array_map( function ( $v ) { return sanitize_text_field( wp_unslash( $v ) ); }, $_POST[ $key ] );
+	return implode( ', ', array_filter( $vals ) );
+}
+
+/** Shared lead writer: stores a private ss_lead + emails the admin. */
+function ss_store_lead( $type, $title, $data, $subject ) {
+	$lead_id = wp_insert_post( array(
+		'post_type'   => 'ss_lead',
+		'post_title'  => $title,
+		'post_status' => 'private',
+	) );
+	if ( $lead_id && ! is_wp_error( $lead_id ) ) {
+		update_post_meta( $lead_id, 'ss_lead_type', $type );
+		foreach ( $data as $k => $v ) { update_post_meta( $lead_id, 'ss_' . $k, $v ); }
+	}
+	$body = "New {$type} request:\n\n";
+	foreach ( $data as $k => $v ) { $body .= ucwords( str_replace( '_', ' ', $k ) ) . ": $v\n"; }
+	wp_mail( get_option( 'admin_email' ), $subject, $body );
+}
+
+function ss_handle_order() {
+	if ( ! isset( $_POST['ss_order_nonce'] ) || ! wp_verify_nonce( $_POST['ss_order_nonce'], 'ss_order' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'address', 'city', 'state', 'zip', 'products', 'account' );
+	$data   = array();
+	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['notes'] = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
+	ss_store_lead( 'Order', sprintf( 'Order — %s — %s', $name ?: 'Lead', $data['zip'] ), $data, 'New Order request' );
+
+	$back = wp_get_referer() ?: home_url( '/' );
+	wp_safe_redirect( add_query_arg( 'ss_sent', '1', $back ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_ss_order', 'ss_handle_order' );
+add_action( 'admin_post_ss_order', 'ss_handle_order' );
+
+function ss_handle_quick_quote() {
+	if ( ! isset( $_POST['ss_qq_nonce'] ) || ! wp_verify_nonce( $_POST['ss_qq_nonce'], 'ss_qq' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'city', 'state', 'source', 'coupon' );
+	$data   = array();
+	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['water_source']       = ss_post_list( 'water_source' );
+	$data['water_issues']       = ss_post_list( 'water_issues' );
+	$data['existing_equipment'] = ss_post_list( 'existing_equipment' );
+	$data['interested']         = ss_post_list( 'interested' );
+	$data['best_time']          = ss_post_list( 'best_time' );
+	$data['notes']              = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
+	ss_store_lead( 'Quick quote', sprintf( 'Quote — %s', $name ?: 'Lead' ), $data, 'New Quick Quote request' );
+
+	$back = wp_get_referer() ?: home_url( '/' );
+	wp_safe_redirect( add_query_arg( 'ss_sent', '1', $back ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_ss_quick_quote', 'ss_handle_quick_quote' );
+add_action( 'admin_post_ss_quick_quote', 'ss_handle_quick_quote' );
+
+function ss_handle_specials() {
+	if ( ! isset( $_POST['ss_sp_nonce'] ) || ! wp_verify_nonce( $_POST['ss_sp_nonce'], 'ss_sp' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'city', 'state' );
+	$data   = array();
+	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['special']            = ss_post_list( 'special' );
+	$data['water_source']       = ss_post_list( 'water_source' );
+	$data['water_issues']       = ss_post_list( 'water_issues' );
+	$data['existing_equipment'] = ss_post_list( 'existing_equipment' );
+	$data['interested']         = ss_post_list( 'interested' );
+	$data['best_time']          = ss_post_list( 'best_time' );
+	$data['notes']              = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
+	ss_store_lead( 'Specials', sprintf( 'Specials — %s', $name ?: 'Lead' ), $data, 'New Specials request' );
+
+	$back = wp_get_referer() ?: home_url( '/' );
+	wp_safe_redirect( add_query_arg( 'ss_sent', '1', $back ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_ss_specials', 'ss_handle_specials' );
+add_action( 'admin_post_ss_specials', 'ss_handle_specials' );
+
 /* Hidden CPT to store leads. */
 function ss_register_lead_cpt() {
 	register_post_type( 'ss_lead', array(
@@ -679,9 +773,10 @@ function ss_sc_free_water_test( $atts ) {
 		'heading' => 'Get a free in-home water test',
 		'sub'     => 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.',
 		'zip'     => '',
+		'variant' => 'water', // water | salt | delivery | order | quote | specials
 	), $atts );
 	ob_start();
-	ss_free_water_test( $a['heading'], $a['sub'], $a['zip'] );
+	ss_free_water_test( $a['heading'], $a['sub'], $a['zip'], $a['variant'] );
 	return ob_get_clean();
 }
 add_shortcode( 'ss_free_water_test', 'ss_sc_free_water_test' );
@@ -691,6 +786,23 @@ add_shortcode( 'ss_water_test_form', function ( $atts ) {
 	$a = shortcode_atts( array( 'zip' => '' ), $atts );
 	ob_start();
 	ss_water_test_form( $a['zip'] );
+	return ob_get_clean();
+} );
+
+/* Standalone form cards for the legacy forms (drop into a builder column). */
+add_shortcode( 'ss_order_form', function () {
+	ob_start();
+	ss_order_form();
+	return ob_get_clean();
+} );
+add_shortcode( 'ss_quick_quote_form', function () {
+	ob_start();
+	ss_quick_quote_form();
+	return ob_get_clean();
+} );
+add_shortcode( 'ss_specials_form', function () {
+	ob_start();
+	ss_specials_form();
 	return ob_get_clean();
 } );
 
