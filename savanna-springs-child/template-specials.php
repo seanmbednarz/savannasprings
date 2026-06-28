@@ -50,5 +50,12 @@ $offers = ss_pf_repeater( 'specials_offers', array(
 		</div>
 	</div>
 </section>
+
 <?php
+ss_free_water_test(
+	ss_pf( 'specials_form_heading', 'Claim one of our current specials' ),
+	ss_pf( 'specials_form_sub', 'Tell us which offer you’re interested in and a little about your water — we’ll reply within 24 hours.' ),
+	'',
+	'specials'
+);
 get_footer();
