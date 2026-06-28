@@ -189,11 +189,32 @@ function ss_nav_icon( $label ) {
 	return 'chevronRight';
 }
 
-/** Render the page's own editor/BeBuilder content (used by the BeBuilder toggle). */
+/** Render the page's own editor/BeBuilder content (used by the BeBuilder toggle).
+ *  Queries the page directly so it works even on the front page, where the main
+ *  loop can be exhausted by header menu queries. Returns true if anything was
+ *  actually rendered, so callers can fall back to the designed template. */
 function ss_render_builder_content() {
-	if ( have_posts() ) {
-		while ( have_posts() ) { the_post(); the_content(); }
+	$id = get_queried_object_id();
+	if ( ! $id && function_exists( 'is_front_page' ) && is_front_page() ) {
+		$id = (int) get_option( 'page_on_front' );
 	}
+	$html = '';
+	if ( $id ) {
+		$q = new WP_Query( array( 'page_id' => $id, 'post_status' => 'publish' ) );
+		while ( $q->have_posts() ) {
+			$q->the_post();
+			ob_start();
+			the_content();
+			$html .= ob_get_clean();
+		}
+		wp_reset_postdata();
+	} elseif ( have_posts() ) {
+		ob_start();
+		while ( have_posts() ) { the_post(); the_content(); }
+		$html = ob_get_clean();
+	}
+	echo $html;
+	return trim( $html ) !== '';
 }
 
 /** Echo a full-bleed hero background image + dark scrim, if an image URL is given.
