@@ -4,7 +4,7 @@ Theme URI: https://savannaspringswater.com
 Description: Custom BeTheme child theme for Savanna Springs Water Solutions. Provides the high-fidelity branded marketing design — header/footer chrome, design tokens, and custom templates for the Water Problems, Products and Service-Area page archetypes — on top of BeTheme. Build the remaining content visually in Muffin Builder; it renders inside the Savanna Springs header/footer.
 Author: Savanna Springs
 Template: betheme
-Version: 1.3.7
+Version: 1.3.8
 Text Domain: savanna-springs-child
 */
 
@@ -301,6 +301,17 @@ body.ss-menu-open { overflow: hidden; }
 /* About: Our Story swappable image */
 .ss-aboutimg img, .ss-aboutimg .image_frame img { border-radius: 18px; display: block;
   width: 100%; height: auto; }
+/* About "Our Story": stretch the photo column to match the text+stats column.
+   (BeTheme top-aligns columns by default, so we force the photo to fill.) */
+@media (min-width: 768px) {
+  .ss-aboutimg { align-self: stretch !important; display: flex; }
+  .ss-aboutimg > .mcb-wrap-inner,
+  .ss-aboutimg .mcb-column,
+  .ss-aboutimg .mcb-item-image,
+  .ss-aboutimg .image_frame,
+  .ss-aboutimg .image_wrapper { display: flex; flex: 1 1 auto; width: 100%; min-height: 0; margin: 0; }
+  .ss-aboutimg img, .ss-aboutimg .image_frame img { height: 100%; object-fit: cover; }
+}
 /* Native BeBuilder FAQ element wrapper (brand styling refined after first render) */
 .ss-faqnative { max-width: 860px; margin: 0 auto; }
 
