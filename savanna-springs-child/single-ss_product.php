@@ -146,11 +146,14 @@ $ss_hero_img  = ss_hero_image();
 <?php
 $ss_lead_form = ss_get( get_the_ID(), 'lead_form', '' );
 if ( '' === $ss_lead_form ) {
-	// Default the salt-delivery product to the salt form; everything else to the water test.
-	$ss_lead_form = ( get_post_field( 'post_name', get_the_ID() ) === 'salt-delivery' ) ? 'salt' : 'water';
+	// Default by slug: salt-delivery → salt form, water-delivery → delivery form; everything else → water test.
+	$ss_slug      = get_post_field( 'post_name', get_the_ID() );
+	$ss_lead_form = ( 'salt-delivery' === $ss_slug ) ? 'salt' : ( ( 'water-delivery' === $ss_slug ) ? 'delivery' : 'water' );
 }
 if ( 'salt' === $ss_lead_form ) {
 	ss_free_water_test( $p['cta'], 'Salt is heavy, messy, and bulky — let us handle it. Tell us your address and how many bags, and we’ll set up your delivery route.', '', 'salt' );
+} elseif ( 'delivery' === $ss_lead_form ) {
+	ss_free_water_test( $p['cta'], 'Skip the grocery-store hauling. Tell us where to deliver and what you need, and we’ll set up a delivery schedule that fits your home or office.', '', 'delivery' );
 } else {
 	ss_free_water_test( $p['cta'] );
 }

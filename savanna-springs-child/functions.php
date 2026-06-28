@@ -582,6 +582,40 @@ function ss_handle_salt_delivery() {
 add_action( 'admin_post_nopriv_ss_salt_delivery', 'ss_handle_salt_delivery' );
 add_action( 'admin_post_ss_salt_delivery', 'ss_handle_salt_delivery' );
 
+function ss_handle_water_delivery() {
+	if ( ! isset( $_POST['ss_wd_nonce'] ) || ! wp_verify_nonce( $_POST['ss_wd_nonce'], 'ss_wd' ) ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'address', 'city', 'state', 'zip', 'products', 'account' );
+	$data   = array();
+	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
+	$data['notes'] = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';
+
+	$name = trim( $data['first_name'] . ' ' . $data['last_name'] );
+
+	$lead_id = wp_insert_post( array(
+		'post_type'   => 'ss_lead',
+		'post_title'  => sprintf( 'Water — %s — %s', $name ?: 'Lead', $data['zip'] ),
+		'post_status' => 'private',
+	) );
+	if ( $lead_id && ! is_wp_error( $lead_id ) ) {
+		update_post_meta( $lead_id, 'ss_lead_type', 'Water delivery' );
+		foreach ( $data as $k => $v ) { update_post_meta( $lead_id, 'ss_' . $k, $v ); }
+	}
+
+	$to   = get_option( 'admin_email' );
+	$body = "New water delivery request:\n\n";
+	foreach ( $data as $k => $v ) { $body .= ucwords( str_replace( '_', ' ', $k ) ) . ": $v\n"; }
+	wp_mail( $to, 'New Water Delivery request', $body );
+
+	$back = wp_get_referer() ?: home_url( '/' );
+	wp_safe_redirect( add_query_arg( 'ss_sent', '1', $back ) );
+	exit;
+}
+add_action( 'admin_post_nopriv_ss_water_delivery', 'ss_handle_water_delivery' );
+add_action( 'admin_post_ss_water_delivery', 'ss_handle_water_delivery' );
+
 /* Hidden CPT to store leads. */
 function ss_register_lead_cpt() {
 	register_post_type( 'ss_lead', array(

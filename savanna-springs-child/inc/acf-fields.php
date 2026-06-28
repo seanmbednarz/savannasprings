@@ -196,7 +196,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'f_pr_lead', 'label' => 'Hero lead', 'name' => 'lead', 'type' => 'textarea', 'rows' => 3 ),
 			array( 'key' => 'f_pr_intro', 'label' => 'Intro paragraph (optional)', 'name' => 'intro', 'type' => 'textarea', 'rows' => 2 ),
 			array( 'key' => 'f_pr_callfirst', 'label' => 'Call-first hero (commercial)?', 'name' => 'call_first', 'type' => 'true_false', 'ui' => 1 ),
-			array( 'key' => 'f_pr_leadform', 'label' => 'Lead form', 'name' => 'lead_form', 'type' => 'select', 'choices' => array( 'water' => 'Free water test (default)', 'salt' => 'Salt delivery (address + bags)' ), 'default_value' => 'water', 'instructions' => 'Which form shows in the bottom CTA section of this product page.' ),
+			array( 'key' => 'f_pr_leadform', 'label' => 'Lead form', 'name' => 'lead_form', 'type' => 'select', 'choices' => array( 'water' => 'Free water test (default)', 'salt' => 'Salt delivery (address + bags)', 'delivery' => 'Water delivery (address + products)' ), 'default_value' => 'water', 'instructions' => 'Which form shows in the bottom CTA section of this product page.' ),
 			array( 'key' => 'f_pr_chips', 'label' => 'Hero chips', 'name' => 'chips', 'type' => 'repeater', 'layout' => 'table', 'button_label' => 'Add chip', 'sub_fields' => array(
 				array( 'key' => 'f_pr_chip_t', 'label' => 'Text', 'name' => 'text', 'type' => 'text' ),
 			) ),
