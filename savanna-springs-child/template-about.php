@@ -8,8 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
-
 $values = ss_pf_repeater( 'about_values', array(
 	array( 'home', 'Family first', 'Named after our daughter Savannah. We treat your home like our own — honest advice, no pressure.' ),
 	array( 'award', 'Built to last', 'A proud A.O. Smith authorized dealer installing American-made, custom-built systems.' ),
@@ -37,22 +35,34 @@ $story_paras = ss_pf_repeater( 'about_story', array(
 	</div>
 </section>
 
+<?php $about_photo = ss_image_url( ss_pf( 'about_story_photo', '' ), 'large' ); ?>
 <section class="ss-wrap ss-section">
-	<div class="ss-grid ss-grid-2" style="align-items:center">
+	<div class="ss-grid ss-grid-2" style="align-items:<?php echo $about_photo ? 'stretch' : 'center'; ?>">
 		<div>
 			<div class="ss-eyebrow" style="margin-bottom:10px"><?php echo esc_html( ss_pf( 'about_story_eyebrow', 'Our story' ) ); ?></div>
 			<h2 style="font-size:34px;margin-bottom:14px"><?php echo esc_html( ss_pf( 'about_story_title', 'Named after our daughter, run like a family' ) ); ?></h2>
 			<?php foreach ( $story_paras as $sp ) : ?>
 				<p style="font-size:17px;line-height:1.7;color:var(--navy-900);margin-bottom:14px"><?php echo esc_html( $sp['p'] ); ?></p>
 			<?php endforeach; ?>
+			<?php if ( $about_photo ) : ?>
+				<div class="ss-stats" style="margin-top:26px;padding-top:26px;gap:30px;border-top:1px solid var(--border)">
+					<?php foreach ( $stats as $s ) : ?>
+						<div class="ss-stat"><div class="ss-stat__n"><?php echo esc_html( $s[0] ); ?></div><div class="ss-stat__l"><?php echo esc_html( $s[1] ); ?></div></div>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
 		</div>
-		<div class="ss-card" style="padding:36px">
-			<div class="ss-stats" style="border-top:none;padding-top:0;margin-top:0;gap:32px">
-				<?php foreach ( $stats as $s ) : ?>
-					<div class="ss-stat"><div class="ss-stat__n"><?php echo esc_html( $s[0] ); ?></div><div class="ss-stat__l"><?php echo esc_html( $s[1] ); ?></div></div>
-				<?php endforeach; ?>
+		<?php if ( $about_photo ) : ?>
+			<div class="ss-aboutimg-coded"><img src="<?php echo esc_url( $about_photo ); ?>" alt="<?php echo esc_attr( ss_pf( 'about_story_title', 'Our story' ) ); ?>" loading="lazy"></div>
+		<?php else : ?>
+			<div class="ss-card" style="padding:36px">
+				<div class="ss-stats" style="border-top:none;padding-top:0;margin-top:0;gap:32px">
+					<?php foreach ( $stats as $s ) : ?>
+						<div class="ss-stat"><div class="ss-stat__n"><?php echo esc_html( $s[0] ); ?></div><div class="ss-stat__l"><?php echo esc_html( $s[1] ); ?></div></div>
+					<?php endforeach; ?>
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 	</div>
 </section>
 

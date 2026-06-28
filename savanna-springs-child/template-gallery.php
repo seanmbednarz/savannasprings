@@ -8,8 +8,6 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 
-if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
-
 // Groups: each has title, icon, color, and items (label + optional image).
 $default_groups = array(
 	array( 'title' => 'Rust & iron staining', 'icon' => 'flame', 'color' => 'orange', 'items' => array(
