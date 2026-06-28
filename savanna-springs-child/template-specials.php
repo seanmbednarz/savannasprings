@@ -11,11 +11,11 @@ get_header();
 if ( ss_use_builder() ) { ss_render_builder_content(); get_footer(); return; }
 
 $offers = ss_pf_repeater( 'specials_offers', array(
-	array( 'refresh', 'One month free rent', 'Rent an Impression Plus® softener and get your first month of rent free.', 'On softener rentals' ),
-	array( 'truck', 'One year of free salt', 'Buy a qualifying Water-Right® softener and we’ll deliver a year of salt — free.', 'With softener purchase' ),
-	array( 'droplet', 'RO for pennies a day', 'Bottle-quality reverse-osmosis drinking water — one month free for a limited time.', 'On RO rentals' ),
-	array( 'dollarSign', '6 months no interest', 'Flexible financing to spread the cost of better water across your budget.', 'Financing available' ),
-), function ( $r ) { return array( $r['icon'] ?? 'refresh', $r['title'] ?? '', $r['body'] ?? '', $r['tag'] ?? '' ); } );
+	array( 'refresh', 'One month free rent', 'Rent an Impression Plus® softener and get your first month of rent free.', 'On softener rentals', '' ),
+	array( 'truck', 'One year of free salt', 'Buy a qualifying Water-Right® softener and we’ll deliver a year of salt — free.', 'With softener purchase', '' ),
+	array( 'droplet', 'RO for pennies a day', 'Bottle-quality reverse-osmosis drinking water — one month free for a limited time.', 'On RO rentals', '' ),
+	array( 'dollarSign', '6 months no interest', 'Flexible financing to spread the cost of better water across your budget.', 'Financing available', '' ),
+), function ( $r ) { return array( $r['icon'] ?? 'refresh', $r['title'] ?? '', $r['body'] ?? '', $r['tag'] ?? '', ss_image_url( $r['photo'] ?? '', 'medium' ) ); } );
 ?>
 <section class="ss-band-sun">
 	<div class="ss-wrap" style="padding-top:54px;padding-bottom:56px;text-align:center">
@@ -29,7 +29,11 @@ $offers = ss_pf_repeater( 'specials_offers', array(
 	<div class="ss-grid ss-grid-2">
 		<?php foreach ( $offers as $o ) : ?>
 			<div class="ss-card" style="display:flex;gap:20px;align-items:flex-start">
-				<div class="ss-tile ss-tile--fill-navy" style="width:60px;height:60px"><?php echo ss_icon( $o[0], array( 'size' => 30, 'color' => 'var(--sun-400)' ) ); ?></div>
+				<?php if ( ! empty( $o[4] ) ) : ?>
+					<div class="ss-offer-photo"><img src="<?php echo esc_url( $o[4] ); ?>" alt="<?php echo esc_attr( $o[1] ); ?>" loading="lazy"></div>
+				<?php else : ?>
+					<div class="ss-tile ss-tile--fill-navy" style="width:60px;height:60px"><?php echo ss_icon( $o[0], array( 'size' => 30, 'color' => 'var(--sun-400)' ) ); ?></div>
+				<?php endif; ?>
 				<div>
 					<span class="ss-pill-tag" style="margin-bottom:10px"><?php echo esc_html( $o[3] ); ?></span>
 					<h3 style="font-size:22px;margin:10px 0 6px"><?php echo esc_html( $o[1] ); ?></h3>

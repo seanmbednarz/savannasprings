@@ -294,6 +294,7 @@ add_action( 'acf/init', function () {
 		'fields' => array_merge( ss_acf_hero( 'specials' ), array(
 			array( 'key' => 'f_specials_offers', 'label' => 'Offers', 'name' => 'specials_offers', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add offer', 'sub_fields' => array(
 				array( 'key' => 'f_sp_o_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
+				array( 'key' => 'f_sp_o_photo', 'label' => 'Photo (optional)', 'name' => 'photo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo (e.g. a PNG of the product) on the left of the card instead of the icon.' ),
 				array( 'key' => 'f_sp_o_tag', 'label' => 'Tag', 'name' => 'tag', 'type' => 'text' ),
 				array( 'key' => 'f_sp_o_t', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
 				array( 'key' => 'f_sp_o_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
