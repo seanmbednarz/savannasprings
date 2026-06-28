@@ -60,7 +60,7 @@ function ss_cpt_thumb( $cpt, $slug, $size = 'large' ) {
 
 /** Hero image for the current post: ACF hero_image field, else the featured image. */
 function ss_hero_image() {
-	$img = ss_acf_active() ? ss_image_url( get_field( 'hero_image', get_the_ID() ) ) : '';
+	$img = ss_acf_active() ? ss_image_url( get_field( 'hero_image', get_the_ID() ), 'full' ) : '';
 	if ( ! $img && has_post_thumbnail() ) { $img = get_the_post_thumbnail_url( get_the_ID(), 'full' ); }
 	return $img;
 }
@@ -415,7 +415,7 @@ function ss_home_view() {
 		'hero_heading'   => ss_home_field( 'home_hero_heading', "Whatever's wrong with your water, we make it" ),
 		'hero_accent'    => ss_home_field( 'home_hero_accent', 'perfectly clear.' ),
 		'hero_sub'       => ss_home_field( 'home_hero_sub', 'Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good — for homes and businesses across Youngstown and Western PA.' ),
-		'hero_image'     => ss_image_url( ss_home_field( 'home_hero_image', '' ) ) ?: SS_CHILD_URI . '/assets/img-hero-people.png',
+		'hero_image'     => ss_image_url( ss_home_field( 'home_hero_image', '' ), 'full' ) ?: SS_CHILD_URI . '/assets/img-hero-people.png',
 		'why'            => $why,
 		'stats'          => $stats,
 		'products_eyebrow' => ss_home_field( 'home_products_eyebrow', 'Our products' ),
