@@ -161,6 +161,8 @@ add_action( 'acf/init', function () {
 				array( 'key' => 'f_p_step_i', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),
 				array( 'key' => 'f_p_step_b', 'label' => 'Body', 'name' => 'body', 'type' => 'textarea', 'rows' => 2 ),
 			) ),
+			array( 'key' => 'f_p_tab_recommend', 'label' => 'What we recommend', 'type' => 'tab', 'placement' => 'top' ),
+			array( 'key' => 'f_p_rec_intro', 'label' => '', 'type' => 'message', 'message' => '<strong>The "What we recommend" panel.</strong> Fill the left side (name, description, badges, button) here. For the <strong>right side</strong>, add a <em>Recommended system photo</em> below to show a photo instead of the default icon device.' ),
 			array( 'key' => 'f_p_recommend', 'label' => 'Recommended system — description', 'name' => 'recommend_body', 'type' => 'textarea', 'rows' => 3 ),
 			array( 'key' => 'f_p_product_name', 'label' => 'Recommended system — name', 'name' => 'product_name', 'type' => 'text' ),
 			array( 'key' => 'f_p_product_link', 'label' => 'Recommended product page', 'name' => 'product_link', 'type' => 'post_object', 'post_type' => array( 'ss_product' ), 'return_format' => 'object', 'ui' => 1 ),
