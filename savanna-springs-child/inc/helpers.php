@@ -398,15 +398,71 @@ function ss_water_test_form( $default_zip = '' ) {
 	<?php
 }
 
-function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.', $default_zip = '' ) {
-	$perks = array(
-		array( 'search', 'On-site water analysis', 'A licensed operator tests hardness, iron, pH and chlorine right at your tap.' ),
-		array( 'clipboard', 'Custom recommendation', 'We size the right system for your home, water and budget — no upsell, no pressure.' ),
-		array( 'phone', 'We call within 24 hours', 'A Savanna Springs operator follows up within 24 business hours to schedule.' ),
-	);
-	if ( ss_acf_active() ) {
-		$rows = get_field( 'fwt_perks', 'option' );
-		if ( is_array( $rows ) && $rows ) { $perks = array_map( function ( $r ) { return array( $r['icon'] ?? 'search', $r['title'] ?? '', $r['body'] ?? '' ); }, $rows ); }
+/** Salt-delivery lead form (legacy-style: address, bags, account #). */
+function ss_salt_delivery_form() {
+	?>
+	<div class="ss-formcard">
+		<div class="ss-form-success is-hidden" data-ss-success>
+			<div class="ss-success-ic"><?php echo ss_icon( 'check', array( 'size' => 40, 'color' => 'var(--green-700)', 'stroke' => 2.6 ) ); ?></div>
+			<h3>Request received!</h3>
+			<p>Thanks — we’ll be in touch to set up your salt delivery schedule.</p>
+			<button type="button" class="ss-btn ss-btn--outline" data-ss-reset>Submit another request</button>
+		</div>
+		<form class="ss-fwt-form" data-ss-form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+			<input type="hidden" name="action" value="ss_salt_delivery">
+			<?php if ( function_exists( 'wp_nonce_field' ) ) { wp_nonce_field( 'ss_salt', 'ss_salt_nonce' ); } ?>
+			<h3>Set up salt delivery</h3>
+			<p class="ss-form-sub">Tell us where to deliver and how much.</p>
+			<div class="ss-form-rows">
+				<div class="ss-form-2">
+					<label class="ss-field"><label>First name</label><input class="ss-input" type="text" name="first_name" placeholder="Jane" required></label>
+					<label class="ss-field"><label>Last name</label><input class="ss-input" type="text" name="last_name" placeholder="Smith" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>Email</label><input class="ss-input" type="email" name="email" placeholder="you@email.com" required></label>
+					<label class="ss-field"><label>Phone</label><input class="ss-input" type="tel" name="phone" placeholder="(330) 555-0199" required></label>
+				</div>
+				<label class="ss-field"><label>Street address</label><input class="ss-input" type="text" name="address" placeholder="123 Main St" required></label>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>City</label><input class="ss-input" type="text" name="city" placeholder="Youngstown" required></label>
+					<label class="ss-field"><label>State</label><input class="ss-input" type="text" name="state" placeholder="OH" required></label>
+				</div>
+				<div class="ss-form-2">
+					<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512"></label>
+					<label class="ss-field"><label>How many bags of salt?</label>
+						<select class="ss-select" name="bags" required><option value="">Select</option>
+							<?php foreach ( array( '1', '2', '3', '4', '5', '6', '8', '10', '12+' ) as $b ) { echo '<option>' . esc_html( $b ) . '</option>'; } ?>
+						</select>
+					</label>
+				</div>
+				<label class="ss-field"><label>Account number (optional)</label><input class="ss-input" type="text" name="account" placeholder="If you're an existing customer"></label>
+				<label class="ss-field"><label>Anything else? (optional)</label><textarea class="ss-textarea" name="notes" placeholder="Gate code, where to stack the bags, preferred day…"></textarea></label>
+				<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Schedule my salt delivery <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
+				<p class="ss-form-fine">No obligation. We'll never share your information.</p>
+			</div>
+		</form>
+	</div>
+	<?php
+}
+
+function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 'Find out exactly what’s in your water — no cost, no pressure. We’ll be in touch within 24 business hours to schedule.', $default_zip = '', $variant = 'water' ) {
+	$is_salt = ( 'salt' === $variant );
+	if ( $is_salt ) {
+		$perks = array(
+			array( 'truck', 'Weekly delivery routes', 'Regular Pro’s Pick Dura-Cube® routes across the Mahoning Valley.' ),
+			array( 'refresh', 'We do the heavy lifting', 'Ask us to fill your brine tank and stack the bags wherever you like.' ),
+			array( 'phone', 'We call to schedule', 'A Savanna Springs operator follows up to set your delivery schedule.' ),
+		);
+	} else {
+		$perks = array(
+			array( 'search', 'On-site water analysis', 'A licensed operator tests hardness, iron, pH and chlorine right at your tap.' ),
+			array( 'clipboard', 'Custom recommendation', 'We size the right system for your home, water and budget — no upsell, no pressure.' ),
+			array( 'phone', 'We call within 24 hours', 'A Savanna Springs operator follows up within 24 business hours to schedule.' ),
+		);
+		if ( ss_acf_active() ) {
+			$rows = get_field( 'fwt_perks', 'option' );
+			if ( is_array( $rows ) && $rows ) { $perks = array_map( function ( $r ) { return array( $r['icon'] ?? 'search', $r['title'] ?? '', $r['body'] ?? '' ); }, $rows ); }
+		}
 	}
 	$brand = ss_brand();
 	?>
@@ -415,7 +471,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 		<div class="ss-blob ss-blob--orange" style="width:90px;height:90px;opacity:.85;left:42%;top:40px"></div>
 		<div class="ss-wrap">
 			<div>
-				<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Free Water Test</div>
+				<div class="ss-eyebrow is-dark" style="margin-bottom:12px"><?php echo esc_html( $is_salt ? 'Salt delivery' : 'Free Water Test' ); ?></div>
 				<h2><?php echo esc_html( $heading ); ?></h2>
 				<p class="ss-fwt__lead"><?php echo esc_html( $sub ); ?></p>
 				<div class="ss-perks">
@@ -429,7 +485,7 @@ function ss_free_water_test( $heading = 'Get a free in-home water test', $sub = 
 				<div class="ss-callpill"><?php echo ss_icon( 'phone', array( 'size' => 18, 'color' => 'var(--sun-400)' ) ); ?> <span>Prefer to call? <a href="tel:<?php echo esc_attr( $brand['phone_tel'] ); ?>"><?php echo esc_html( $brand['phone'] ); ?></a></span></div>
 			</div>
 
-			<?php ss_water_test_form( $default_zip ); ?>
+			<?php if ( $is_salt ) { ss_salt_delivery_form(); } else { ss_water_test_form( $default_zip ); } ?>
 		</div>
 	</section>
 	<?php

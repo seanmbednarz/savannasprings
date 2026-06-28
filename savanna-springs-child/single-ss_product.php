@@ -113,7 +113,7 @@ $ss_hero_img  = ss_hero_image();
 
 <?php if ( ! empty( $p['delivery'] ) ) : ?>
 	<!-- DELIVERY INFO -->
-	<section class="ss-wrap" style="padding-bottom:16px">
+	<section class="ss-wrap" style="padding-top:56px;padding-bottom:16px">
 		<div class="ss-cta-card">
 			<div>
 				<h2><?php echo esc_html( $p['delivery']['title'] ); ?></h2>
@@ -144,5 +144,14 @@ $ss_hero_img  = ss_hero_image();
 <?php endif; ?>
 
 <?php
-ss_free_water_test( $p['cta'] );
+$ss_lead_form = ss_get( get_the_ID(), 'lead_form', '' );
+if ( '' === $ss_lead_form ) {
+	// Default the salt-delivery product to the salt form; everything else to the water test.
+	$ss_lead_form = ( get_post_field( 'post_name', get_the_ID() ) === 'salt-delivery' ) ? 'salt' : 'water';
+}
+if ( 'salt' === $ss_lead_form ) {
+	ss_free_water_test( $p['cta'], 'Salt is heavy, messy, and bulky — let us handle it. Tell us your address and how many bags, and we’ll set up your delivery route.', '', 'salt' );
+} else {
+	ss_free_water_test( $p['cta'] );
+}
 get_footer();
