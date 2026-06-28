@@ -715,7 +715,7 @@ function ss_handle_contact() {
 		wp_safe_redirect( home_url( '/' ) );
 		exit;
 	}
-	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'city', 'state', 'zip' );
+	$fields = array( 'first_name', 'last_name', 'phone', 'email', 'city', 'state', 'zip', 'source' );
 	$data   = array();
 	foreach ( $fields as $f ) { $data[ $f ] = isset( $_POST[ $f ] ) ? sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) : ''; }
 	$data['notes'] = isset( $_POST['notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['notes'] ) ) : '';

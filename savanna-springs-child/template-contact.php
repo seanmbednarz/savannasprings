@@ -77,6 +77,11 @@ $map_q   = rawurlencode( $brand['address'] );
 					</div>
 					<label class="ss-field"><label>ZIP code</label><input class="ss-input" type="text" name="zip" placeholder="44512"></label>
 					<label class="ss-field"><label>How can we help?</label><textarea class="ss-textarea" name="notes" placeholder="Tell us about your water or what you need…" required></textarea></label>
+					<label class="ss-field"><label>How did you hear about us?</label>
+						<select class="ss-select" name="source"><option value="">Select</option>
+							<?php foreach ( array( 'Google search', 'Facebook / Instagram', 'Friend / referral', 'Mailer / flyer', 'Repeat customer', 'Other' ) as $s ) { echo '<option>' . esc_html( $s ) . '</option>'; } ?>
+						</select>
+					</label>
 					<button type="submit" class="ss-btn ss-btn--accent ss-btn--lg ss-btn--block">Send message <?php echo ss_icon( 'arrowRight', array( 'size' => 20 ) ); ?></button>
 					<p class="ss-form-fine">No obligation. We'll never share your information.</p>
 				</div>
