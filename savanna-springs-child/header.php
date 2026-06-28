@@ -34,10 +34,18 @@ if ( ! $ss_nav ) {
 }
 
 // Populate the Service Areas dropdown with city links when it has no submenu yet.
-$ss_sa_url     = ss_link( 'ServiceAreas' );
+// Matching is intentionally loose (label keyword OR archive URL) so it works
+// whether the nav comes from the design default or an edited WP menu.
+$ss_sa_url     = untrailingslashit( (string) ss_link( 'ServiceAreas' ) );
 $ss_cities_map = function_exists( 'ss_cities' ) ? ss_cities() : array();
 foreach ( $ss_nav as &$ss_nav_item ) {
-	if ( empty( $ss_nav_item['children'] ) && ( 'Service Areas' === $ss_nav_item['label'] || ( $ss_sa_url && $ss_nav_item['url'] === $ss_sa_url ) ) ) {
+	$ss_lbl = strtolower( trim( wp_strip_all_tags( (string) $ss_nav_item['label'] ) ) );
+	$ss_url = untrailingslashit( (string) $ss_nav_item['url'] );
+	$ss_is_sa = ( false !== strpos( $ss_lbl, 'service area' ) )
+		|| ( false !== strpos( $ss_lbl, 'areas we serve' ) )
+		|| ( false !== strpos( $ss_url, '/service-areas' ) )
+		|| ( $ss_sa_url && $ss_url === $ss_sa_url );
+	if ( $ss_is_sa && empty( $ss_nav_item['children'] ) ) {
 		foreach ( ss_city_order() as $ss_ck ) {
 			if ( isset( $ss_cities_map[ $ss_ck ] ) ) {
 				$ss_nav_item['children'][] = array( 'label' => $ss_cities_map[ $ss_ck ]['city'], 'url' => ss_link( $ss_ck ) );
