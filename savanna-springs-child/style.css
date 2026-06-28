@@ -3,7 +3,7 @@ Theme Name: Savanna Springs
 Theme URI: https://savannaspringswater.com
 Description: Custom standalone WordPress theme for Savanna Springs Water Solutions. A self-contained, ACF-driven marketing site — branded header/footer chrome, design tokens, and coded templates for the homepage, Water Problems, Products, Service Areas and standalone pages. No page-builder dependency; all content is edited via ACF.
 Author: Savanna Springs
-Version: 1.5.4
+Version: 1.5.5
 Text Domain: savanna-springs-child
 */
 
@@ -268,13 +268,11 @@ body.ss-menu-open { overflow: hidden; }
 .ss-2col { display: grid; grid-template-columns: 1fr 1.1fr; gap: 52px; align-items: center; }
 
 /* full-bleed hero/section background image + dark scrim (over navy bands) */
-.ss-hero-cover { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; }
+/* Uniform page-hero photo: cover + center 30%, matching the homepage hero. */
+.ss-hero-cover { position: absolute; inset: 0; background-size: cover; background-position: center 30%; z-index: 0; }
 .ss-hero-cover::after { content: ''; position: absolute; inset: 0; background: rgba(14,20,56,.64); }
-/* "Cover, on ultrawide screens only > 1920px": natural size below, cover above. */
-.ss-hero-cover--uw { background-size: auto; }
-@media (min-width: 1921px) { .ss-hero-cover--uw { background-size: cover; } }
 /* CPT split heroes with a photo: home-style left-navy -> right-reveal gradient */
-.ss-page-hero--split .ss-hero-cover { background-position: center 40%; }
+.ss-page-hero--split .ss-hero-cover { background-position: center 30%; }
 .ss-page-hero--split .ss-hero-cover::after {
   background: linear-gradient(90deg, var(--navy-700) 0%, var(--navy-700) 42%, rgba(31,43,110,.82) 56%, rgba(31,43,110,.2) 80%, rgba(31,43,110,0) 100%); }
 .ss-band-navy > .ss-wrap, .ss-page-hero > .ss-wrap { position: relative; z-index: 1; }

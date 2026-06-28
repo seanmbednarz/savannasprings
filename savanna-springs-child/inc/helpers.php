@@ -193,18 +193,9 @@ function ss_nav_icon( $label ) {
  *  Applies the per-post "Hero photo focus" as background-position when set. */
 function ss_hero_cover( $img ) {
 	if ( ! $img ) { return; }
-	$style = 'background-image:url(' . esc_url( $img ) . ')';
-	$class = 'ss-hero-cover';
-	$focus = function_exists( 'ss_hero_focus' ) ? ss_hero_focus() : '';
-	if ( $focus ) { $style .= ';background-position:' . esc_attr( $focus ); }
-	$size = function_exists( 'ss_hero_size' ) ? ss_hero_size() : array( 'size' => '', 'ultrawide' => false );
-	if ( ! empty( $size['size'] ) ) {
-		$style .= ';background-size:' . esc_attr( $size['size'] );
-	} elseif ( ! empty( $size['ultrawide'] ) ) {
-		// CSS handles the >1920px media query for this modifier.
-		$class .= ' ss-hero-cover--uw';
-	}
-	echo '<div class="' . esc_attr( $class ) . '" style="' . $style . '"></div>';
+	// Uniform cover treatment (matches the homepage hero); positioning/sizing
+	// is handled entirely in CSS so every page hero behaves the same.
+	echo '<div class="ss-hero-cover" style="background-image:url(' . esc_url( $img ) . ')"></div>';
 }
 
 /* ------------------------------------------------------------------ *
