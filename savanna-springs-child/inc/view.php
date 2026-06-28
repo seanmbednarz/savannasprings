@@ -423,6 +423,7 @@ function ss_home_view() {
 		'products_sub'     => ss_home_field( 'home_products_sub', 'We only install equipment made in America, custom-built and sized to your home.' ),
 		'service_title'  => ss_home_field( 'home_service_title', 'Serving Youngstown, the Mahoning Valley & Western PA' ),
 		'service_sub'    => ss_home_field( 'home_service_sub', 'From our shop in Struthers, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.' ),
+		'service_photo'  => ss_image_url( ss_home_field( 'home_service_photo', '' ), 'large' ),
 		'specials_title' => ss_home_field( 'home_specials_title', 'Better water, made affordable' ),
 		'specials'       => $specials,
 		'fwt_heading'    => ss_home_field( 'home_fwt_heading', 'Ready to make your water perfectly clear?' ),

@@ -115,6 +115,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'f_h_products_sub', 'label' => 'Products sub-text', 'name' => 'home_products_sub', 'type' => 'textarea', 'rows' => 2 ),
 			array( 'key' => 'f_h_service_title', 'label' => 'Service-area title', 'name' => 'home_service_title', 'type' => 'text' ),
 			array( 'key' => 'f_h_service_sub', 'label' => 'Service-area sub-text', 'name' => 'home_service_sub', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'f_h_service_photo', 'label' => 'Service-area photo (optional)', 'name' => 'home_service_photo', 'type' => 'image', 'return_format' => 'url', 'instructions' => 'Optional — shows a photo (e.g. a map, truck, or team) beside the service-area text. City links move below it.' ),
 			array( 'key' => 'f_h_specials_title', 'label' => 'Specials band title', 'name' => 'home_specials_title', 'type' => 'text' ),
 			array( 'key' => 'f_h_specials', 'label' => 'Specials cards', 'name' => 'home_specials', 'type' => 'repeater', 'layout' => 'block', 'button_label' => 'Add special', 'sub_fields' => array(
 				array( 'key' => 'f_h_sp_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'select', 'choices' => ss_acf_icon_choices() ),

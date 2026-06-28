@@ -94,20 +94,34 @@ $stats    = $home['stats'];
 </section>
 
 <!-- SERVICE AREA -->
+<?php
+ob_start();
+foreach ( ss_city_order() as $ck ) {
+	if ( ! isset( $cities[ $ck ] ) ) { continue; }
+	echo '<a class="ss-chip" href="' . esc_url( ss_link( $ck ) ) . '">' . ss_icon( 'mapPin', array( 'size' => 16, 'color' => 'var(--sun-400)' ) ) . ' ' . esc_html( $cities[ $ck ]['city'] ) . '</a>';
+}
+$ss_chips     = ob_get_clean();
+$ss_svc_photo = $home['service_photo'];
+?>
 <section class="ss-band-navy">
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.25;right:-80px;top:-100px"></div>
-	<div class="ss-wrap ss-section ss-2col">
-		<div>
-			<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Service area</div>
-			<h2 style="font-weight:800;font-size:40px;line-height:1.06;letter-spacing:-.02em;color:#fff"><?php echo esc_html( $home['service_title'] ); ?></h2>
-			<p style="font-size:17.5px;line-height:1.6;color:var(--spring-100);margin:16px 0 24px;max-width:460px"><?php echo esc_html( $home['service_sub'] ); ?></p>
-			<a class="ss-btn ss-btn--accent" href="<?php echo esc_url( ss_link( 'ServiceAreas' ) ); ?>">Find your town <?php echo ss_icon( 'arrowRight', array( 'size' => 18 ) ); ?></a>
+	<div class="ss-wrap ss-section">
+		<div class="ss-2col">
+			<div>
+				<div class="ss-eyebrow is-dark" style="margin-bottom:12px">Service area</div>
+				<h2 style="font-weight:800;font-size:40px;line-height:1.06;letter-spacing:-.02em;color:#fff"><?php echo esc_html( $home['service_title'] ); ?></h2>
+				<p style="font-size:17.5px;line-height:1.6;color:var(--spring-100);margin:16px 0 24px;max-width:460px"><?php echo esc_html( $home['service_sub'] ); ?></p>
+				<a class="ss-btn ss-btn--accent" href="<?php echo esc_url( ss_link( 'ServiceAreas' ) ); ?>">Find your town <?php echo ss_icon( 'arrowRight', array( 'size' => 18 ) ); ?></a>
+			</div>
+			<?php if ( $ss_svc_photo ) : ?>
+				<div class="ss-svc-photo"><img src="<?php echo esc_url( $ss_svc_photo ); ?>" alt="<?php echo esc_attr( $home['service_title'] ); ?>" loading="lazy"></div>
+			<?php else : ?>
+				<div class="ss-citychips"><?php echo $ss_chips; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+			<?php endif; ?>
 		</div>
-		<div class="ss-citychips">
-			<?php foreach ( ss_city_order() as $ck ) : ?>
-				<a class="ss-chip" href="<?php echo esc_url( ss_link( $ck ) ); ?>"><?php echo ss_icon( 'mapPin', array( 'size' => 16, 'color' => 'var(--sun-400)' ) ); ?> <?php echo esc_html( $cities[ $ck ]['city'] ); ?></a>
-			<?php endforeach; ?>
-		</div>
+		<?php if ( $ss_svc_photo ) : ?>
+			<div class="ss-citychips" style="margin-top:40px"><?php echo $ss_chips; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+		<?php endif; ?>
 	</div>
 </section>
 
