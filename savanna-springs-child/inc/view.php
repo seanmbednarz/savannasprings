@@ -376,40 +376,50 @@ function ss_faqs_view() {
 /* ------------------------------------------------------------------ *
  *  HOMEPAGE VIEW
  * ------------------------------------------------------------------ */
+/** Homepage field: read from the Home page editor first, then the legacy
+ *  Homepage options page, then the supplied default. */
+function ss_home_field( $name, $default = '' ) {
+	if ( ! ss_acf_active() ) { return $default; }
+	$v = get_field( $name, get_the_ID() );
+	if ( null !== $v && '' !== $v && false !== $v && array() !== $v ) { return $v; }
+	$v = get_field( $name, 'option' );
+	if ( null !== $v && '' !== $v && false !== $v && array() !== $v ) { return $v; }
+	return $default;
+}
 function ss_home_view() {
-	$why = ss_option( 'home_why', null );
+	$why = ss_home_field( 'home_why', null );
 	$why = ( ss_acf_active() && is_array( $why ) && $why )
 		? array_map( function ( $r ) { return array( 'icon' => $r['icon'] ?? 'home', 'title' => $r['title'] ?? '', 'body' => $r['body'] ?? '', 'photo' => $r['photo'] ?? '' ); }, $why )
 		: ss_home_why();
 
-	$stats = ss_option( 'home_stats', null );
+	$stats = ss_home_field( 'home_stats', null );
 	$stats = ( ss_acf_active() && is_array( $stats ) && $stats )
 		? array_map( function ( $r ) { return array( $r['number'] ?? '', $r['label'] ?? '' ); }, $stats )
 		: array( array( '2008', 'Family owned since' ), array( '35+ yrs', 'Combined experience' ), array( '20-yr', 'Warranties available' ), array( 'EPA', 'Licensed operators' ) );
 
-	$specials = ss_option( 'home_specials', null );
+	$specials = ss_home_field( 'home_specials', null );
 	$specials = ( ss_acf_active() && is_array( $specials ) && $specials )
 		? array_map( function ( $r ) { return array( $r['icon'] ?? 'refresh', $r['title'] ?? '', $r['body'] ?? '' ); }, $specials )
 		: ss_home_specials();
 
 	return array(
-		'hero_eyebrow'   => ss_option( 'home_hero_eyebrow', 'We make one thing perfectly clear…' ),
-		'hero_heading'   => ss_option( 'home_hero_heading', "Whatever's wrong with your water, we make it" ),
-		'hero_accent'    => ss_option( 'home_hero_accent', 'perfectly clear.' ),
-		'hero_sub'       => ss_option( 'home_hero_sub', 'Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good — for homes and businesses across Youngstown and Western PA.' ),
-		'hero_image'     => ss_image_url( ss_option( 'home_hero_image', '' ) ) ?: SS_CHILD_URI . '/assets/img-hero-people.png',
+		'hero_eyebrow'   => ss_home_field( 'home_hero_eyebrow', 'We make one thing perfectly clear…' ),
+		'hero_heading'   => ss_home_field( 'home_hero_heading', "Whatever's wrong with your water, we make it" ),
+		'hero_accent'    => ss_home_field( 'home_hero_accent', 'perfectly clear.' ),
+		'hero_sub'       => ss_home_field( 'home_hero_sub', 'Smelly, hard, rusty, or bad-tasting water? Savanna Springs diagnoses the real problem and fixes it for good — for homes and businesses across Youngstown and Western PA.' ),
+		'hero_image'     => ss_image_url( ss_home_field( 'home_hero_image', '' ) ) ?: SS_CHILD_URI . '/assets/img-hero-people.png',
 		'why'            => $why,
 		'stats'          => $stats,
-		'products_eyebrow' => ss_option( 'home_products_eyebrow', 'Our products' ),
-		'products_title'   => ss_option( 'home_products_title', 'American-made, built for your water' ),
-		'products_sub'     => ss_option( 'home_products_sub', 'We only install equipment made in America, custom-built and sized to your home.' ),
-		'service_title'  => ss_option( 'home_service_title', 'Serving Youngstown, the Mahoning Valley & Western PA' ),
-		'service_sub'    => ss_option( 'home_service_sub', 'From our shop on River Road in Lowellville, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.' ),
-		'specials_title' => ss_option( 'home_specials_title', 'Better water, made affordable' ),
+		'products_eyebrow' => ss_home_field( 'home_products_eyebrow', 'Our products' ),
+		'products_title'   => ss_home_field( 'home_products_title', 'American-made, built for your water' ),
+		'products_sub'     => ss_home_field( 'home_products_sub', 'We only install equipment made in America, custom-built and sized to your home.' ),
+		'service_title'  => ss_home_field( 'home_service_title', 'Serving Youngstown, the Mahoning Valley & Western PA' ),
+		'service_sub'    => ss_home_field( 'home_service_sub', 'From our shop on River Road in Lowellville, we serve Mahoning, Columbiana & Trumbull counties plus Western PA — city water and private wells alike.' ),
+		'specials_title' => ss_home_field( 'home_specials_title', 'Better water, made affordable' ),
 		'specials'       => $specials,
-		'fwt_heading'    => ss_option( 'home_fwt_heading', 'Ready to make your water perfectly clear?' ),
-		'fwt_sub'        => ss_option( 'home_fwt_sub', 'Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours to schedule.' ),
-		'why_title'      => ss_option( 'home_why_title', 'A water team your neighbors actually trust' ),
-		'why_sub'        => ss_option( 'home_why_sub', 'Not a faceless sales outfit — a family business that fixes the real problem and stands behind the work.' ),
+		'fwt_heading'    => ss_home_field( 'home_fwt_heading', 'Ready to make your water perfectly clear?' ),
+		'fwt_sub'        => ss_home_field( 'home_fwt_sub', 'Book your free, no-pressure in-home water test. A licensed operator will be in touch within 24 business hours to schedule.' ),
+		'why_title'      => ss_home_field( 'home_why_title', 'A water team your neighbors actually trust' ),
+		'why_sub'        => ss_home_field( 'home_why_sub', 'Not a faceless sales outfit — a family business that fixes the real problem and stands behind the work.' ),
 	);
 }

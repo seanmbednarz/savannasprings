@@ -46,7 +46,6 @@ add_action( 'acf/init', function () {
 		'capability' => 'manage_options',
 	) );
 	acf_add_options_sub_page( array( 'page_title' => 'Brand & Contact', 'menu_title' => 'Brand & Contact', 'parent_slug' => 'ss-settings' ) );
-	acf_add_options_sub_page( array( 'page_title' => 'Homepage', 'menu_title' => 'Homepage', 'parent_slug' => 'ss-settings' ) );
 	acf_add_options_sub_page( array( 'page_title' => 'Reviews & FAQ', 'menu_title' => 'Reviews & FAQ', 'parent_slug' => 'ss-settings' ) );
 	acf_add_options_sub_page( array( 'page_title' => 'Shared Sections', 'menu_title' => 'Shared Sections', 'parent_slug' => 'ss-settings' ) );
 } );
@@ -125,7 +124,7 @@ add_action( 'acf/init', function () {
 			array( 'key' => 'f_h_fwt_heading', 'label' => 'Free-test heading', 'name' => 'home_fwt_heading', 'type' => 'text' ),
 			array( 'key' => 'f_h_fwt_sub', 'label' => 'Free-test sub-text', 'name' => 'home_fwt_sub', 'type' => 'textarea', 'rows' => 2 ),
 		),
-		'location' => array( array( array( 'param' => 'options_page', 'operator' => '==', 'value' => 'acf-options-homepage' ) ) ),
+		'location' => array( array( array( 'param' => 'page_type', 'operator' => '==', 'value' => 'front_page' ) ) ),
 	) );
 
 	/* ---- Reviews & FAQ ---- */
