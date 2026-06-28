@@ -40,7 +40,7 @@ $story_paras = ss_pf_repeater( 'about_story', array(
 	<div class="ss-grid ss-grid-2" style="align-items:<?php echo $about_photo ? 'stretch' : 'center'; ?>">
 		<div>
 			<div class="ss-eyebrow" style="margin-bottom:10px"><?php echo esc_html( ss_pf( 'about_story_eyebrow', 'Our story' ) ); ?></div>
-			<h2 style="font-size:34px;margin-bottom:14px"><?php echo esc_html( ss_pf( 'about_story_title', 'Named after our daughter, run like a family' ) ); ?></h2>
+			<h2 style="font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px"><?php echo esc_html( ss_pf( 'about_story_title', 'Named after our daughter, run like a family' ) ); ?></h2>
 			<?php foreach ( $story_paras as $sp ) : ?>
 				<p style="font-size:17px;line-height:1.7;color:var(--navy-900);margin-bottom:14px"><?php echo esc_html( $sp['p'] ); ?></p>
 			<?php endforeach; ?>
