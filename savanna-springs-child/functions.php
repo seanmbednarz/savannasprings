@@ -176,7 +176,15 @@ function ss_seed_content() {
 	$home_id = 0;
 	foreach ( $pages as $slug => $info ) {
 		$existing = get_page_by_path( $slug );
-		if ( $existing ) { if ( 'home' === $slug ) { $home_id = $existing->ID; } continue; }
+		if ( $existing ) {
+			if ( 'home' === $slug ) { $home_id = $existing->ID; }
+			// Keep an existing page on its SS template (the original seed only set
+			// this when creating the page, so pages made by hand could drift).
+			if ( ! empty( $info[1] ) && get_post_meta( $existing->ID, '_wp_page_template', true ) !== $info[1] ) {
+				update_post_meta( $existing->ID, '_wp_page_template', $info[1] );
+			}
+			continue;
+		}
 		$id = wp_insert_post( array(
 			'post_type'   => 'page',
 			'post_name'   => $slug,
