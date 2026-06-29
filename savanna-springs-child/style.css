@@ -3,7 +3,7 @@ Theme Name: Savanna Springs
 Theme URI: https://savannaspringswater.com
 Description: Custom standalone WordPress theme for Savanna Springs Water Solutions. A self-contained, ACF-driven marketing site — branded header/footer chrome, design tokens, and coded templates for the homepage, Water Problems, Products, Service Areas and standalone pages. No page-builder dependency; all content is edited via ACF.
 Author: Savanna Springs
-Version: 1.5.5
+Version: 1.5.6
 Text Domain: savanna-springs-child
 */
 
@@ -275,6 +275,19 @@ body.ss-menu-open { overflow: hidden; }
 .ss-page-hero--split .ss-hero-cover { background-position: center 30%; }
 .ss-page-hero--split .ss-hero-cover::after {
   background: linear-gradient(90deg, var(--navy-700) 0%, var(--navy-700) 42%, rgba(31,43,110,.82) 56%, rgba(31,43,110,.2) 80%, rgba(31,43,110,0) 100%); }
+/* Page hero WITH a photo: match the homepage hero — solid navy on the left,
+   photo revealed on the right ~half with a gradient blend, and the same height. */
+.ss-page-hero--photo .ss-wrap { display: block; padding-top: 78px; padding-bottom: 84px; }
+.ss-page-hero--photo .ss-wrap > div:first-child { max-width: 540px; }
+.ss-page-hero--photo .ss-hero-cover { left: 46%; }
+.ss-page-hero--photo .ss-hero-cover::after {
+  background: linear-gradient(90deg, var(--navy-700) 0%, var(--navy-700) 12%, rgba(31,43,110,.8) 34%, rgba(31,43,110,.2) 64%, rgba(31,43,110,0) 88%); }
+@media (max-width: 880px) {
+  .ss-page-hero--photo .ss-wrap { padding-top: 46px; padding-bottom: 50px; }
+  .ss-page-hero--photo .ss-wrap > div:first-child { max-width: none; }
+  .ss-page-hero--photo .ss-hero-cover { left: 0; }
+  .ss-page-hero--photo .ss-hero-cover::after { background: rgba(14,20,56,.74); }
+}
 .ss-band-navy > .ss-wrap, .ss-page-hero > .ss-wrap { position: relative; z-index: 1; }
 
 /* decorative blobs inside navy bands */

@@ -16,7 +16,7 @@ $ss_hero_img  = ss_hero_image();
 ?>
 
 <!-- HERO -->
-<section class="ss-page-hero ss-page-hero--split">
+<section class="ss-page-hero ss-page-hero--split<?php echo $ss_use_photo ? ' ss-page-hero--photo' : ''; ?>">
 	<?php ss_hero_cover( $ss_use_photo ? $ss_hero_img : '' ); ?>
 	<div class="ss-blob ss-blob--spring" style="width:300px;height:300px;opacity:.28;right:-70px;top:-110px"></div>
 	<?php if ( ! $ss_use_photo ) : ?><div class="ss-blob ss-blob--orange" style="width:80px;height:80px;opacity:.85;right:46%;bottom:26px"></div><?php endif; ?>
