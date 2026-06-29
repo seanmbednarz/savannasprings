@@ -1,0 +1,38 @@
+name: Deploy theme to WP Engine
+
+# Auto-deploys the child theme to WP Engine whenever theme files change on
+# these branches. Requires two one-time setup steps (see below):
+#   1. Add your WP Engine SSH Gateway PUBLIC key in the WP Engine portal.
+#   2. Add the matching PRIVATE key as the GitHub secret WPE_SSHG_KEY_PRIVATE.
+#   3. Confirm WPE_ENV below matches your environment name.
+
+on:
+  push:
+    branches:
+      - claude/tender-noether-iovxqf
+      - main
+    paths:
+      - 'savanna-springs-child/**'
+  workflow_dispatch: {}   # also lets you deploy manually from the Actions tab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to WP Engine
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          # TODO: confirm this matches your WP Engine environment name
+          # (the staging install — likely "savannaspristg").
+          WPE_ENV: savannaspristg
+          # Push ONLY the theme folder to the theme path on the server.
+          SRC_PATH: "savanna-springs-child/"
+          REMOTE_PATH: "wp-content/themes/savanna-springs-child/"
+          PHP_LINT: true
+          # No --delete: never removes files on the server that aren't in the repo.
+          FLAGS: -azvr --inplace --exclude=".*"
+          CACHE_CLEAR: true
